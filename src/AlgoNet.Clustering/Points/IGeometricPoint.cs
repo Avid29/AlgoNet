@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2021
 
-namespace AlgoNet.Clustering.Points
+namespace AlgoNet.Clustering
 {
     /// <summary>
     /// A Shape for geometric points in a cluster.
