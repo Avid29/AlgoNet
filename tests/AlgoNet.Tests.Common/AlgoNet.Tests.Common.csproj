@@ -4,4 +4,7 @@
     <OutputPath>bin\Release</OutputPath>
     <Platforms>AnyCPU;x86;x64;ARM;ARM64</Platforms>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AlgoNet\AlgoNet.csproj" />
+  </ItemGroup>
 </Project>
