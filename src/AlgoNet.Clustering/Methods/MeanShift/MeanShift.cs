@@ -1,7 +1,6 @@
 ﻿// Adam Dernis © 2021
 
 using AlgoNet.Clustering.Kernels;
-using AlgoNet.Clustering.Methods.MeanShift;
 using Microsoft.Collections.Extensions;
 using System;
 using System.Collections.Generic;
@@ -62,7 +61,7 @@ namespace AlgoNet.Clustering
         /// Clusters a set of points using MeanShift over a field.
         /// </summary>
         /// <remarks>
-        /// It is usually wise to use WeightedMeanShift instead unless all points are unique.
+        /// It is usually wise to use <see cref="WeightedMeanShift.Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
         /// Weighted MeanShift greatly reduces computation time when dealing with duplicate points.
         /// </remarks>
         /// <typeparam name="T">The type of points to cluster.</typeparam>
@@ -72,7 +71,7 @@ namespace AlgoNet.Clustering
         /// <param name="field">The field of points to converge over.</param>
         /// <param name="kernel">The kernel to use for clustering.</param>
         /// <param name="shape">The shape to use on the points to cluster.</param>
-        /// <returns>An list of clusters weighted by the contributing points.</returns>
+        /// <returns>A list of clusters weighted by the contributing points.</returns>
         public static List<MSCluster<T, TShape>> Cluster<T, TShape, TKernel>(
             ReadOnlySpan<T> points,
             ReadOnlySpan<T> field,
@@ -85,31 +84,15 @@ namespace AlgoNet.Clustering
             // Take the regular raw cluster.
             (T, int)[] raw = ClusterRaw(points, field, kernel, shape);
 
-            // Convert tuples into MSClusters
-            List<MSCluster<T, TShape>> clusters = new List<MSCluster<T, TShape>>();
-            foreach (var cluster in raw)
-            {
-                clusters.Add(new MSCluster<T, TShape>(cluster.Item1, cluster.Item2));
-            }
-
-            return clusters;
+            return Wrap<T, TShape>(raw);
         }
 
-        /// <summary>
-        /// Clusters a set of points using MeanShift over a field.
-        /// </summary>
         /// <remarks>
-        /// It is usually wise to use WeightedMeanShift instead unless all points are unique.
+        /// It is usually wise to use <see cref="WeightedMeanShift.ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
         /// Weighted MeanShift greatly reduces computation time when dealing with duplicate points.
         /// </remarks>
-        /// <typeparam name="T">The type of points to cluster.</typeparam>
-        /// <typeparam name="TShape">The type of shape to use on the points to cluster.</typeparam>
-        /// <typeparam name="TKernel">The type of kernel to use on the cluster.</typeparam>
-        /// <param name="points">The points to shift until convergence.</param>
-        /// <param name="field">The field of points to converge over.</param>
-        /// <param name="kernel">The kernel to use for clustering.</param>
-        /// <param name="shape">The shape to use on the points to cluster.</param>
         /// <returns>An array of clusters weighted by the contributing points.</returns>
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
         public static unsafe (T, int)[] ClusterRaw<T, TShape, TKernel>(
             ReadOnlySpan<T> points,
             ReadOnlySpan<T> field,
@@ -140,6 +123,22 @@ namespace AlgoNet.Clustering
             }
 
             return PostProcess(clusters, kernel, shape);
+        }
+
+        /// <summary>
+        /// Takes an array of points and tuples and converts them to <see cref="MSCluster{T, TShape}"/>s.
+        /// </summary>
+        private static List<MSCluster<T, TShape>> Wrap<T, TShape>((T, int)[] raw)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+        {
+            List<MSCluster<T, TShape>> clusters = new List<MSCluster<T, TShape>>();
+            foreach (var cluster in raw)
+            {
+                clusters.Add(new MSCluster<T, TShape>(cluster.Item1, cluster.Item2));
+            }
+
+            return clusters;
         }
 
         private static unsafe T MeanShiftPoint<T, TShape, TKernel>(

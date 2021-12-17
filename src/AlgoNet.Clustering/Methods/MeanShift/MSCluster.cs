@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2021
 
-namespace AlgoNet.Clustering.Methods.MeanShift
+namespace AlgoNet.Clustering
 {
     /// <summary>
     /// A <see cref="Cluster{T, TShape}"/> implementation for the MeanShift algorithm.
