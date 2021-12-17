@@ -57,6 +57,44 @@ namespace AlgoNet.Clustering
     {
         private const double ACCEPTED_ERROR = 0.000005;
 
+
+        /// <summary>
+        /// Clusters a set of points using MeanShift over a field.
+        /// </summary>
+        /// <remarks>
+        /// It is usually wise to use WeightedMeanShift instead unless all points are unique.
+        /// Weighted MeanShift greatly reduces computation time when dealing with duplicate points.
+        /// </remarks>
+        /// <typeparam name="T">The type of points to cluster.</typeparam>
+        /// <typeparam name="TShape">The type of shape to use on the points to cluster.</typeparam>
+        /// <typeparam name="TKernel">The type of kernel to use on the cluster.</typeparam>
+        /// <param name="points">The points to shift until convergence.</param>
+        /// <param name="field">The field of points to converge over.</param>
+        /// <param name="kernel">The kernel to use for clustering.</param>
+        /// <param name="shape">The shape to use on the points to cluster.</param>
+        /// <returns>An list of clusters weighted by the contributing points.</returns>
+        public static List<MSCluster<T, TShape>> Cluster<T, TShape, TKernel>(
+            ReadOnlySpan<T> points,
+            ReadOnlySpan<T> field,
+            TKernel kernel,
+            TShape shape)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel
+        {
+            // Take the regular raw cluster.
+            (T, int)[] raw = ClusterRaw(points, field, kernel, shape);
+
+            // Convert tuples into MSClusters
+            List<MSCluster<T, TShape>> clusters = new List<MSCluster<T, TShape>>();
+            foreach (var cluster in raw)
+            {
+                clusters.Add(new MSCluster<T, TShape>(cluster.Item1, cluster.Item2));
+            }
+
+            return clusters;
+        }
+
         /// <summary>
         /// Clusters a set of points using MeanShift over a field.
         /// </summary>
