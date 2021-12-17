@@ -12,6 +12,18 @@ namespace AlgoNet.Clustering
     {
         private const double ACCEPTED_ERROR = 0.000005;
 
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        public static List<MSCluster<T, TShape>> Cluster<T, TShape, TKernel>(
+            ReadOnlySpan<T> points,
+            TKernel kernel,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel
+        {
+            return Cluster(points, points, kernel, shape);
+        }
+
         /// <summary>
         /// Clusters a set of points using a weighted version of MeanShift over a field by merging equal points.
         /// </summary>
@@ -40,6 +52,18 @@ namespace AlgoNet.Clustering
 
             // Convert tuples into MSClusters
             return Wrap<T, TShape>(raw);
+        }
+
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{(T, double)}, ReadOnlySpan{(T, double)}, TKernel, TShape)"/>
+        public static List<MSCluster<T, TShape>> Cluster<T, TShape, TKernel>(
+            ReadOnlySpan<(T, double)> points,
+            TKernel kernel,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel
+        {
+            return Cluster(points, points, kernel, shape);
         }
 
         /// <summary>
@@ -109,7 +133,7 @@ namespace AlgoNet.Clustering
             {
                 for (int i = 0; i < clusters.Length; i++)
                 {
-                    (T, double) point = clusters[i];
+                    (T, double) point = points[i];
                     T clusterPoint = MeanShiftPoint(point.Item1, p, points.Length, shape, kernel, fieldWeights);
                     (T, double) cluster = (clusterPoint, point.Item2);
                     clusters[i] = cluster;
@@ -219,6 +243,12 @@ namespace AlgoNet.Clustering
 
             // Convert Dictionary to tuple list.
             (T, double)[] mergedCentroids = new (T, double)[mergeMap.Count];
+            int i = 0;
+            foreach (var value in mergeMap)
+            {
+                mergedCentroids[i] = (value.Key, value.Value);
+                i++;
+            }
 
             // TODO: Connected components cluter
             // Investigate: Can I use DBSCAN with minPoints of 1?

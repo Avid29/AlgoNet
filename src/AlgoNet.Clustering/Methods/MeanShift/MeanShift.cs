@@ -57,6 +57,18 @@ namespace AlgoNet.Clustering
         private const double ACCEPTED_ERROR = 0.000005;
 
 
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        public static List<MSCluster<T, TShape>> Cluster<T, TShape, TKernel>(
+            ReadOnlySpan<T> points,
+            TKernel kernel,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel
+        {
+            return Cluster(points, points, kernel, shape);
+        }
+
         /// <summary>
         /// Clusters a set of points using MeanShift over a field.
         /// </summary>
@@ -85,6 +97,18 @@ namespace AlgoNet.Clustering
             (T, int)[] raw = ClusterRaw(points, field, kernel, shape);
 
             return Wrap<T, TShape>(raw);
+        }
+
+        /// <inheritdoc cref="ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        public static unsafe (T, int)[] ClusterRaw<T, TShape, TKernel>(
+            ReadOnlySpan<T> points,
+            TKernel kernel,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel
+        {
+            return ClusterRaw(points, points, kernel, shape);
         }
 
         /// <remarks>
