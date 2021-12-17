@@ -9,11 +9,10 @@ using System;
 using System.Numerics;
 using MS = AlgoNet.Clustering.MeanShift;
 
-
 namespace AlgoNet.Tests.Clustering.MeanShift
 {
     [TestClass]
-    public class MeanShiftTests
+    public class Tests
     {
         private void RunTest<T, TShape>(Test<T> test)
             where T : unmanaged, IEquatable<T>
