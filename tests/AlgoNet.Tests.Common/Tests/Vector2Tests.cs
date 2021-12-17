@@ -17,5 +17,10 @@ namespace AlgoNet.Tests.Tests
                 new Vector2(5, 7),
                 new Vector2(6, 6),
             }, 5, 2);
+
+        public static Test<Vector2>[] All = new Test<Vector2>[]
+        {
+            Vector2Test1,
+        };
     }
 }

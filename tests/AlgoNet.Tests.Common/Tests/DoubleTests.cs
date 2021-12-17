@@ -16,5 +16,10 @@ namespace AlgoNet.Tests.Tests
                 22,
                 24,
             }, 5, 3);
+
+        public static Test<double>[] All = new Test<double>[]
+        {
+            DoubleTest1,
+        };
     }
 }

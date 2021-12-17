@@ -30,7 +30,7 @@ namespace AlgoNet.Clustering
             ReadOnlySpan<T> points,
             ReadOnlySpan<T> field,
             TKernel kernel,
-            TShape shape)
+            TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
             where TKernel : struct, IKernel
@@ -57,7 +57,7 @@ namespace AlgoNet.Clustering
             ReadOnlySpan<(T, double)> points,
             ReadOnlySpan<(T, double)> field,
             TKernel kernel,
-            TShape shape)
+            TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
             where TKernel : struct, IKernel
@@ -78,7 +78,7 @@ namespace AlgoNet.Clustering
             ReadOnlySpan<T> points,
             ReadOnlySpan<T> field,
             TKernel kernel,
-            TShape shape)
+            TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
             where TKernel : struct, IKernel
@@ -94,7 +94,7 @@ namespace AlgoNet.Clustering
             ReadOnlySpan<(T, double)> points,
             ReadOnlySpan<(T, double)> field,
             TKernel kernel,
-            TShape shape)
+            TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
             where TKernel : struct, IKernel
