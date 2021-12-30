@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 namespace AlgoNet.Clustering
 {
     /// <summary>
-    /// 
+    /// A static class containing Weighted Mean Shift methods.
     /// </summary>
     public static class WeightedMeanShift
     {

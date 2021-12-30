@@ -50,7 +50,7 @@ namespace AlgoNet.Tests.Clustering.MeanShift
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
         {
-            GaussianKernel kernel = new GaussianKernel(test.Bandwidth);
+            GaussianKernel kernel = new(test.Bandwidth);
             var expected = MS.Cluster<T, TShape, GaussianKernel>(test.Input, kernel);
             var actual = WMS.Cluster<T, TShape, GaussianKernel>(test.Input, kernel);
 

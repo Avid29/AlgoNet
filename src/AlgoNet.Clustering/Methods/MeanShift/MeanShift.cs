@@ -52,6 +52,9 @@ namespace AlgoNet.Clustering
     /// Each shift is performed by finding the cluster's distance from each point then weighting its effect on the cluster.
     /// These weights are then used to find a weighted average, the result of each is the new cluster position.
 
+    /// <summary>
+    /// A static class containing Mean Shift methods.
+    /// </summary>
     public static class MeanShift
     {
         private const double ACCEPTED_ERROR = 0.000005;
