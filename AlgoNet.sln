@@ -5,13 +5,13 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet", "src\AlgoNet\AlgoNet.csproj", "{D7102094-7790-458C-9489-9F8EE3971FE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoNet.Clustering", "src\AlgoNet.Clustering\AlgoNet.Clustering.csproj", "{3CFA7768-C8D0-468E-BBAB-7F1908F2F6B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Clustering", "src\AlgoNet.Clustering\AlgoNet.Clustering.csproj", "{3CFA7768-C8D0-468E-BBAB-7F1908F2F6B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E56E3567-34A5-4B86-BABC-DC5111995C99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoNet.Tests.Common", "tests\AlgoNet.Tests.Common\AlgoNet.Tests.Common.csproj", "{91249B6C-505C-48DE-8519-A04E5F531377}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Tests.Common", "tests\AlgoNet.Tests.Common\AlgoNet.Tests.Common.csproj", "{91249B6C-505C-48DE-8519-A04E5F531377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoNet.Tests.Clustering", "tests\AlgoNet.Tests.Clustering\AlgoNet.Tests.Clustering.csproj", "{3A143C22-E9B8-47B3-9160-33D6253547A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoNet.Tests.Clustering", "tests\AlgoNet.Tests.Clustering\AlgoNet.Tests.Clustering.csproj", "{A2449E3A-F979-4736-8430-87AFD0B32262}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,17 +31,17 @@ Global
 		{91249B6C-505C-48DE-8519-A04E5F531377}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91249B6C-505C-48DE-8519-A04E5F531377}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91249B6C-505C-48DE-8519-A04E5F531377}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A143C22-E9B8-47B3-9160-33D6253547A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A143C22-E9B8-47B3-9160-33D6253547A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A143C22-E9B8-47B3-9160-33D6253547A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A143C22-E9B8-47B3-9160-33D6253547A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2449E3A-F979-4736-8430-87AFD0B32262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2449E3A-F979-4736-8430-87AFD0B32262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2449E3A-F979-4736-8430-87AFD0B32262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2449E3A-F979-4736-8430-87AFD0B32262}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{91249B6C-505C-48DE-8519-A04E5F531377} = {E56E3567-34A5-4B86-BABC-DC5111995C99}
-		{3A143C22-E9B8-47B3-9160-33D6253547A7} = {E56E3567-34A5-4B86-BABC-DC5111995C99}
+		{A2449E3A-F979-4736-8430-87AFD0B32262} = {E56E3567-34A5-4B86-BABC-DC5111995C99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3807981D-8D51-49C8-AD39-510324046634}

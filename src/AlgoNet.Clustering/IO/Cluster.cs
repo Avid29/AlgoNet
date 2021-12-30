@@ -1,8 +1,6 @@
 ﻿// Adam Dernis © 2021
 
-using AlgoNet.Clustering.Points;
-
-namespace AlgoNet.Clustering.IO
+namespace AlgoNet.Clustering
 {
     /// <summary>
     /// The base class for clusters.

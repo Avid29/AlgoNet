@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2021
 
-namespace AlgoNet.Clustering.IO.Interfaces
+namespace AlgoNet.Clustering
 {
     /// <summary>
     /// An interface for Clusters that output with a Weight.

@@ -5,11 +5,11 @@ namespace AlgoNet.Clustering.Kernels
     /// The shape of a Uniform Distribution
     ///
     /// 
-    ///        -----------------
-    ///        |               |
-    ///        |               |
-    ///        |               |
-    ///        |               |
+    ///        * * * * * * * * *
+    ///        *               *
+    ///        *               *
+    ///        *               *
+    ///        *               *
     ///  -----------------------------
 
     /// <summary>
