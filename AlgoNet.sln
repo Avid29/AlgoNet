@@ -11,7 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E56E3567
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Tests.Common", "tests\AlgoNet.Tests.Common\AlgoNet.Tests.Common.csproj", "{91249B6C-505C-48DE-8519-A04E5F531377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoNet.Tests.Clustering", "tests\AlgoNet.Tests.Clustering\AlgoNet.Tests.Clustering.csproj", "{A2449E3A-F979-4736-8430-87AFD0B32262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Tests.Clustering", "tests\AlgoNet.Tests.Clustering\AlgoNet.Tests.Clustering.csproj", "{A2449E3A-F979-4736-8430-87AFD0B32262}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F88294FC-C78C-4AD7-ADAF-8B04D9AFCB6B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

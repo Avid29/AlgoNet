@@ -6,7 +6,7 @@ namespace AlgoNet.Clustering
     /// A <see cref="Cluster{T, TShape}"/> implementation for the MeanShift algorithm.
     /// </summary>
     /// <typeparam name="T">The type of points in the cluster.</typeparam>
-    /// <typeparam name="TShape">A shape to describe to provide comparison methods for <see cref="T"/>.</typeparam>
+    /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
     public class MSCluster<T, TShape> : Cluster<T, TShape>, ICentroidCluster<T>, IWeightedCluster
         where T : unmanaged
         where TShape : struct, IGeometricPoint<T>

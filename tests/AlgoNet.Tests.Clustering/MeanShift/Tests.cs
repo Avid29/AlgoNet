@@ -14,11 +14,11 @@ namespace AlgoNet.Tests.Clustering.MeanShift
     [TestClass]
     public class Tests
     {
-        private void RunTest<T, TShape>(Test<T> test)
+        private static void RunTest<T, TShape>(Test<T> test)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
         {
-            GaussianKernel kernel = new GaussianKernel(test.Bandwidth);
+            GaussianKernel kernel = new(test.Bandwidth);
 
             try
             {

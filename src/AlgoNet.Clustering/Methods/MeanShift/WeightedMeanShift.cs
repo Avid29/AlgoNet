@@ -8,6 +8,9 @@ using System.Runtime.CompilerServices;
 
 namespace AlgoNet.Clustering
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class WeightedMeanShift
     {
         private const double ACCEPTED_ERROR = 0.000005;
@@ -150,7 +153,7 @@ namespace AlgoNet.Clustering
             where T : unmanaged, IEquatable<T>
         {
             // Merge equal points
-            DictionarySlim<T, int> merged = new DictionarySlim<T, int>();
+            DictionarySlim<T, int> merged = new();
             foreach (var point in points) merged.GetOrAddValueRef(point)++;
 
             // Convert back to tuple array
@@ -172,7 +175,7 @@ namespace AlgoNet.Clustering
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
         {
-            List<MSCluster<T, TShape>> clusters = new List<MSCluster<T, TShape>>();
+            List<MSCluster<T, TShape>> clusters = new();
             foreach (var cluster in raw)
             {
                 clusters.Add(new MSCluster<T, TShape>(cluster.Item1, cluster.Item2));
@@ -196,10 +199,11 @@ namespace AlgoNet.Clustering
             where TKernel : struct, IKernel
         {
             bool changed = true;
-            T newCluster;
 
 #if NET6_0_OR_GREATER
-            Unsafe.SkipInit(out newCluster);
+            Unsafe.SkipInit(out T newCluster);
+#else
+            T newCluster;
 #endif
 
             // Shift point until it converges
@@ -234,7 +238,7 @@ namespace AlgoNet.Clustering
             where TKernel : struct, IKernel
         {
             // Remove explict duplicate values.
-            DictionarySlim<T, double> mergeMap = new DictionarySlim<T, double>();
+            DictionarySlim<T, double> mergeMap = new ();
 
             foreach (var cluster in clusters) mergeMap.GetOrAddValueRef(cluster.Item1) += cluster.Item2;
 

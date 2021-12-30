@@ -156,7 +156,7 @@ namespace AlgoNet.Clustering
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
         {
-            List<MSCluster<T, TShape>> clusters = new List<MSCluster<T, TShape>>();
+            List<MSCluster<T, TShape>> clusters = new ();
             foreach (var cluster in raw)
             {
                 clusters.Add(new MSCluster<T, TShape>(cluster.Item1, cluster.Item2));
@@ -177,10 +177,11 @@ namespace AlgoNet.Clustering
             where TKernel : struct, IKernel
         {
             bool changed = true;
-            T newCluster;
 
 #if NET6_0_OR_GREATER
-            Unsafe.SkipInit(out newCluster);
+            Unsafe.SkipInit(out T newCluster);
+#else
+            T newCluster;
 #endif
 
             // Shift point until it converges
@@ -212,7 +213,7 @@ namespace AlgoNet.Clustering
             where TKernel : struct, IKernel
         {
             // Remove explict duplicate values.
-            DictionarySlim<T, int> mergeMap = new DictionarySlim<T, int>();
+            DictionarySlim<T, int> mergeMap = new();
             foreach (var cluster in clusters)
             {
                 mergeMap.GetOrAddValueRef(cluster)++;
