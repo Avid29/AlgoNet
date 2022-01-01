@@ -224,4 +224,4 @@ dotnet_naming_style.begins_with_i.capitalization = pascal_case
 
 # File Header
 
-file_header_template = Adam Dernis © 2021
+file_header_template = Adam Dernis © 2022
