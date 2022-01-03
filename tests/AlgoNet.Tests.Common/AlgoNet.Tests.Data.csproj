@@ -4,7 +4,7 @@
     <OutputPath>bin\Release</OutputPath>
     <Platforms>AnyCPU;x86;x64;ARM;ARM64</Platforms>
 	<LangVersion>10.0</LangVersion>
-    <RootNamespace>AlgoNet.Tests</RootNamespace>
+    <RootNamespace>AlgoNet.Tests.Data</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\AlgoNet\AlgoNet.csproj" />

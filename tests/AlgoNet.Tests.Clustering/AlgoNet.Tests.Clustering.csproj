@@ -15,7 +15,7 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <ProjectReference Include="..\AlgoNet.Tests.Common\AlgoNet.Tests.Common.csproj" />
+    <ProjectReference Include="..\AlgoNet.Tests.Common\AlgoNet.Tests.Data.csproj" />
   </ItemGroup>
 	
 </Project>

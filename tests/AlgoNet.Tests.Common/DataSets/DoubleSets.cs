@@ -1,10 +1,10 @@
 ﻿// Adam Dernis © 2021
 
-namespace AlgoNet.Tests.Tests
+namespace AlgoNet.Tests.Data
 {
-    public static class DoubleTests
+    public static class DoubleSets
     {
-        public static Test<double> DoubleTest1 = new Test<double>(
+        public static DataSet<double> Test1 = new DataSet<double>(
             "Double test 1",
             new double[]
             {
@@ -15,11 +15,11 @@ namespace AlgoNet.Tests.Tests
                 12,
                 22,
                 24,
-            }, 5, 3);
+            });
 
-        public static Test<double>[] All = new Test<double>[]
+        public static DataSet<double>[] All = new DataSet<double>[]
         {
-            DoubleTest1,
+            Test1,
         };
     }
 }

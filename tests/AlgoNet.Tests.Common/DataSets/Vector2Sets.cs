@@ -2,11 +2,11 @@
 
 using System.Numerics;
 
-namespace AlgoNet.Tests.Tests
+namespace AlgoNet.Tests.Data
 {
-    public static class Vector2Tests
+    public static class Vector2Sets
     {
-        public static Test<Vector2> Vector2Test1 = new Test<Vector2>(
+        public static DataSet<Vector2> Vector2Test1 = new DataSet<Vector2>(
             "Vector2 Test 1",
             new Vector2[]
             {
@@ -16,9 +16,9 @@ namespace AlgoNet.Tests.Tests
                 new Vector2(7, 5),
                 new Vector2(5, 7),
                 new Vector2(6, 6),
-            }, 5, 2);
+            });
 
-        public static Test<Vector2>[] All = new Test<Vector2>[]
+        public static DataSet<Vector2>[] All = new DataSet<Vector2>[]
         {
             Vector2Test1,
         };
