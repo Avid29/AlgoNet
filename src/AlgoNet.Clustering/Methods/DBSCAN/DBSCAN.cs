@@ -13,7 +13,7 @@ namespace AlgoNet.Clustering
         public static unsafe List<DBSCluster<T, TShape>> Cluster<T, TShape>(
             ReadOnlySpan<T> points,
             DBSConfig<T, TShape> config,
-            TShape shape)
+            TShape shape = default)
             where T : unmanaged
             where TShape : struct, IMetricPoint<T>
         {
