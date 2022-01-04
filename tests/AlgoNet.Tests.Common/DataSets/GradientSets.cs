@@ -1,4 +1,4 @@
-﻿// Adam Dernis © 2021
+﻿// Adam Dernis © 2022
 
 using AlgoNet.Tests.Gradients;
 using AlgoNet.Tests.Gradients.Easing;

@@ -11,12 +11,7 @@ namespace AlgoNet.Tests.Clustering.MeanShift
         [TestMethod]
         public void Explict()
         {
-            foreach (var test in DoubleTests.All)
-            {
-                TestRunner.RunTest(test);
-            }
-
-            foreach (var test in Vector2Tests.All)
+            foreach (var test in ExplicitTests.All)
             {
                 TestRunner.RunTest(test);
             }

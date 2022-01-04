@@ -47,19 +47,19 @@ namespace AlgoNet.Tests.Clustering.MeanShift
             Assert.AreEqual(
                 basis.Count,
                 actual.Count,
-                $"Failed on test \"{DataSet.Name}\" where {basis.Count} clusters were expected but {actual.Count} clusters were found.");
+                $"Failed on test \"{Name}\" where {basis.Count} clusters were expected but {actual.Count} clusters were found.");
 
             for (int i = 0; i < basis.Count; i++)
             {
                 Assert.AreEqual(
                     basis[i].Weight,
                     actual[i].Weight,
-                    $"Failed on test \"{DataSet.Name}\" because cluster {i} expected {basis[i].Weight} items and had {actual[i].Weight} items.");
+                    $"Failed on test \"{Name}\" because cluster {i} expected {basis[i].Weight} items and had {actual[i].Weight} items.");
 
                 double distance = Shape.FindDistanceSquared(basis[i].Centroid, actual[i].Centroid);
                 Assert.IsTrue(
                      distance <= ACCEPTED_ERROR,
-                    $"Failed on test \"{DataSet.Name}\" because cluster {i} expected was {distance} different from the expected value, which is greater than {ACCEPTED_ERROR}.");
+                    $"Failed on test \"{Name}\" because cluster {i} expected was {distance} different from the expected value, which is greater than {ACCEPTED_ERROR}.");
             }
         }
     }

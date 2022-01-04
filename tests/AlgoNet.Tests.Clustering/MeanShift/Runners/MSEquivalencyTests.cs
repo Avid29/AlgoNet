@@ -1,4 +1,4 @@
-﻿// Adam Dernis © 2021
+﻿// Adam Dernis © 2022
 
 using AlgoNet.Tests.Clustering.MeanShift.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,18 +11,17 @@ namespace AlgoNet.Tests.Clustering.MeanShift
         public const double ACCEPTED_ERROR = .000001;
 
         [TestMethod]
-        public void WeightedEquivalency()
+        public void WeightedEquivalencyExplicit()
         {
-            foreach (var test in DoubleTests.All)
+            foreach (var test in ExplicitTests.All)
             {
                 test.RunWeightedCompare();
             }
+        }
 
-            foreach (var test in Vector2Tests.All)
-            {
-                test.RunWeightedCompare();
-            }
-
+        [TestMethod]
+        public void WeightedEquivalencyGradient()
+        {
             foreach (var test in GradientTests.All)
             {
                 test.RunWeightedCompare();

@@ -222,10 +222,6 @@ namespace AlgoNet.Clustering
             {
                 mergeMap.GetOrAddValueRef(cluster)++;
             }
-
-            // Connected componenents merge.
-            // Because convergence may be imperfect, a minimum difference can be used to merge similar clusters.
-
             // Convert Dictionary to tuple list.
             (T, int)[] mergedCentroids = new (T, int)[mergeMap.Count];
             int i = 0;
@@ -233,6 +229,37 @@ namespace AlgoNet.Clustering
             {
                 mergedCentroids[i] = (value.Key, value.Value);
                 i++;
+            }
+
+            // Connected componenents merge using DBSCAN with a minPoints of 0.
+            // Because convergence may be imperfect, a minimum difference can be used to merge similar clusters.
+            // A wrapping shape must be used inorder to cluster the weighted points.
+            DBSConfig<(T, int), GenericWeightedShape<T, TShape>> config = new DBSConfig<(T, int), GenericWeightedShape<T, TShape>>(kernel.WindowSize, 0);
+            GenericWeightedShape<T, TShape> weightedShape = new GenericWeightedShape<T, TShape>(shape);
+            var results = DBSCAN.Cluster(mergedCentroids, config, weightedShape);
+
+            // No components to merge
+            if (mergedCentroids.Length == results.Count) return mergedCentroids;
+
+            // Convert the DBSCAN clusters into centroids.
+            mergedCentroids = new (T, int)[results.Count];
+            for (i = 0; i < results.Count; i++)
+            {
+                // Track the weight of each point the DBSCAN cluster
+                double weightSum = 0;
+
+                // Pull the points from the DBSCAN cluster in order to take the average.
+                (T, double)[] points = new (T, double)[results[i].Points.Count];
+                for (int j = 0; j < results[i].Points.Count; j++)
+                {
+                    points[j] = results[i].Points[j];
+                    weightSum += results[i].Points[j].Item2;
+                }
+
+                // Cache the weighted average of the points in the DBSCAN cluster
+                // and the sum of their weights
+                T point = shape.WeightedAverage(points);
+                mergedCentroids[i] = (point, (int)weightSum);
             }
 
             return mergedCentroids;
