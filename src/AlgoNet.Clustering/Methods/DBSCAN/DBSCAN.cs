@@ -70,7 +70,12 @@ namespace AlgoNet.Clustering
 
                 // Expand the cluster to include all seeds, and their seeds recursively
                 // Use seeds as a queue of seeds to add to the cluster
-                for (int j = 0; j < seeds.Count; j++) context.ClusterIds[seeds[j].Item2] = cluster.ClusterId;
+                for (int j = 0; j < seeds.Count; j++)
+                {
+                    cluster.Points.Add(seeds[j].Item1);
+                    context.ClusterIds[seeds[j].Item2] = cluster.ClusterId;
+                }
+
                 seeds.Remove((p, i));
                 ExpandCluster(cluster, seeds, context);
                 return cluster;
@@ -109,6 +114,8 @@ namespace AlgoNet.Clustering
                         }
                     }
                 }
+
+                seeds.RemoveAt(0);
             }
         }
 
