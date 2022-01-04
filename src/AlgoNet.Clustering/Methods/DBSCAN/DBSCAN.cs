@@ -10,6 +10,15 @@ namespace AlgoNet.Clustering
     /// </summary>
     public static class DBSCAN
     {
+        /// <summary>
+        /// Clusters a set of points using DBScan.
+        /// </summary>
+        /// <typeparam name="T">The type of points to cluster.</typeparam>
+        /// <typeparam name="TShape">The type of shape to use on the points to cluster.</typeparam>
+        /// <param name="points">The set of points to cluster.</param>
+        /// <param name="config">A configuration for DBSCAN including epsilon and minPoints.</param>
+        /// <param name="shape">The shape to use on the points to cluster.</param>
+        /// <returns>A list of clusters.</returns>
         public static unsafe List<DBSCluster<T, TShape>> Cluster<T, TShape>(
             ReadOnlySpan<T> points,
             DBSConfig<T, TShape> config,
@@ -17,18 +26,19 @@ namespace AlgoNet.Clustering
             where T : unmanaged
             where TShape : struct, IMetricPoint<T>
         {
-            List<DBSCluster<T, TShape>> clusters = new List<DBSCluster<T, TShape>>();
+            List<DBSCluster<T, TShape>> clusters = new();
 
             fixed (T* p = points)
             {
                 // Create a DBSContext to avoid passing too many values between functions
-                DBSContext<T, TShape> context = new DBSContext<T, TShape>(config, shape, p, points.Length);
+                DBSContext<T, TShape> context = new(config, shape, p, points.Length);
 
                 for (int i = 0; i < points.Length; i++)
                 {
-                    T point = p[i];
+                    // Attempt to create cluster if the point is unclassified
                     if (context.ClusterIds[i] == DBSConstants.UNCLASSIFIED_ID)
                     {
+                        T point = p[i];
                         DBSCluster<T, TShape> cluster = CreateCluster(point, i, context);
                         if (cluster != null) clusters.Add(cluster);
                     }
@@ -50,13 +60,12 @@ namespace AlgoNet.Clustering
         {
 
             // Create cluster with the next cluster Id.
-            DBSCluster<T, TShape> cluster = new DBSCluster<T, TShape>(context.NextClusterId);
+            DBSCluster<T, TShape> cluster = new(context.NextClusterId);
             List<(T, int)> seeds = GetSeeds(p, context);
             if (seeds.Count < context.MinPoints)
             {
                 // Not a core point
                 // Assign noise id and return null
-
                 context.ClusterIds[i] = DBSConstants.NOISE_ID;
                 if (context.ReturnNoise) context.NoiseCluster.Points.Add(p);
 
@@ -92,7 +101,7 @@ namespace AlgoNet.Clustering
             // Seeds is used as a queue for breadth-first graph traversal
             while (seeds.Count > 0)
             {
-                // Find 
+                // Find each point connected to this seed
                 (T, int) p = seeds[0];
                 List<(T, int)> pSeeds = GetSeeds(p.Item1, context);
                 if (pSeeds.Count >= context.MinPoints)
@@ -125,7 +134,7 @@ namespace AlgoNet.Clustering
             where T : unmanaged
             where TShape : struct, IMetricPoint<T>
         {
-            List<(T, int)> seeds = new List<(T, int)>();
+            List<(T, int)> seeds = new();
             for (int i = 0; i < context.PointsLength; i++)
             {
                 if (context.Shape.FindDistanceSquared(p, context.Points[i]) <= context.Episilon2)
