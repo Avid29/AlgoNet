@@ -127,8 +127,9 @@ namespace AlgoNet.Clustering
             where TShape : struct, IGeometricPoint<T>
             where TKernel : struct, IKernel
         {
-            // Clone points into a modifiable list of clusters
+            // Points will bed cloned into a modifiable list of clusters
             (T, double)[] clusters = new(T, double)[points.Length];
+
             // This array will be reused on every iteration
             // However we allocate it here once to save on allocation time and space
             (T, double)[] fieldWeights = new(T, double)[field.Length];
