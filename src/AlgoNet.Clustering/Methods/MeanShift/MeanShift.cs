@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2021
 
 using AlgoNet.Clustering.Kernels;
+using AlgoNet.Clustering.Shapes;
 using Microsoft.Collections.Extensions;
 using System;
 using System.Collections.Generic;
@@ -141,7 +142,7 @@ namespace AlgoNet.Clustering
                 // Shift each cluster to its convergence point.
                 for (int i = 0; i < clusters.Length; i++)
                 {
-                    T point = clusters[i];
+                    T point = points[i];
                     T cluster = MeanShiftPoint(point, f, points.Length, shape, kernel, fieldWeights);
                     clusters[i] = cluster;
 
@@ -233,9 +234,6 @@ namespace AlgoNet.Clustering
                 mergedCentroids[i] = (value.Key, value.Value);
                 i++;
             }
-
-            // TODO: Connected components cluter
-            // Investigate: Can I use DBSCAN with minPoints of 1?
 
             return mergedCentroids;
         }
