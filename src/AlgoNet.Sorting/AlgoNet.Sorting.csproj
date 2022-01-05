@@ -12,7 +12,4 @@
     <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Methods\" />
-  </ItemGroup>
 </Project>
