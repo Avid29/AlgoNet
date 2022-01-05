@@ -1,10 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
-    <OutputPath>bin\Release</OutputPath>
+    <TargetFrameworks>net472;netcoreapp3.1;net6.0</TargetFrameworks>
     <Platforms>AnyCPU;x86;x64;ARM;ARM64</Platforms>
 	<LangVersion>10.0</LangVersion>
-    <RootNamespace>AlgoNet.Tests.Data</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\AlgoNet\AlgoNet.csproj" />

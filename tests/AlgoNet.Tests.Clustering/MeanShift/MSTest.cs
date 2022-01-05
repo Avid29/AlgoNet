@@ -5,8 +5,8 @@ using AlgoNet.Clustering.Kernels;
 using AlgoNet.Tests.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using MS = AlgoNet.Clustering.MeanShift;
-using WMS = AlgoNet.Clustering.WeightedMeanShift;
+using MSC = AlgoNet.Clustering.MeanShift;
+using WMSC = AlgoNet.Clustering.WeightedMeanShift;
 
 namespace AlgoNet.Tests.Clustering.MeanShift
 {
@@ -36,13 +36,13 @@ namespace AlgoNet.Tests.Clustering.MeanShift
 
         public void Run()
         {
-            MS.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);
+            MSC.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);
         }
 
         public void RunWeightedCompare()
         {
-            var basis = MS.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);
-            var actual = WMS.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);
+            var basis = MSC.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);
+            var actual = WMSC.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);
 
             Assert.AreEqual(
                 basis.Count,
