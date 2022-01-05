@@ -17,7 +17,7 @@ namespace AlgoNet.Clustering
         /// Initializes a new instance of the <see cref="DBSCluster{T, TShape}"/> class.
         /// </summary>
         /// <param name="id">The cluster's ID within the DBSCAN.</param>
-        public DBSCluster(int id)
+        internal DBSCluster(int id)
         {
             ClusterId = id;
             Points = new List<T>();
