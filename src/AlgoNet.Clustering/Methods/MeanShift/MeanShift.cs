@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2021
 
 using AlgoNet.Clustering.Kernels;
+using AlgoNet.Clustering.Shapes;
 using Microsoft.Collections.Extensions;
 using System;
 using System.Collections.Generic;
@@ -129,19 +130,19 @@ namespace AlgoNet.Clustering
             where TShape : struct, IGeometricPoint<T>
             where TKernel : struct, IKernel
         {
-            // Clone points into a modifiable list of clusters
+            // Points will bed cloned into a modifiable list of clusters
             T[] clusters = new T[points.Length];
 
             // This array will be reused on every iteration
             // However we allocate it here once to save on allocation time and space
-            (T, double)[] fieldWeights = new (T, double)[field.Length];
+            (T, double)[] fieldWeights = new(T, double)[field.Length];
 
             fixed (T* f = field)
             {
                 // Shift each cluster to its convergence point.
                 for (int i = 0; i < clusters.Length; i++)
                 {
-                    T point = clusters[i];
+                    T point = points[i];
                     T cluster = MeanShiftPoint(point, f, points.Length, shape, kernel, fieldWeights);
                     clusters[i] = cluster;
 
@@ -159,7 +160,7 @@ namespace AlgoNet.Clustering
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
         {
-            List<MSCluster<T, TShape>> clusters = new ();
+            List<MSCluster<T, TShape>> clusters = new();
             foreach (var cluster in raw)
             {
                 clusters.Add(new MSCluster<T, TShape>(cluster.Item1, cluster.Item2));
@@ -221,12 +222,8 @@ namespace AlgoNet.Clustering
             {
                 mergeMap.GetOrAddValueRef(cluster)++;
             }
-
-            // Connected componenents merge.
-            // Because convergence may be imperfect, a minimum difference can be used to merge similar clusters.
-
             // Convert Dictionary to tuple list.
-            (T, int)[] mergedCentroids = new (T, int)[mergeMap.Count];
+            (T, int)[] mergedCentroids = new(T, int)[mergeMap.Count];
             int i = 0;
             foreach (var value in mergeMap)
             {
@@ -234,8 +231,36 @@ namespace AlgoNet.Clustering
                 i++;
             }
 
-            // TODO: Connected components cluter
-            // Investigate: Can I use DBSCAN with minPoints of 1?
+            // Connected componenents merge using DBSCAN with a minPoints of 0.
+            // Because convergence may be imperfect, a minimum difference can be used to merge similar clusters.
+            // A wrapping shape must be used inorder to cluster the weighted points.
+            DBSConfig<(T, int), GenericWeightedShape<T, TShape>> config = new(kernel.WindowSize, 0);
+            GenericWeightedShape<T, TShape> weightedShape = new(shape);
+            var results = DBSCAN.Cluster(mergedCentroids, config, weightedShape);
+
+            // No components to merge
+            if (mergedCentroids.Length == results.Count) return mergedCentroids;
+
+            // Convert the DBSCAN clusters into centroids.
+            mergedCentroids = new(T, int)[results.Count];
+            for (i = 0; i < results.Count; i++)
+            {
+                // Track the weight of each point the DBSCAN cluster
+                double weightSum = 0;
+
+                // Pull the points from the DBSCAN cluster in order to take the average.
+                (T, double)[] points = new(T, double)[results[i].Points.Count];
+                for (int j = 0; j < results[i].Points.Count; j++)
+                {
+                    points[j] = results[i].Points[j];
+                    weightSum += results[i].Points[j].Item2;
+                }
+
+                // Cache the weighted average of the points in the DBSCAN cluster
+                // and the sum of their weights
+                T point = shape.WeightedAverage(points);
+                mergedCentroids[i] = (point, (int)weightSum);
+            }
 
             return mergedCentroids;
         }

@@ -8,7 +8,7 @@ namespace AlgoNet.Clustering
     /// A struct containing configuration info for DBSCAN Cluster to run.
     /// </summary>
     /// <typeparam name="T">The type of data in the cluster.</typeparam>
-    /// <typeparam name="TShape">A shape to describe to provide comparison methods for <t.</typeparam>
+    /// <typeparam name="TShape">The type of shape to use on the points while clustering.</typeparam>
     public struct DBSConfig<T, TShape>
         where T : unmanaged
         where TShape : struct, IMetricPoint<T>

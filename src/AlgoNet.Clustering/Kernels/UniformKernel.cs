@@ -15,7 +15,7 @@ namespace AlgoNet.Clustering.Kernels
     /// <summary>
     /// A Kernel with a rectangular shape and flat cutoff on its window size.
     /// </summary>
-    public struct UniformKernel
+    public struct UniformKernel : IKernel
     {
         private double _windowSquared;
         private double _window;
