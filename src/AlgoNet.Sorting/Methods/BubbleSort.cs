@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AlgoNet.Sorting.Methods
+namespace AlgoNet.Sorting
 {
     /// <summary>
     /// A static class containing bubble sort methods.
