@@ -21,7 +21,7 @@ namespace AlgoNet.Tests.Gradients
             for (int i = 0; i < steps; i++)
             {
                 double linearX = i * step;
-                output[i] = (ease.Ease(linearX) * end) + start;
+                output[i] = ease.Ease(linearX) + start;
             }
 
             return output;
