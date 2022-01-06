@@ -2,9 +2,9 @@
 
 using AlgoNet.Tests.Sorting.DataSets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BS = AlgoNet.Sorting.Methods.BubbleSort;
+using BS = AlgoNet.Sorting.BubbleSort;
 
-namespace AlgoNet.Tests.Sorting.BubbleSort.Runners
+namespace AlgoNet.Tests.Sorting.BubbleSort
 {
     [TestClass]
     public class BubbleSortTests
@@ -12,15 +12,7 @@ namespace AlgoNet.Tests.Sorting.BubbleSort.Runners
         private static void RunTest(int[] data)
         {
             BS.Sort(data);
-            VerifySorted(data);
-        }
-
-        private static void VerifySorted(int[] sortedArray)
-        {
-            for (int i = 0; i < sortedArray.Length - 1; i++)
-            {
-                Assert.IsTrue(sortedArray[i] <= sortedArray[i + 1]);
-            }
+            Common.VerifySorted(data);
         }
 
         [TestMethod]

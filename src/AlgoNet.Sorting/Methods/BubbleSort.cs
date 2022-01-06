@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AlgoNet.Sorting.Methods
+namespace AlgoNet.Sorting
 {
     /// <summary>
     /// A static class containing bubble sort methods.
@@ -31,7 +31,7 @@ namespace AlgoNet.Sorting.Methods
                 {
                     ref T a = ref array[i];
                     ref T b = ref array[i + 1];
-                    if (a.CompareTo(b) > 0) Swap(ref a, ref b);
+                    if (a.CompareTo(b) > 0) Common.Swap(ref a, ref b);
                 }
             }
         }
@@ -58,13 +58,6 @@ namespace AlgoNet.Sorting.Methods
 
                 }
             }
-        }
-
-        private static void Swap<T>(ref T a, ref T b)
-        {
-            T c = a;
-            a = b;
-            b = c;
         }
     }
 }
