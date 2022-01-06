@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
 
 namespace AlgoNet.Sorting.Methods
 {
@@ -31,6 +32,30 @@ namespace AlgoNet.Sorting.Methods
                     ref T a = ref array[i];
                     ref T b = ref array[i + 1];
                     if (a.CompareTo(b) > 0) Swap(ref a, ref b);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Runs bubble sort on an <see cref="IList{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of item in the list being sorted.</typeparam>
+        /// <param name="list">The <see cref="IList{T}"/> to sort.</param>
+        public static void Sort<T>(IList<T> list)
+            where T : IComparable
+        {
+            for (int pos = 0; pos < list.Count - 1; pos++)
+            {
+                for (int i = 0; i < list.Count- 1; i++)
+                {
+                    T a = list[i];
+                    T b = list[i + 1];
+                    if (a.CompareTo(b) > 0)
+                    {
+                        list[i + 1] = b;
+                        list[i] = a;
+                    }
+
                 }
             }
         }
