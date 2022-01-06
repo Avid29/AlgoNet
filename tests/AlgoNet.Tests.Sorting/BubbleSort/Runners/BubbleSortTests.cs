@@ -1,8 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-using AlgoNet.Sorting.Methods;
 using AlgoNet.Tests.Sorting.DataSets;
-using Microsoft.Toolkit.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BS = AlgoNet.Sorting.Methods.BubbleSort;
 
@@ -33,7 +31,6 @@ namespace AlgoNet.Tests.Sorting.BubbleSort.Runners
                 RunTest(set);
             }
         }
-
 
         [TestMethod]
         public void ReverseOrderTests()
