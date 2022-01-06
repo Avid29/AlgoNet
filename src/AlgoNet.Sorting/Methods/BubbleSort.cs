@@ -20,21 +20,14 @@ namespace AlgoNet.Sorting.Methods
         public static void Sort<T>(T[] array)
             where T : IComparable
         {
-            for (int pos = 0; pos < array.Length; pos++)
+            for (int pos = 0; pos < array.Length - 1; pos++)
             {
-                int back = 0;
-                for (int i = 0; i < pos; i++)
+                for (int i = 0; i < array.Length - 1; i++)
                 {
-                    ref T a = ref array[i - 1];
-                    ref T b = ref array[i];
-                    if (a.CompareTo(b) > 0)
-                    {
-                        Swap(ref a, ref b);
-                        back = i;
-                    }
+                    ref T a = ref array[i];
+                    ref T b = ref array[i + 1];
+                    if (a.CompareTo(b) > 0) Swap(ref a, ref b);
                 }
-
-                pos = back;
             }
         }
 
