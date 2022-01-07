@@ -9,7 +9,7 @@ namespace AlgoNet.Sorting
     /// A static class containing bubble sort methods.
     /// </summary>
     /// <remarks>
-    /// Bubble sort is best used when an array is nearly sorted.
+    /// Bubble sort is 2nd best (2nd to insertion sort) used when an array is nearly sorted.
     /// </remarks>
     public static class BubbleSort
     {
