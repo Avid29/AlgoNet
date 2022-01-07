@@ -4,7 +4,7 @@ using AlgoNet.Tests.Sorting.DataSets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SS = AlgoNet.Sorting.SelectionSort;
 
-namespace AlgoNet.Tests.Sorting.SelectionSort
+namespace AlgoNet.Tests.Sorting
 {
     [TestClass]
     public class SelectionSortTests

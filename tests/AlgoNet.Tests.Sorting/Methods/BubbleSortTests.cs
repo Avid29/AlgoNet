@@ -4,7 +4,7 @@ using AlgoNet.Tests.Sorting.DataSets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BS = AlgoNet.Sorting.BubbleSort;
 
-namespace AlgoNet.Tests.Sorting.BubbleSort
+namespace AlgoNet.Tests.Sorting
 {
     [TestClass]
     public class BubbleSortTests
