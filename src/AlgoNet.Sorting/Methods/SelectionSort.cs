@@ -12,7 +12,7 @@ namespace AlgoNet.Sorting
     /// </remarks>
     public static class SelectionSort
     {
-        /// <inheritdoc cref="Sort{T}(T[])"/>
+        /// <inheritdoc cref="Sort{T}(Span{T})"/>
         public static void Sort<T>(T[] array) where T : IComparable
             => Sort(array.AsSpan());
 
