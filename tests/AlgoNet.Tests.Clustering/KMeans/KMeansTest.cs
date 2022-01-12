@@ -2,6 +2,7 @@
 
 using AlgoNet.Clustering;
 using AlgoNet.Tests.Data;
+using System.Linq;
 using KM = AlgoNet.Clustering.KMeans;
 
 namespace AlgoNet.Tests.Clustering.KMeans
@@ -17,7 +18,7 @@ namespace AlgoNet.Tests.Clustering.KMeans
             Shape = shape;
         }
 
-        public string Name => "DBSCAN Test: " + DataSet.Name;
+        public string Name => "KMeans Test: " + DataSet.Name;
 
         public DataSet<T> DataSet { get; }
 
@@ -29,7 +30,8 @@ namespace AlgoNet.Tests.Clustering.KMeans
 
         public void Run()
         {
-            KM.Cluster(Data, Config, Shape);
+            var results = KM.Cluster(Data, Config, Shape);
+            Validate.CentroidValidate<T, KMeansCluster<T, TShape>, TShape>(results.ToList(), Shape);
         }
     }
 }
