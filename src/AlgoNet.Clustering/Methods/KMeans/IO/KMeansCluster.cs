@@ -9,7 +9,7 @@ namespace AlgoNet.Clustering
     /// </summary>
     /// <typeparam name="T">The type of data in the cluster.</typeparam>
     /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
-    public class KMeansCluster<T, TShape> : Cluster<T, TShape>, ICentroidCluster<T>, IWeightedCluster
+    public class KMeansCluster<T, TShape> : Cluster<T, TShape>, ICentroidCluster<T>, IPointsCluster<T>, IWeightedCluster
         where T : unmanaged
         where TShape : struct, IGeometricPoint<T>
     {
@@ -25,10 +25,13 @@ namespace AlgoNet.Clustering
         /// <inheritdoc/>
         public T Centroid => _centroid ?? (T)(_centroid = CalculateCentroid());
 
+        /// <inheritdoc/>
+        IReadOnlyCollection<T> IPointsCluster<T>.Points => Points;
+
         /// <summary>
         /// Gets a list of points in the cluster.
         /// </summary>
-        public List<T> Points { get; } = new List<T>();
+        internal List<T> Points { get; } = new List<T>();
 
         /// <inheritdoc/>
         public double Weight => Points.Count;
