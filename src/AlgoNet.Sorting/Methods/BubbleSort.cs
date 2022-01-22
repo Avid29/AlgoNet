@@ -55,7 +55,6 @@ namespace AlgoNet.Sorting
                         list[i + 1] = b;
                         list[i] = a;
                     }
-
                 }
             }
         }

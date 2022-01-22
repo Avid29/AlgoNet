@@ -32,8 +32,8 @@ namespace AlgoNet.Sorting
                     if (a.CompareTo(array[j]) > 0)
                     {
                         array[j + 1] = array[j];
+                        array[j] = a;
                         j--;
-                        array[j + 1] = a;
                     }
                     else break;
                 }
