@@ -14,34 +14,42 @@ namespace AlgoNet.Sorting
     {
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
         public static void Sort<T>(T[] array) where T : IComparable
-            => Sort<T>(array, 0, array.Length - 1);
+            => Sort(array.AsSpan());
 
         /// <summary>
         /// Runs quick sort on an array.
         /// </summary>
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
         /// <param name="array">The array to sort.</param>
-        public static void Sort<T>(Span<T> array) where T : IComparable
-            => Sort(array, 0, array.Length - 1);
-
-        private static void Sort<T>(Span<T> array, int l, int r)
+        public static void Sort<T>(Span<T> array)
             where T : IComparable
         {
-            // Modified version of https://www.cs.princeton.edu/~rs/talks/QuicksortIsOptimal.pdf
-            int i = -1;
-            int j = r;
-            if (j <= 1) return;
-            T v = array[j];
-            while (true)
+            if (array.Length <= 1) return;
+
+            int pivot = Partition(array);
+
+            Sort(array.Slice(0, pivot));
+            Sort(array.Slice(pivot + 1));
+        }
+
+        private static int Partition<T>(Span<T> array)
+            where T : IComparable
+        {
+            T pivot = array[array.Length - 1];
+            int low = -1;
+
+            for (int i = 0; i < array.Length; i++)
             {
-                while (array[++i].CompareTo(v) < 0);
-                while (v.CompareTo(array[--j]) < 0) if (j == l) break;
-                if (i >= j) break;
-                Common.Swap(ref array[i], ref array[j]);
+                if (array[i].CompareTo(pivot) < 0)
+                {
+                    low++;
+                    Common.Swap(ref array[i], ref array[low]);
+                }
             }
-            Common.Swap(ref array[i], ref array[r]);
-            Sort(array, l, i-1);
-            Sort(array, i+1, r);
+
+            low++;
+            Common.Swap(ref array[low], ref array[array.Length - 1]);
+            return low;
         }
     }
 }
