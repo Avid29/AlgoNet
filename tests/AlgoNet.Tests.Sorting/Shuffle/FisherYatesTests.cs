@@ -15,7 +15,7 @@ namespace AlgoNet.Tests.Sorting.Shuffle
             int[] clone = new int[data.Length];
             Array.Copy(data, clone, data.Length);
 
-            FisherYates.Shuffle(data);
+            FisherYates.Shuffle(data, 0);
 
             Assert.IsFalse(Common.AreEquivilent(data, clone));
         }
