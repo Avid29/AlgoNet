@@ -32,5 +32,14 @@ namespace AlgoNet.Tests.Sorting
                 RunTest(set);
             }
         }
+
+        [TestMethod]
+        public void RandomizedTests()
+        {
+            foreach (var set in RandomizedSets.All)
+            {
+                RunTest(set);
+            }
+        }
     }
 }
