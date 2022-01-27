@@ -2,6 +2,7 @@
 
 using AlgoNet.Tests.Sorting.DataSets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using IS = AlgoNet.Sorting.InsertionSort;
 
 namespace AlgoNet.Tests.Sorting.Methods
@@ -9,7 +10,8 @@ namespace AlgoNet.Tests.Sorting.Methods
     [TestClass]
     public class InsertionSortTests
     {
-        private static void RunTest(int[] data)
+        private static void RunTest<T>(T[] data)
+            where T : IComparable
         {
             IS.Sort(data);
             Common.VerifySorted(data);
