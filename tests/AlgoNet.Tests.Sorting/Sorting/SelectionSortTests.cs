@@ -2,16 +2,16 @@
 
 using AlgoNet.Tests.Sorting.DataSets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IS = AlgoNet.Sorting.InsertionSort;
+using SS = AlgoNet.Sorting.SelectionSort;
 
-namespace AlgoNet.Tests.Sorting.Methods
+namespace AlgoNet.Tests.Sorting
 {
     [TestClass]
-    public class InsertionSortTests
+    public class SelectionSortTests
     {
         private static void RunTest(int[] data)
         {
-            IS.Sort(data);
+            SS.Sort(data);
             Common.VerifySorted(data);
         }
 
@@ -28,6 +28,15 @@ namespace AlgoNet.Tests.Sorting.Methods
         public void ReverseOrderTests()
         {
             foreach (var set in ReverseOrderSets.All)
+            {
+                RunTest(set);
+            }
+        }
+
+        [TestMethod]
+        public void RandomizedTests()
+        {
+            foreach (var set in RandomizedSets.All)
             {
                 RunTest(set);
             }
