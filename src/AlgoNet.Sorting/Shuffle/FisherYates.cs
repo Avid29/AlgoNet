@@ -25,28 +25,28 @@ namespace AlgoNet.Sorting.Shuffle
         ///
         /// Step 2
         ///     Rand from 0 to 3: 1
-        ///     group |   Unshuffled  | Sh|
-        ///     value | 1   2   3   5 | 4 |
-        ///     index | 0   1   2   3 | 4 |
+        ///     Group |   Unshuffled  | Sh|
+        ///     Value | 1   2   3   5 | 4 |
+        ///     Index | 0   1   2   3 | 4 |
         ///     Swap  |     ^       ^ |   |
         ///
         /// Step 3
         ///     Rand from 0 to 2: 2
-        ///     group | Unshuffle | Shuff |
-        ///     value | 1   5   3 | 2   4 |
-        ///     index | 0   1   2 | 3   4 |
+        ///     Group | Unshuffle | Shuff |
+        ///     Value | 1   5   3 | 2   4 |
+        ///     Index | 0   1   2 | 3   4 |
         ///     Swap  |         ^ |       |
         ///
         /// Step 3
         ///     Rand from 0 to 1: 0
-        ///     group | Unshu |  Shuffled |
-        ///     value | 1   5 | 3   2   4 |
-        ///     index | 0   1 | 2   3   4 |
+        ///     Group | Unshu |  Shuffled |
+        ///     Value | 1   5 | 3   2   4 |
+        ///     Index | 0   1 | 2   3   4 |
         ///     Swap  | ^   ^ |           |
         ///     
         /// Done
-        ///     group |     Shuffled      |
-        ///     value | 5   1   3   2   4 |
+        ///     Group |     Shuffled      |
+        ///     Value | 5   1   3   2   4 |
 
         /// <inheritdoc cref="Shuffle{T}(Span{T}, Random)"/>
         public static void Shuffle<T>(T[] array) => Shuffle(array.AsSpan(), new Random());
