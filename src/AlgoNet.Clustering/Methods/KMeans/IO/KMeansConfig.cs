@@ -8,7 +8,7 @@ namespace AlgoNet.Clustering
     /// A struct containing configuration info for KMeans Cluster to run.
     /// </summary>
     /// <typeparam name="T">The type of data in the cluster.</typeparam>
-    /// <typeparam name="TShape">A shape to describe to provide comparison methods for <see cref="T"/>.</typeparam>
+    /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
     public class KMeansConfig<T, TShape>
         where T : unmanaged
         where TShape : struct, IGeometricPoint<T>
