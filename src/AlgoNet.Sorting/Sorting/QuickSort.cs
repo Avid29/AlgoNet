@@ -12,6 +12,47 @@ namespace AlgoNet.Sorting
     /// </remarks>
     public static class QuickSort
     {
+        /// QuickSort works be recursively partitioning smaller values above and greater values below a pivot.
+        /// The partition step is done in place. To start the partiton, the last value is selected as the pivot.
+        /// Then swaps are performed moving all values lower than the pivot to the start of the array.
+        /// The first value larger than the pivot is then swapped with the pivot. As a result, all values less than
+        /// the pivot are in front of the pivot and all values greater than or equal to are behind.
+        /// 
+        /// For example
+        /// Let's sort this list
+        /// | 2   4   6   1   5   3 |
+        /// 
+        /// Step 1
+        ///     Group | - Unsorted - - - - -  | 
+        ///     Value | 2   4   6   1   5   3 |
+        ///     Index | 0   1   2   3   4   5 |
+        ///     Pivot |                     ^ |
+        /// 
+        ///     In step 1 we set a pivot at the last index
+        ///     
+        /// 
+        /// Step 2
+        ///     Group | - Unsorted - - - - -  | 
+        ///     Parti | 2   1   6   4   5 | 3 |
+        ///     Index | 0   1   2   3   4   5 |
+        ///     Pivot |                     ^ |
+        ///     Swped | 2   1 | 3 | 4   5   6 |
+        ///     
+        ///     In step 2 we partition the entire list around 3.
+        ///     The "Parti" is what the array looks like before swapping the pivot and the first value greater than it.
+        /// 
+        /// 
+        /// Step 3
+        ///     Group | Unsrt | S | Unsorted  | 
+        ///     Parti | 2 | 1 | 3 | 4   5 | 6 |
+        ///     Index | 0   1 | 2 | 3   4   5 |
+        ///     Pivot |     ^ |   |         ^ |
+        ///     Swped | 1   2 | 3 | 4   5   6 |
+        ///     
+        ///     In step 3 the previous pivot is in its correct sorted position, so we'll leave it alone.
+        ///     We'll now repeat the previous step on both the values above and below the old pivot.
+        ///     The values greater than 3 are already sorted, and the values below need only a single swap.
+
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
         public static void Sort<T>(T[] array) where T : IComparable => Sort(array.AsSpan());
 
@@ -26,12 +67,17 @@ namespace AlgoNet.Sorting
         public static void Sort<T>(Span<T> array)
             where T : IComparable
         {
+            // Nothing to sort (base case)
             if (array.Length <= 1) return;
 
-            int center = Partition(array);
+            // Partition values before and after the pivot.
+            int pivot = Partition(array);
 
-            Sort(array.Slice(0, center));
-            Sort(array.Slice(center + 1));
+            // Sort values before the pivot
+            Sort(array.Slice(0, pivot));
+
+            // Sort values after the pivot
+            Sort(array.Slice(pivot + 1));
         }
 
         /// <summary>
@@ -47,20 +93,31 @@ namespace AlgoNet.Sorting
         public static T Select<T>(Span<T> array, int k)
             where T : IComparable
         {
+            // Nothing left to sort (base case)
             if (array.Length == 1) return array[0];
             else if (array.Length < 1) return default;
 
+            // Partition around the center value.
             int center = array.Length / 2;
             center = Partition(array, center);
 
-            if (k == center) return array[k];
-            else if (k < center) return Select(array.Slice(0, center), k);
-            else return Select(array.Slice(center), k - center);
+            // The kth item has been found
+            if (k == center)
+                return array[k];
+
+            // The kth item is before the new center
+            if (k < center)
+                return Select(array.Slice(0, center), k);
+
+            // The kth item is after the new center
+            return Select(array.Slice(center), k - center);
         }
 
         private static int Partition<T>(Span<T> array, int pivotIndex)
             where T : IComparable
         {
+            // Swap the pivot index with the last index
+            // Then run Partition where the last index is the pivot.
             Common.Swap(ref array[pivotIndex], ref array[array.Length - 1]);
             return Partition(array);
         }
@@ -68,19 +125,25 @@ namespace AlgoNet.Sorting
         private static int Partition<T>(Span<T> array)
             where T : IComparable
         {
+            // Cache the pivot value
             T pivot = array[array.Length - 1];
-            int low = -1;
+
+            // Track the index of the split between above and below.
+            int low = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
+                // If the value is lower than the pivot.
                 if (array[i].CompareTo(pivot) < 0)
                 {
-                    low++;
+                    // Swap value to the lower than pivot partition and increment the partiton size
                     Common.Swap(ref array[i], ref array[low]);
+                    low++;
                 }
             }
 
-            low++;
+            // Swap the pivot with the first value great than it.
+            // (Swaps with itself if all values are lower)
             Common.Swap(ref array[low], ref array[array.Length - 1]);
             return low;
         }

@@ -9,6 +9,45 @@ namespace AlgoNet.Sorting.Shuffle
     /// </summary>
     public class FisherYates
     {
+        /// Fisher-Yates algorithm is a shuffling algorithm guarenteed to give an equal chance of any value to end in any position.
+        /// This is accomplished by selecting a random value from else where in the unshuffled list and swapping with that value.
+        ///
+        /// For example
+        /// Let's shuffled this list
+        /// | 1   2   3   4   5 |
+        /// 
+        /// Step 1
+        ///     Rand from 0 to 4: 3
+        ///     Group |   Unshuffled      |
+        ///     Value | 1   2   3   4   5 |
+        ///     Index | 0   1   2   3   4 |
+        ///     Swap  |             ^   ^ |
+        ///
+        /// Step 2
+        ///     Rand from 0 to 3: 1
+        ///     Group |   Unshuffled  | Sh|
+        ///     Value | 1   2   3   5 | 4 |
+        ///     Index | 0   1   2   3 | 4 |
+        ///     Swap  |     ^       ^ |   |
+        ///
+        /// Step 3
+        ///     Rand from 0 to 2: 2
+        ///     Group | Unshuffle | Shuff |
+        ///     Value | 1   5   3 | 2   4 |
+        ///     Index | 0   1   2 | 3   4 |
+        ///     Swap  |         ^ |       |
+        ///
+        /// Step 3
+        ///     Rand from 0 to 1: 0
+        ///     Group | Unshu |  Shuffled |
+        ///     Value | 1   5 | 3   2   4 |
+        ///     Index | 0   1 | 2   3   4 |
+        ///     Swap  | ^   ^ |           |
+        ///     
+        /// Done
+        ///     Group |     Shuffled      |
+        ///     Value | 5   1   3   2   4 |
+
         /// <inheritdoc cref="Shuffle{T}(Span{T}, Random)"/>
         public static void Shuffle<T>(T[] array) => Shuffle(array.AsSpan(), new Random());
 
@@ -32,8 +71,10 @@ namespace AlgoNet.Sorting.Shuffle
         /// <param name="rand">The random number generator.</param>
         public static void Shuffle<T>(Span<T> array, Random rand)
         {
-            for (int i = array.Length - 1; i >= 0; i--)
+            // Iterate from the back for each value except the first.
+            for (int i = array.Length - 1; i > 0; i--)
             {
+                // Swap with value from random index that hasn't already been selected.
                 int swap = rand.Next(i);
                 Common.Swap(ref array[i], ref array[swap]);
             }
