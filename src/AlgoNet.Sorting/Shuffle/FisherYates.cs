@@ -71,8 +71,10 @@ namespace AlgoNet.Sorting.Shuffle
         /// <param name="rand">The random number generator.</param>
         public static void Shuffle<T>(Span<T> array, Random rand)
         {
+            // Iterate from the back for each value except the first.
             for (int i = array.Length - 1; i > 0; i--)
             {
+                // Swap with value from random index that hasn't already been selected.
                 int swap = rand.Next(i);
                 Common.Swap(ref array[i], ref array[swap]);
             }
