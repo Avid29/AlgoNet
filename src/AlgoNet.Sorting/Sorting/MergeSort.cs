@@ -2,7 +2,7 @@
 
 using System;
 
-namespace AlgoNet.Sorting.Sorting
+namespace AlgoNet.Sorting
 {
     /// <summary>
     /// A static class containing merge sort methods.
@@ -15,53 +15,77 @@ namespace AlgoNet.Sorting.Sorting
             where T : IComparable
         {
             Span<T> buffer = new T[array.Length];
-            SplitAndMerge(array, buffer);
+            
+            // Because 
+            SplitMerge(array, buffer);
         }
 
-        private static Span<T> SplitAndMerge<T>(Span<T> a, Span<T> b)
+        private static Span<T> SplitMerge<T>(Span<T> array, Span<T> target, int depth = 0)
             where T : IComparable
         {
-            if (a.Length <= 1)
+            if (array.Length == 1)
             {
-                b[0] = a[0];
-                return b;
+                if (depth % 2 == 1)
+                {
+                    target[0] = array[0];
+                    return target;
+                } else
+                {
+                    return array;
+                }
             }
 
-            int center = a.Length / 2;
-            Span<T> left = SplitAndMerge(a.Slice(0, center), b);
-            Span<T> right = SplitAndMerge(a.Slice(center + 1), b);
+            int mid = array.Length / 2;
+            int newDepth = depth + 1;
 
-            int lPos = 0;
-            int rPos = 0;
-            for (int i = 0; i < b.Length; i++)
+            Span<T> left = SplitMerge(array.Slice(0, mid), target.Slice(0, mid), newDepth);
+            Span<T> right = SplitMerge(array.Slice(mid), target.Slice(mid), newDepth);
+
+            target = depth % 2 == 0 ? array : target;
+            Merge(left, right, target);
+            return target;
+        }
+
+        private static void Merge<T>(Span<T> left, Span<T> right, Span<T> target)
+            where T : IComparable
+        {
+            // Track the left, right, and target offsets
+            int l = 0;
+            int r = 0;
+            int x = 0;
+
+            // Track the span containing the lower value and its offset.
+            ref Span<T> src = ref left;
+            ref int i = ref l;
+
+            do
             {
-                if (lPos == left.Length)
+                // Find smaller value.
+                if (left[l].CompareTo(right[r]) <= 0)
                 {
-                    right.Slice(rPos).CopyTo(b.Slice(i));
-                    break;
-                }
-                else if (rPos == right.Length)
-                {
-                    left.Slice(lPos).CopyTo(b.Slice(i));
-                    break;
+                    i = ref l;
+                    src = ref left;
                 }
                 else
                 {
-                    bool useLeft = left[lPos].CompareTo(right[rPos]) <= 0;
-
-                    ref int usePos = ref lPos;
-                    ref Span<T> source = ref left;
-                    if (!useLeft)
-                    {
-                        usePos = ref rPos;
-                        source = ref right;
-                    }
-
-                    b[i] = source[usePos];
-                    usePos++;
+                    i = ref r;
+                    src = ref right;
                 }
-            }
-            return b;
+
+                // Add smaller value
+                target[x] = src[i];
+                i++;
+                x++;
+
+            } while (i != src.Length);
+
+            // Change src and i to the value with the greater values
+            src = src == left ? right : left;
+            i = i == l ? r : l;
+
+            // Copy remaining values.
+            src.Slice(i).CopyTo(target.Slice(x));
         }
     }
 }
+ 
