@@ -27,6 +27,12 @@ namespace AlgoNet.Benchmarks.Benchmarks
         }
 
         [Benchmark]
+        public void AlgoNet_CountingSort()
+        {
+            CountingSort.Sort(_array, x => x, _array.Length);
+        }
+
+        [Benchmark]
         public void AlgoNet_QuickSort()
         {
             QuickSort.Sort(_array);
