@@ -32,8 +32,10 @@ namespace AlgoNet.Sorting
             for (i = 1; i < k; i++)
                 buffer[i] = buffer[i] + buffer[i - 1];
 
+            // Check the buffer for the position to place each value.
+            // Starting at the back ensures a stable sort.
             Span<T> result = new Span<T>(new T[array.Length]);
-            for (i = array.Length - 1; i >= 1; i--)
+            for (i = array.Length - 1; i >= 0; i--)
             {
                 T item = array[i];
                 value = valueMethod(item);
