@@ -101,7 +101,7 @@ namespace AlgoNet.Sorting
 
                 // Partition around the center value.
                 int center = array.Length / 2;
-                center = Partition(array, center);
+                center = SelectPartition(array, center);
 
                 // The kth item has been found
                 if (k == center || center == 0)
@@ -121,18 +121,43 @@ namespace AlgoNet.Sorting
             }
         }
 
-        private static int Partition<T>(Span<T> array, int pivotIndex)
+        private static int Partition<T>(Span<T> array)
+            where T : IComparable<T>
+        {
+            // Cache the pivot value
+            T pivot = array[array.Length - 1];
+
+            // Track the index of the split between above and below.
+            int low = 0;
+
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                // If the value is lower than the pivot.
+                if (array[i].CompareTo(pivot) < 0)
+                {
+                    // Swap value to the lower than pivot partition and increment the partiton size
+                    Common.Swap(ref array[i], ref array[low]);
+                    low++;
+                }
+            }
+
+            // Swap the pivot with the first value great than it.
+            // (Swaps with itself if all values are lower)
+            Common.Swap(ref array[low], ref array[array.Length - 1]);
+            return low;
+        }
+
+        /// <remarks>
+        /// Pre-swaps pivot index and uses less than or equal to comparison.
+        /// This is partition is slower because it uses more swaps, but is neccesary for Select.
+        /// </remarks>
+        private static int SelectPartition<T>(Span<T> array, int pivotIndex)
             where T : IComparable<T>
         {
             // Swap the pivot index with the last index
             // Then run Partition where the last index is the pivot.
             Common.Swap(ref array[pivotIndex], ref array[array.Length - 1]);
-            return Partition(array);
-        }
 
-        private static int Partition<T>(Span<T> array)
-            where T : IComparable<T>
-        {
             // Cache the pivot value
             T pivot = array[array.Length - 1];
 
