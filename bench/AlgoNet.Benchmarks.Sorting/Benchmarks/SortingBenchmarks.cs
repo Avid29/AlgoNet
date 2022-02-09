@@ -11,10 +11,12 @@ namespace AlgoNet.Benchmarks.Benchmarks
     {
         private int[] _array = new int[1];
 
-        [Params(10, 100, 1_000, 10_000)]
+        //[Params(10, 100, 1_000, 10_000)]
+        [Params(10_000)]
         public int Numbers;
 
-        [Params(true, false)]
+        //[Params(true, false)]
+        [Params(true)]
         public bool Randomized;
 
         [IterationSetup]
@@ -40,6 +42,18 @@ namespace AlgoNet.Benchmarks.Benchmarks
         public void Array_Sort()
         {
             Array.Sort(_array);
+        }
+
+        [Benchmark]
+        public void List_Sort()
+        {
+            _array.ToList().Sort();
+        }
+
+        [Benchmark]
+        public void Linq_OrderBy()
+        {
+            _array = _array.OrderBy(x => x).ToArray();
         }
     }
 }
