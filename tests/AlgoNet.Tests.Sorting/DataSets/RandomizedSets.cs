@@ -14,12 +14,18 @@ namespace AlgoNet.Tests.Sorting.DataSets
 
         public static int[] UniqueInteger100 = Shuffle(PresortedSets.UniqueInteger100);
 
-        public static int[] DuplicateInteger10 = Shuffle(PresortedSets.DuplicateInteger10);
+        public static int[] UniqueInteger1000 = Shuffle(PresortedSets.UniqueInteger1000);
+
+        public static int[] DuplicateInteger100 = Shuffle(PresortedSets.DuplicateInteger100);
+
+        public static int[] DuplicateInteger1000 = Shuffle(PresortedSets.DuplicateInteger1000);
 
         public static int[][] All = new int[][]
         {
             UniqueInteger100,
-            DuplicateInteger10,
+            UniqueInteger1000,
+            DuplicateInteger100,
+            DuplicateInteger1000,
         };
     }
 }
