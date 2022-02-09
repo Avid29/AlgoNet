@@ -93,24 +93,32 @@ namespace AlgoNet.Sorting
         public static T Select<T>(Span<T> array, int k)
             where T : IComparable
         {
-            // Nothing left to sort (base case)
-            if (array.Length == 1) return array[0];
-            else if (array.Length < 1) return default;
+            while (true)
+            {
+                // Nothing left to sort (base case)
+                if (array.Length == 1) return array[0];
+                else if (array.Length < 1) return default;
 
-            // Partition around the center value.
-            int center = array.Length / 2;
-            center = Partition(array, center);
+                // Partition around the center value.
+                int center = array.Length / 2;
+                center = Partition(array, center);
 
-            // The kth item has been found
-            if (k == center)
-                return array[k];
+                // The kth item has been found
+                if (k == center || center == 0)
+                    return array[k];
 
-            // The kth item is before the new center
-            if (k < center)
-                return Select(array.Slice(0, center), k);
+                // The kth item is before the new center
+                if (k < center)
+                {
+                    array = array.Slice(0, center);
+                    continue;
+                }
 
-            // The kth item is after the new center
-            return Select(array.Slice(center), k - center);
+                // The kth item is after the new center
+                array = array.Slice(center);
+                k -= center;
+                continue;
+            }
         }
 
         private static int Partition<T>(Span<T> array, int pivotIndex)
@@ -131,10 +139,10 @@ namespace AlgoNet.Sorting
             // Track the index of the split between above and below.
             int low = 0;
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length - 1; i++)
             {
                 // If the value is lower than the pivot.
-                if (array[i].CompareTo(pivot) < 0)
+                if (array[i].CompareTo(pivot) <= 0)
                 {
                     // Swap value to the lower than pivot partition and increment the partiton size
                     Common.Swap(ref array[i], ref array[low]);
