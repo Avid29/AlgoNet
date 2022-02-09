@@ -16,6 +16,16 @@ namespace AlgoNet.Tests.Sorting
             }
         }
 
+        internal static void VerifyPartition<T>(T[] partitionedArray, int k, T kth)
+            where T : IComparable
+        {
+            for (int i = 0; i < k; i++)
+                Assert.IsTrue(partitionedArray[i].CompareTo(kth) <= 0);
+
+            for (int i = k + 1; i < partitionedArray.Length; i++)
+                Assert.IsTrue(partitionedArray[i].CompareTo(kth) >= 0);
+        }
+
         internal static bool AreEquivilent<T>(T[] data, T[] clone)
             where T : IEquatable<T>
         {

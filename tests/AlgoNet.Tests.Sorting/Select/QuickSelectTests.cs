@@ -12,15 +12,7 @@ namespace AlgoNet.Tests.Sorting.Select
         private static void RunTest(int[] data, int k)
         {
             int kth = QS.Select(data, k);
-
-            bool isValid = true;
-            for (int i = 0; i < k; i++)
-                if (data[i] > kth) isValid = false;
-
-            for (int i = k+1; i < data.Length; i++)
-                if (data[i] < kth) isValid = false;
-
-            Assert.IsTrue(isValid);
+            Common.VerifyPartition(data, k, kth);
         }
 
         [TestMethod]
