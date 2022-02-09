@@ -54,10 +54,10 @@ namespace AlgoNet.Sorting
         ///     The values greater than 3 are already sorted, and the values below need only a single swap.
 
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
-        public static void Sort<T>(T[] array) where T : IComparable => Sort(array.AsSpan());
+        public static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
 
         /// <inheritdoc cref="Select{T}(Span{T},int)"/>
-        public static T Select<T>(T[] array, int k) where T : IComparable => Select(array.AsSpan(), k);
+        public static T Select<T>(T[] array, int k) where T : IComparable<T> => Select(array.AsSpan(), k);
 
         /// <summary>
         /// Runs quick sort on an array.
@@ -65,7 +65,7 @@ namespace AlgoNet.Sorting
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
         /// <param name="array">The array to sort.</param>
         public static void Sort<T>(Span<T> array)
-            where T : IComparable
+            where T : IComparable<T>
         {
             // Nothing to sort (base case)
             if (array.Length <= 1) return;
@@ -91,7 +91,7 @@ namespace AlgoNet.Sorting
         /// <param name="k">The position to select.</param>
         /// <returns>The kth smallest item in the array.</returns>
         public static T Select<T>(Span<T> array, int k)
-            where T : IComparable
+            where T : IComparable<T>
         {
             while (true)
             {
@@ -122,7 +122,7 @@ namespace AlgoNet.Sorting
         }
 
         private static int Partition<T>(Span<T> array, int pivotIndex)
-            where T : IComparable
+            where T : IComparable<T>
         {
             // Swap the pivot index with the last index
             // Then run Partition where the last index is the pivot.
@@ -131,7 +131,7 @@ namespace AlgoNet.Sorting
         }
 
         private static int Partition<T>(Span<T> array)
-            where T : IComparable
+            where T : IComparable<T>
         {
             // Cache the pivot value
             T pivot = array[array.Length - 1];

@@ -10,7 +10,7 @@ namespace AlgoNet.Sorting
     public static class MergeSort
     {
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
-        public static void Sort<T>(T[] array) where T : IComparable => Sort(array.AsSpan());
+        public static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
 
         /// <summary>
         /// Runs quick sort on an array.
@@ -18,14 +18,14 @@ namespace AlgoNet.Sorting
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
         /// <param name="array">The array to sort.</param>
         public static void Sort<T>(Span<T> array)
-            where T : IComparable
+            where T : IComparable<T>
         {
             Span<T> buffer = new T[array.Length];
             SplitMerge(array, buffer);
         }
 
         private static Span<T> SplitMerge<T>(Span<T> array, Span<T> target, int depth = 0)
-            where T : IComparable
+            where T : IComparable<T>
         {
             // Base case
             if (array.Length == 1)
@@ -54,7 +54,7 @@ namespace AlgoNet.Sorting
         }
 
         private static void Merge<T>(Span<T> left, Span<T> right, Span<T> target)
-            where T : IComparable
+            where T : IComparable<T>
         {
             // Track the left, right, and target offsets
             int l = 0;
