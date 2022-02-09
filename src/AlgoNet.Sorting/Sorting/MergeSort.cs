@@ -9,20 +9,25 @@ namespace AlgoNet.Sorting
     /// </summary>
     public static class MergeSort
     {
+        /// <inheritdoc cref="Sort{T}(Span{T})"/>
         public static void Sort<T>(T[] array) where T : IComparable => Sort(array.AsSpan());
 
+        /// <summary>
+        /// Runs quick sort on an array.
+        /// </summary>
+        /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
+        /// <param name="array">The array to sort.</param>
         public static void Sort<T>(Span<T> array)
             where T : IComparable
         {
             Span<T> buffer = new T[array.Length];
-            
-            // Because 
             SplitMerge(array, buffer);
         }
 
         private static Span<T> SplitMerge<T>(Span<T> array, Span<T> target, int depth = 0)
             where T : IComparable
         {
+            // Base case
             if (array.Length == 1)
             {
                 if (depth % 2 == 1)
@@ -35,12 +40,14 @@ namespace AlgoNet.Sorting
                 }
             }
 
+            // Split the array recursively
             int mid = array.Length / 2;
             int newDepth = depth + 1;
-
             Span<T> left = SplitMerge(array.Slice(0, mid), target.Slice(0, mid), newDepth);
             Span<T> right = SplitMerge(array.Slice(mid), target.Slice(mid), newDepth);
 
+            // Use the source array at even depths and target at odd.
+            // This ensures the final merge is on the source array.
             target = depth % 2 == 0 ? array : target;
             Merge(left, right, target);
             return target;
