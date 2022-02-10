@@ -13,7 +13,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
 
         //[Params(10, 100, 1_000, 10_000)]
         [Params(10_000)]
-        public int Numbers;
+        public int Count;
 
         //[Params(true, false)]
         [Params(true)]
@@ -22,7 +22,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
         [IterationSetup]
         public void IterationSetup()
         {
-            _array = Enumerable.Range(0, Numbers).ToArray();
+            _array = Enumerable.Range(0, Count-1).ToArray();
             if (Randomized) FisherYates.Shuffle(_array);
         }
 
@@ -43,6 +43,24 @@ namespace AlgoNet.Benchmarks.Benchmarks
         {
             MergeSort.Sort(_array);
         }
+
+        [Benchmark]
+        public void AlgoNet_InsertionSort()
+        {
+            InsertionSort.Sort(_array);
+        }
+
+        //[Benchmark]
+        //public void AlgoNet_SelectionSort()
+        //{
+        //    SelectionSort.Sort(_array);
+        //}
+
+        //[Benchmark]
+        //public void AlgoNet_BubbleSort()
+        //{
+        //    BubbleSort.Sort(_array);
+        //}
 
         [Benchmark]
         public void Array_Sort()

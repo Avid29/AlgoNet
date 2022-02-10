@@ -1,16 +1,16 @@
 ﻿// Adam Dernis © 2022
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MES = AlgoNet.Sorting.MergeSort;
+using IS = AlgoNet.Sorting.InsertionSort;
 
-namespace AlgoNet.Tests.Sorting.Sorting
+namespace AlgoNet.Tests.Sorting
 {
     [TestClass]
-    public class MergeSortTests : SortingTests
+    public class InsertionSortTests : SortingTests
     {
         protected override void RunTest(int[] data)
         {
-            MES.Sort(data);
+            IS.Sort(data);
             Common.VerifySorted(data);
         }
     }
