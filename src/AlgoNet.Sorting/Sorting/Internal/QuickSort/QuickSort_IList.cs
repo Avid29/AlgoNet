@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AlgoNet.Sorting
 {
-    public static partial class QuickSort
+    internal static partial class QuickSort
     {
         /// <summary>
         /// Runs quick sort on a list.
