@@ -8,7 +8,7 @@ namespace AlgoNet.Tests.Sorting
     internal class Common
     {
         internal static void VerifySorted<T>(T[] sortedArray)
-            where T : IComparable
+            where T : IComparable<T>
         {
             for (int i = 0; i < sortedArray.Length - 1; i++)
             {
@@ -17,7 +17,7 @@ namespace AlgoNet.Tests.Sorting
         }
 
         internal static void VerifyPartition<T>(T[] partitionedArray, int k, T kth)
-            where T : IComparable
+            where T : IComparable<T>
         {
             for (int i = 0; i < k; i++)
                 Assert.IsTrue(partitionedArray[i].CompareTo(kth) <= 0);
