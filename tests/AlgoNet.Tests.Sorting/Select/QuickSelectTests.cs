@@ -2,7 +2,7 @@
 
 using AlgoNet.Tests.Sorting.DataSets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QS = AlgoNet.Sorting.QuickSort;
+using QS = AlgoNet.Sorting.Select.QuickSelect;
 
 namespace AlgoNet.Tests.Sorting.Select
 {
