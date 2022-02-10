@@ -10,7 +10,7 @@ namespace AlgoNet.Sorting
     /// <remarks>
     /// This is a 2-way partitioned quick sort. This has very little overhead, but is slower than 3-way.
     /// </remarks>
-    public static class QuickSort
+    public static partial class QuickSort
     {
         /// QuickSort works be recursively partitioning smaller values above and greater values below a pivot.
         /// The partition step is done in place. To start the partiton, the last value is selected as the pivot.

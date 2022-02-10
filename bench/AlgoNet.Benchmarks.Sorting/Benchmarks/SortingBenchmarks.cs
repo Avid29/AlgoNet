@@ -36,9 +36,15 @@ namespace AlgoNet.Benchmarks.Benchmarks
         }
 
         [Benchmark]
-        public void AlgoNet_QuickSort()
+        public void AlgoNet_QuickSort_Array()
         {
             QuickSort.Sort(_array);
+        }
+
+        [Benchmark]
+        public void AlgoNet_QuickSort_List()
+        {
+            QuickSort.Sort(_list);
         }
 
         [Benchmark]
@@ -80,7 +86,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
         [Benchmark]
         public void List_Sort()
         {
-            _array.ToList().Sort();
+            _list.Sort();
         }
 
         [Benchmark]
