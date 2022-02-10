@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using BS = AlgoNet.Sorting.BubbleSort;
 
 namespace AlgoNet.Tests.Sorting
@@ -10,8 +11,10 @@ namespace AlgoNet.Tests.Sorting
     {
         protected override void RunTest(int[] data)
         {
+            var clone = new int[data.Length];
+            Array.Copy(data, clone, data.Length);
             BS.Sort(data);
-            Common.VerifySorted(data);
+            Common.VerifySorted(data, clone);
         }
     }
 }
