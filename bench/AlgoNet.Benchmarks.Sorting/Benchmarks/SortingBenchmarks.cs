@@ -10,6 +10,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
     public class SortingBenchmarks
     {
         private int[] _array = new int[1];
+        private List<int> _list = new List<int>();
 
         //[Params(10, 100, 1_000, 10_000)]
         [Params(10_000)]
@@ -24,24 +25,44 @@ namespace AlgoNet.Benchmarks.Benchmarks
         {
             _array = Enumerable.Range(0, Count-1).ToArray();
             if (Randomized) FisherYates.Shuffle(_array);
+
+            _list = new List<int>(_array);
         }
 
         [Benchmark]
-        public void AlgoNet_CountingSort()
+        public void AlgoNet_CountingSort_Array()
         {
             CountingSort.Sort(_array, x => x, _array.Length);
         }
 
         [Benchmark]
-        public void AlgoNet_QuickSort()
+        public void AlgoNet_CountingSort_IList()
+        {
+            CountingSort.Sort(_list, x => x, _list.Count);
+        }
+
+        [Benchmark]
+        public void AlgoNet_QuickSort_Array()
         {
             QuickSort.Sort(_array);
         }
 
         [Benchmark]
-        public void AlgoNet_MergeSort()
+        public void AlgoNet_QuickSort_IList()
+        {
+            QuickSort.Sort(_list);
+        }
+
+        [Benchmark]
+        public void AlgoNet_MergeSort_Array()
         {
             MergeSort.Sort(_array);
+        }
+
+        [Benchmark]
+        public void AlgoNet_MergeSort_IList()
+        {
+            MergeSort.Sort(_list);
         }
 
         //[Benchmark]
@@ -71,7 +92,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
         [Benchmark]
         public void List_Sort()
         {
-            _array.ToList().Sort();
+            _list.Sort();
         }
 
         [Benchmark]

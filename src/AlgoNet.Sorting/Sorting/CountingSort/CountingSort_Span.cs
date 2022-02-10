@@ -9,7 +9,7 @@ namespace AlgoNet.Sorting
     /// <summary>
     /// A static class containing counting sort methods.
     /// </summary>
-    public class CountingSort
+    public static partial class CountingSort
     {
         /// <inheritdoc cref="Sort{T}(Span{T},Func{T, int},int)"/>
         public static T[] Sort<T>(T[] array, Func<T, int> valueMethod, int k) => Sort(array.AsSpan(), valueMethod, k).ToArray();
@@ -18,13 +18,13 @@ namespace AlgoNet.Sorting
         {
             Unsafe.SkipInit(out int i);
             Unsafe.SkipInit(out int value);
-            Span<int> buffer = new Span<int>(new int[k]);
+            Span<int> buffer = new int[k];
             
             // Count the number of items with each value
-            for (i = 1; i < array.Length; i++)
+            for (i = 0; i < array.Length; i++)
             {
                 value = valueMethod(array[i]);
-                Debug.Assert(value < k);
+                Debug.Assert(value < k && value >= 0);
                 buffer[value]++;
             }
 
@@ -39,8 +39,8 @@ namespace AlgoNet.Sorting
             {
                 T item = array[i];
                 value = valueMethod(item);
-                result[buffer[value]] = item;
                 buffer[value]--;
+                result[buffer[value]] = item;
             }
 
             return result;

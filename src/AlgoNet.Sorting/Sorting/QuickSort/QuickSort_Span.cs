@@ -10,7 +10,7 @@ namespace AlgoNet.Sorting
     /// <remarks>
     /// This is a 2-way partitioned quick sort. This has very little overhead, but is slower than 3-way.
     /// </remarks>
-    public static class QuickSort
+    public static partial class QuickSort
     {
         /// QuickSort works be recursively partitioning smaller values above and greater values below a pivot.
         /// The partition step is done in place. To start the partiton, the last value is selected as the pivot.
@@ -54,7 +54,7 @@ namespace AlgoNet.Sorting
         ///     The values greater than 3 are already sorted, and the values below need only a single swap.
 
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
-        public static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
+        internal static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
 
         /// <inheritdoc cref="Select{T}(Span{T},int)"/>
         public static T Select<T>(T[] array, int k) where T : IComparable<T> => Select(array.AsSpan(), k);
@@ -64,7 +64,7 @@ namespace AlgoNet.Sorting
         /// </summary>
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
         /// <param name="array">The array to sort.</param>
-        public static void Sort<T>(Span<T> array)
+        internal static void Sort<T>(Span<T> array)
             where T : IComparable<T>
         {
             // Nothing to sort (base case)
