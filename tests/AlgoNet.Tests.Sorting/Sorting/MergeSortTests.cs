@@ -2,6 +2,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using MES = AlgoNet.Sorting.MergeSort;
 
 namespace AlgoNet.Tests.Sorting.Sorting
@@ -11,10 +12,18 @@ namespace AlgoNet.Tests.Sorting.Sorting
     {
         protected override void RunTest(int[] data)
         {
-            var clone = new int[data.Length];
-            Array.Copy(data, clone, data.Length);
+            var list = data.ToList();
+
+            // As array
+            var aClone = new int[data.Length];
+            Array.Copy(data, aClone, data.Length);
             MES.Sort(data);
-            Common.VerifySorted(data, clone);
+            Common.VerifySorted(data, aClone);
+
+            // As list
+            var lClone = data.ToList();
+            MES.Sort(list);
+            Common.VerifySorted(list, lClone);
         }
     }
 }
