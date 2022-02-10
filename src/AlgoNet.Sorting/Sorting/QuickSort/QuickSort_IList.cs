@@ -12,7 +12,7 @@ namespace AlgoNet.Sorting
         /// </summary>
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
         /// <param name="list">The list to sort.</param>
-        public static void Sort<T>(IList<T> list) where T : IComparable<T> => Sort(list, 0, list.Count - 1);
+        internal static void Sort<T>(IList<T> list) where T : IComparable<T> => Sort(list, 0, list.Count - 1);
 
         private static void Sort<T>(IList<T> list, int low, int high)
             where T : IComparable<T>
