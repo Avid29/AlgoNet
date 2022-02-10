@@ -22,10 +22,10 @@ namespace AlgoNet.Sorting
         {
             for (int i = 1; i < array.Length; i++)
             {
-                ref T a = ref array[i];
+                T a = array[i];
                 for (int j = i - 1; j >= 0;)
                 {
-                    if (a.CompareTo(array[j]) > 0)
+                    if (a.CompareTo(array[j]) < 0)
                     {
                         array[j + 1] = array[j];
                         array[j] = a;
