@@ -5,35 +5,29 @@ using System.Collections.Generic;
 
 namespace AlgoNet.Sorting
 {
-    /// <summary>
-    /// A static class containing quick sort methods.
-    /// </summary>
-    /// <remarks>
-    /// This is a 2-way partitioned quick sort. This has very little overhead, but is slower than 3-way.
-    /// </remarks>
     public static partial class QuickSort
     {
         /// <summary>
-        /// Runs quick sort on an array.
+        /// Runs quick sort on a list.
         /// </summary>
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
-        /// <param name="array">The array to sort.</param>
-        public static void Sort<T>(IList<T> array) where T : IComparable<T> => Sort(array, 0, array.Count - 1);
+        /// <param name="list">The list to sort.</param>
+        public static void Sort<T>(IList<T> list) where T : IComparable<T> => Sort(list, 0, list.Count - 1);
 
-        private static void Sort<T>(IList<T> array, int low, int high)
+        private static void Sort<T>(IList<T> list, int low, int high)
             where T : IComparable<T>
         {
             // Nothing to sort (base case)
             if (low >= high) return;
 
             // Partition values before and after the pivot.
-            int pivot = Partition(array, low, high);
+            int pivot = Partition(list, low, high);
 
             // Sort values before the pivot
-            Sort(array, low, pivot-1);
+            Sort(list, low, pivot-1);
 
             // Sort values after the pivot
-            Sort(array, pivot + 1, high);
+            Sort(list, pivot + 1, high);
         }
 
         private static int Partition<T>(IList<T> array, int low, int high)

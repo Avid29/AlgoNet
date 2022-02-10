@@ -5,48 +5,45 @@ using System.Collections.Generic;
 
 namespace AlgoNet.Sorting
 {
-    /// <summary>
-    /// A static class containing merge sort methods.
-    /// </summary>
     public static partial class MergeSort
     {
         /// <summary>
         /// Runs quick sort on an array.
         /// </summary>
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
-        /// <param name="array">The array to sort.</param>
-        public static void Sort<T>(IList<T> array)
+        /// <param name="list">The array to sort.</param>
+        public static void Sort<T>(IList<T> list)
             where T : IComparable<T>
         {
-            IList<T> buffer = new List<T>(new T[array.Count]);
-            SplitMerge(array, buffer, 0, array.Count);
+            IList<T> buffer = new List<T>(new T[list.Count]);
+            SplitMerge(list, buffer, 0, list.Count);
         }
 
-        private static IList<T> SplitMerge<T>(IList<T> array, IList<T> target, int low, int high, int depth = 0)
+        private static IList<T> SplitMerge<T>(IList<T> list, IList<T> target, int low, int high, int depth = 0)
             where T : IComparable<T>
         {
             // Base case
             if (low + 1 == high)
             {
-                target[low] = array[low];
+                target[low] = list[low];
                 if (depth % 2 == 1)
                 {
                     return target;
                 } else
                 {
-                    return array;
+                    return list;
                 }
             }
 
             // Split the array recursively
             int mid = (high + low) / 2;
             int newDepth = depth + 1;
-            IList<T> left = SplitMerge(array, target, low, mid, newDepth);
-            IList<T> right = SplitMerge(array, target, mid, high, newDepth);
+            IList<T> left = SplitMerge(list, target, low, mid, newDepth);
+            IList<T> right = SplitMerge(list, target, mid, high, newDepth);
 
             // Use the source array at even depths and target at odd.
             // This ensures the final merge is on the source array.
-            target = depth % 2 == 0 ? array : target;
+            target = depth % 2 == 0 ? list : target;
             Merge(left, right, target, low, mid, high);
             return target;
         }
