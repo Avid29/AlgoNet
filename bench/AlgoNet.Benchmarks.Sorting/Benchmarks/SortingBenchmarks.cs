@@ -44,11 +44,11 @@ namespace AlgoNet.Benchmarks.Benchmarks
             MergeSort.Sort(_array);
         }
 
-        [Benchmark]
-        public void AlgoNet_InsertionSort()
-        {
-            InsertionSort.Sort(_array);
-        }
+        //[Benchmark]
+        //public void AlgoNet_InsertionSort()
+        //{
+        //    InsertionSort.Sort(_array);
+        //}
 
         //[Benchmark]
         //public void AlgoNet_SelectionSort()
