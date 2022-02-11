@@ -3,6 +3,9 @@
 using AlgoNet.Sorting;
 using AlgoNet.Sorting.Shuffle;
 using BenchmarkDotNet.Attributes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgoNet.Benchmarks.Benchmarks
 {
