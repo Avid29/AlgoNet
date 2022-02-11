@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using QS = AlgoNet.Sorting.QuickSort;
 
-namespace AlgoNet.Tests.Sorting.Methods
+namespace AlgoNet.Tests.Sorting.Methods.QuickSort
 {
     [TestClass]
     public class QuickSortTests : SortingTests
