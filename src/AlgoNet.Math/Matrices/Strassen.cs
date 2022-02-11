@@ -7,6 +7,9 @@ using MO = AlgoNet.Mathematics.Matrices.MatrixOperations;
 
 namespace AlgoNet.Mathematics.Matrices
 {
+    /// <summary>
+    /// A static class containing methods for Strassen multiplication
+    /// </summary>
     public static class Strassen
     {
         /// <summary>
