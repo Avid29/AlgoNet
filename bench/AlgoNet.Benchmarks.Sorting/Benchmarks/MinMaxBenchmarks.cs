@@ -50,7 +50,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
         [Benchmark]
         public void AlgoNet_Recursive_Min()
         {
-            ExtraMath.Min(_array);
+            ExtraMath.NaiveMin(_array);
         }
 
         [Benchmark]
@@ -68,7 +68,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
         [Benchmark]
         public void AlgoNet_Recursive_Max()
         {
-            ExtraMath.Max(_array);
+            ExtraMath.NaiveMax(_array);
         }
     }
 }
