@@ -19,14 +19,24 @@ namespace AlgoNet.Benchmarks.Benchmarks
         [Params(.25f, .5f, .75f)]
         public float Kfrac;
 
+        [Params(1, 5, 10)]
+        public int Occurances;
+
         [Params(true)]
         public bool Randomized;
 
         [IterationSetup]
         public void IterationSetup()
         {
-            _array = Enumerable.Range(0, Count - 1).ToArray();
-            if (Randomized) FisherYates.Shuffle(_array);
+            var range = Enumerable.Range(0, (Count / Occurances));
+            IEnumerable<int>? progress = new List<int>();
+            for (int i = 0; i < Occurances; i++)
+            {
+                progress = progress.Concat(range);
+            }
+            _array = progress.Take(Count).ToArray();
+
+            if (Randomized) FisherYates.Shuffle(_array, 0);
             _list = new List<int>(_array);
             _k = (int)(_array.Length * Kfrac);
         }
