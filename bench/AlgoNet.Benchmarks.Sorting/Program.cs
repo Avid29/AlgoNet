@@ -1,5 +1,5 @@
 ﻿using AlgoNet.Benchmarks.Benchmarks;
 using BenchmarkDotNet.Running;
 
-BenchmarkRunner.Run<SelectionBenchmarks>();
+BenchmarkRunner.Run<SortingBenchmarks>();
 Console.ReadLine();

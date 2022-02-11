@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Threading.Tasks;
 
 namespace AlgoNet.Sorting
 {
@@ -56,6 +57,9 @@ namespace AlgoNet.Sorting
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
         internal static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
 
+        /// <inheritdoc cref="SortAsync{T}(Memory{T})"/>
+        internal static Task SortAsync<T>(T[] array) where T : IComparable<T> => SortAsync(array.AsMemory());
+
         /// <summary>
         /// Runs quick sort on an array.
         /// </summary>
@@ -75,6 +79,27 @@ namespace AlgoNet.Sorting
 
             // Sort values after the pivot
             Sort(array.Slice(pivot + 1));
+        }
+
+        /// <summary>
+        /// Runs quick sort on an array.
+        /// </summary>
+        /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
+        /// <param name="array">The array to sort.</param>
+        internal static async Task SortAsync<T>(Memory<T> array)
+            where T : IComparable<T>
+        {
+            // Nothing to sort (base case)
+            if (array.Length <= 1) return;
+
+            // Partition values before and after the pivot.
+            int pivot = Partition(array.Span);
+
+            // Sort values before the pivot
+            await Task.Run(() => SortAsync(array.Slice(0, pivot)));
+
+            // Sort values after the pivot
+            await Task.Run(() => SortAsync(array.Slice(pivot + 1)));
         }
 
         private static int Partition<T>(Span<T> array)
