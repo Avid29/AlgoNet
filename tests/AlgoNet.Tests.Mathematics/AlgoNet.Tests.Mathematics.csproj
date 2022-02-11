@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net472;netcoreapp3.1;net6.0</TargetFrameworks>
-    <Platforms>AnyCPU;x86;x64;ARM;ARM64</Platforms>
+	<TargetFrameworks>net472;netcoreapp3.1;net6.0</TargetFrameworks>
+	<Platforms>AnyCPU;x86;x64;ARM;ARM64</Platforms>
 	<GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
 
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AlgoNet.Tests.Common\AlgoNet.Tests.Data.csproj" />
+    <ProjectReference Include="..\..\src\AlgoNet.Math\AlgoNet.Mathematics.csproj" />
   </ItemGroup>
 
 </Project>
