@@ -12,9 +12,21 @@ namespace AlgoNet.Sorting
     public static partial class CountingSort
     {
         /// <inheritdoc cref="Sort{T}(Span{T},Func{T, int},int)"/>
-        public static T[] Sort<T>(T[] array, Func<T, int> valueMethod, int k) => Sort(array.AsSpan(), valueMethod, k).ToArray();
+        public static T[] Sort<T>(T[] array, Func<T, int> valueMethod, int k)
+        {
+            T[] result = new T[array.Length];
+            Sort(array.AsSpan(), result.AsSpan(), valueMethod, k);
+            return result;
+        }
 
         public static Span<T> Sort<T>(Span<T> array, Func<T, int> valueMethod, int k)
+        {
+            Span<T> result = new T[array.Length];
+            Sort(array, result, valueMethod, k);
+            return result;
+        }
+
+        private static Span<T> Sort<T>(Span<T> array, Span<T> result, Func<T, int> valueMethod, int k)
         {
             Unsafe.SkipInit(out int i);
             Unsafe.SkipInit(out int value);
@@ -34,7 +46,6 @@ namespace AlgoNet.Sorting
 
             // Check the buffer for the position to place each value.
             // Starting at the back ensures a stable sort.
-            Span<T> result = new Span<T>(new T[array.Length]);
             for (i = array.Length - 1; i >= 0; i--)
             {
                 T item = array[i];

@@ -24,7 +24,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
         public void IterationSetup()
         {
             _array = Enumerable.Range(0, Count-1).ToArray();
-            if (Randomized) FisherYates.Shuffle(_array);
+            if (Randomized) FisherYates.Shuffle(_array, 0);
 
             _list = new List<int>(_array);
         }
