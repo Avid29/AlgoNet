@@ -19,7 +19,7 @@ namespace AlgoNet.Mathematics
         /// <returns>The largest number</returns>
         public static T Max<T>(params T[] nums)
             // Can safely suppress null because k is less than nums.Length - 1
-            where T : IComparable<T> => QuickSelect.Select(nums.AsSpan(), nums.Length - 1)!;
+            where T : IComparable<T> => IterativeMax(nums.AsSpan())!;
 
         /// <summary>
         /// Returns the smallest number.
@@ -28,60 +28,70 @@ namespace AlgoNet.Mathematics
         /// <returns>The smallest number</returns>
         public static T Min<T>(params T[] nums)
             // Can safely suppress null because k is less than nums.Length - 1
-            where T : IComparable<T> => QuickSelect.Select(nums.AsSpan(), 0)!;
+            where T : IComparable<T> => IterativeMin(nums.AsSpan());
 
-        #region double
+        internal static T IterativeMax<T>(Span<T> nums)
+            where T : IComparable<T>
+        {
+            T max = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+                max = Max(max, nums[i]);
+            return max;
+        }
 
-        internal static double NaiveMax(Span<double> nums)
+        internal static T IterativeMin<T>(Span<T> nums)
+            where T : IComparable<T>
+        {
+            T min = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+                min = Min(min, nums[i]);
+            return min;
+        }
+
+        internal static T RecursiveMax<T>(Span<T> nums)
+            where T : IComparable<T>
         {
             if (nums.Length == 1) return nums[0];
-            if (nums.Length == 2) return Math.Max(nums[0], nums[1]);
 
             int mid = nums.Length / 2;
 
-            double left = NaiveMax(nums.Slice(0, mid));
-            double right = NaiveMax(nums.Slice(mid));
-            return Math.Max(left, right);
+            T left = RecursiveMax(nums.Slice(0, mid));
+            T right = RecursiveMax(nums.Slice(mid));
+            return Max(left, right);
         }
 
-        internal static double NaiveMin(Span<double> nums)
+        internal static T RecursiveMin<T>(Span<T> nums)
+            where T : IComparable<T>
         {
             if (nums.Length == 1) return nums[0];
-            if (nums.Length == 2) return Math.Min(nums[0], nums[1]);
 
             int mid = nums.Length / 2;
 
-            double left = NaiveMin(nums.Slice(0, mid));
-            double right = NaiveMin(nums.Slice(mid));
-            return Math.Min(left, right);
-        }
-        #endregion
-
-        #region int
-
-        internal static int NaiveMax(Span<int> nums)
-        {
-            if (nums.Length == 1) return nums[0];
-            if (nums.Length == 2) return Math.Max(nums[0], nums[1]);
-
-            int mid = nums.Length / 2;
-
-            int left = NaiveMax(nums.Slice(0, mid));
-            int right = NaiveMax(nums.Slice(mid));
-            return Math.Max(left, right);
+            T left = RecursiveMin(nums.Slice(0, mid));
+            T right = RecursiveMin(nums.Slice(mid));
+            return Min(left, right);
         }
 
-        internal static int NaiveMin(Span<int> nums)
-        {
-            if (nums.Length == 1) return nums[0];
-            if (nums.Length == 2) return Math.Min(nums[0], nums[1]);
+        /// <summary>
+        /// Returns the greater of two values.
+        /// </summary>
+        /// <typeparam name="T">The type of values to compare.</typeparam>
+        /// <param name="val1">The first value.</param>
+        /// <param name="val2">The second value.</param>
+        /// <returns>The greater value.</returns>
+        public static T Max<T>(T val1, T val2)
+            where T : IComparable<T> => val1.CompareTo(val2) >= 0 ? val1 : val2;
 
-            int mid = nums.Length / 2;
+        /// <summary>
+        /// Returns the least of two values.
+        /// </summary>
+        /// <typeparam name="T">The type of values to compare.</typeparam>
+        /// <param name="val1">The first value.</param>
+        /// <param name="val2">The second value.</param>
+        /// <returns>The smallest value.</returns>
+        public static T Min<T>(T val1, T val2)
+            where T : IComparable<T> => val1.CompareTo(val2) <= 0 ? val1 : val2;
 
-            int left = NaiveMin(nums.Slice(0, mid));
-            int right = NaiveMin(nums.Slice(mid));
-            return Math.Min(left, right);
-        }
 
         /// <summary>
         /// Returns the smallest power of 2 greater than <paramref name="value"/>.
@@ -128,6 +138,5 @@ namespace AlgoNet.Mathematics
             return (int)((BitConverter.DoubleToInt64Bits(value) >> 52) + 1) & 0xFF;
         }
 #endif
-        #endregion
     }
 }

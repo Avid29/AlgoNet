@@ -36,6 +36,12 @@ namespace AlgoNet.Benchmarks.Benchmarks
         }
 
         [Benchmark]
+        public void AlgoNet_Iterative_Min()
+        {
+            ExtraMath.IterativeMin(_array.AsSpan());
+        }
+
+        [Benchmark]
         public void AlgoNet_QuickSelect_Min()
         {
             QuickSelect.Select(_array, 0);
@@ -50,7 +56,13 @@ namespace AlgoNet.Benchmarks.Benchmarks
         [Benchmark]
         public void AlgoNet_Recursive_Min()
         {
-            ExtraMath.NaiveMin(_array);
+            ExtraMath.RecursiveMin(_array.AsSpan());
+        }
+
+        [Benchmark]
+        public void AlgoNet_Iterative_Max()
+        {
+            ExtraMath.IterativeMax(_array.AsSpan());
         }
 
         [Benchmark]
@@ -68,7 +80,7 @@ namespace AlgoNet.Benchmarks.Benchmarks
         [Benchmark]
         public void AlgoNet_Recursive_Max()
         {
-            ExtraMath.NaiveMax(_array);
+            ExtraMath.RecursiveMax(_array.AsSpan());
         }
     }
 }
