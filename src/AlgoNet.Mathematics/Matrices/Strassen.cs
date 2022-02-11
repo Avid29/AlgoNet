@@ -7,7 +7,7 @@ namespace AlgoNet.Mathematics.Matrices
     /// <summary>
     /// A static class containing methods for Strassen multiplication
     /// </summary>
-    public static class Strassen
+    internal static class Strassen
     {
         /// <summary>
         /// Multiplies two matricies with the Strassen method.
@@ -15,7 +15,7 @@ namespace AlgoNet.Mathematics.Matrices
         /// <param name="a">Matrix A.</param>
         /// <param name="b">Matrix B.</param>
         /// <returns>The product of A and B.</returns>
-        public static Matrix Multiply(Matrix a, Matrix b)
+        internal static Matrix Multiply(Matrix a, Matrix b)
         {
             // TODO: NxM multiplication
             int n = a.Width;
