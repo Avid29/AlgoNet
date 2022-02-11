@@ -53,7 +53,22 @@ namespace AlgoNet.Tests.Mathematics.Matrices
                 var b = AsMatrix(pair.Item2);
                 var canon = AsMatrix(mCanon);
 
-                var result = a.Multiply(b);
+                var result = MatrixOperations.Multiply(a, b);
+                Assert.IsTrue(AreEqual(canon, result));
+            }
+        }
+
+        [TestMethod]
+        public void StrassenMultiply()
+        {
+            foreach (var pair in _pairs)
+            {
+                var mCanon = pair.Item1 * pair.Item2;
+                var a = AsMatrix(pair.Item1);
+                var b = AsMatrix(pair.Item2);
+                var canon = AsMatrix(mCanon);
+
+                var result = Strassen.Multiply(a, b);
                 Assert.IsTrue(AreEqual(canon, result));
             }
         }
