@@ -1,6 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using AlgoNet.Sorting.Select;
 using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -10,7 +9,7 @@ namespace AlgoNet.Mathematics
     /// <summary>
     /// Extra math operations
     /// </summary>
-    public static class ExtraMath
+    public static partial class ExtraMath
     {
         /// <summary>
         /// Returns the largest number.
