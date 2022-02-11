@@ -17,7 +17,7 @@ namespace AlgoNet.Tests.Sorting.Shuffle
 
             FisherYates.Shuffle(data, 0);
 
-            Assert.IsFalse(Common.AreEquivilent(data, clone));
+            CollectionAssert.AreNotEqual(data, clone);
         }
 
         [TestMethod]

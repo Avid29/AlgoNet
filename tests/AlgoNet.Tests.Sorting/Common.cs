@@ -13,7 +13,7 @@ namespace AlgoNet.Tests.Sorting
             where T : IComparable<T>, IEquatable<T>
         {
             Array.Sort(raw);
-            Assert.IsTrue(AreEquivilent(raw, sorted));
+            CollectionAssert.AreEqual(raw, sorted);
         }
 
         internal static void VerifySorted<T>(IList<T> sorted, IList<T> raw)
@@ -31,16 +31,6 @@ namespace AlgoNet.Tests.Sorting
 
             for (int i = k + 1; i < partitionedArray.Length; i++)
                 Assert.IsTrue(partitionedArray[i].CompareTo(kth) >= 0);
-        }
-
-        internal static bool AreEquivilent<T>(T[] data, T[] clone)
-            where T : IEquatable<T>
-        {
-            for (int i = 0; i < data.Length; i++)
-            {
-                if (!data[i].Equals(clone[i])) return false;
-            }
-            return true;
         }
 
         internal static bool AreEquivilent<T>(IList<T> data, IList<T> clone)
