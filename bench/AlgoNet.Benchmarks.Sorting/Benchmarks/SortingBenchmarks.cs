@@ -30,15 +30,9 @@ namespace AlgoNet.Benchmarks.Benchmarks
         }
 
         [Benchmark]
-        public void AlgoNet_CountingSort_Array()
+        public void AlgoNet_CountingSort()
         {
             CountingSort.Sort(_array, x => x, _array.Length);
-        }
-
-        [Benchmark]
-        public void AlgoNet_CountingSort_IList()
-        {
-            CountingSort.Sort(_list, x => x, _list.Count);
         }
 
         [Benchmark]
@@ -57,6 +51,12 @@ namespace AlgoNet.Benchmarks.Benchmarks
         public void AlgoNet_MergeSort()
         {
             MergeSort.Sort(_array);
+        }
+
+        [Benchmark]
+        public void AlgoNet_MergeSortAsync()
+        {
+            MergeSort.SortAsync(_array);
         }
 
         //[Benchmark]

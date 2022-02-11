@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Threading.Tasks;
 
 namespace AlgoNet.Sorting
 {
@@ -12,16 +13,31 @@ namespace AlgoNet.Sorting
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
         public static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
 
+        /// <inheritdoc cref="SortAsync{T}(Memory{T})"/>
+        public static Task SortAsync<T>(T[] array) where T : IComparable<T> => SortAsync(array.AsMemory());
+
         /// <summary>
         /// Runs quick sort on an array.
         /// </summary>
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
         /// <param name="array">The array to sort.</param>
-        public static void Sort<T>(Span<T> array)
+        internal static void Sort<T>(Span<T> array)
             where T : IComparable<T>
         {
             Span<T> buffer = new T[array.Length];
             SplitMerge(array, buffer);
+        }
+
+        /// <summary>
+        /// Runs quick sort on an array.
+        /// </summary>
+        /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
+        /// <param name="array">The array to sort.</param>
+        internal static async Task SortAsync<T>(Memory<T> array)
+            where T : IComparable<T>
+        {
+            Memory<T> buffer = new T[array.Length];
+            await SplitMergeAsync(array, buffer);
         }
 
         private static Span<T> SplitMerge<T>(Span<T> array, Span<T> target, int depth = 0)
@@ -50,6 +66,48 @@ namespace AlgoNet.Sorting
             // This ensures the final merge is on the source array.
             target = depth % 2 == 0 ? array : target;
             Merge(left, right, target);
+            return target;
+        }
+
+        private static async Task<Memory<T>> SplitMergeAsync<T>(Memory<T> array, Memory<T> target, int depth = 0)
+            where T : IComparable<T>
+        {
+            // Base case
+            if (array.Length == 1)
+            {
+                if (depth % 2 == 1)
+                {
+                    target.Span[0] = array.Span[0];
+                    return target;
+                } else
+                {
+                    return array;
+                }
+            }
+
+            // Split the array recursively
+            int mid = array.Length / 2;
+            int newDepth = depth + 1;
+            await Task.Run(() => SplitMergeAsync(array.Slice(0, mid), target.Slice(0, mid), newDepth));
+            await Task.Run(() => SplitMergeAsync(array.Slice(mid), target.Slice(mid), newDepth));
+
+            // Use the source array at even depths and target at odd.
+            // This ensures the final merge is on the source array.
+            Memory<T> left;
+            Memory<T> right;
+            if (depth % 2 == 0)
+            {
+                left = target.Slice(0, mid);
+                right = target.Slice(mid);
+                target = array;
+            }
+            else
+            {
+                left = array.Slice(0, mid);
+                right = array.Slice(mid);
+            }
+
+            Merge(left.Span, right.Span, target.Span);
             return target;
         }
 

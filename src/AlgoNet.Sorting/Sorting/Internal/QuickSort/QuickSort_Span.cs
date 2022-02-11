@@ -57,7 +57,7 @@ namespace AlgoNet.Sorting
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
         internal static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
 
-        /// <inheritdoc cref="SortAsync{T}(Memory{T}{T})"/>
+        /// <inheritdoc cref="SortAsync{T}(Memory{T})"/>
         internal static Task SortAsync<T>(T[] array) where T : IComparable<T> => SortAsync(array.AsMemory());
 
         /// <summary>
