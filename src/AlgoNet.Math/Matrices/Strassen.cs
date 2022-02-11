@@ -1,8 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using System;
-using System.Numerics;
-using System.Runtime.CompilerServices;
 using MO = AlgoNet.Mathematics.Matrices.MatrixOperations;
 
 namespace AlgoNet.Mathematics.Matrices
@@ -82,33 +79,6 @@ namespace AlgoNet.Mathematics.Matrices
             MO.Add(p5, p1, c22).Subtract(p3).Subtract(p7);
 
             return c;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int RoundUpPow2(int x)
-        {
-#if NET6_0_OR_GREATER
-            return (int)BitOperations.RoundUpToPowerOf2((uint)x);
-#else
-            if (x < 0) return 0;
-            --x;
-            x |= x >> 1;
-            x |= x >> 2;
-            x |= x >> 4;
-            x |= x >> 8;
-            x |= x >> 16;
-            return x + 1;
-#endif
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int Log2(int x)
-        {
-#if NET6_0_OR_GREATER
-            return BitOperations.Log2((uint)x);
-#else
-            return (int)((BitConverter.DoubleToInt64Bits(x) >> 52) + 1) & 0xFF;
-#endif
         }
     }
 }
