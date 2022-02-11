@@ -36,33 +36,15 @@ namespace AlgoNet.Benchmarks.Benchmarks
         }
 
         [Benchmark]
-        public void AlgoNet_Iterative_Min()
-        {
-            ExtraMath.IterativeMin(_array.AsSpan());
-        }
-
-        [Benchmark]
-        public void AlgoNet_QuickSelect_Min()
-        {
-            QuickSelect.Select(_array, 0);
-        }
-
-        [Benchmark]
-        public void AlgoNet_Quick3Select_Min()
-        {
-            Quick3Select.Select(_array, 0);
-        }
-
-        [Benchmark]
-        public void AlgoNet_Recursive_Min()
-        {
-            ExtraMath.RecursiveMin(_array.AsSpan());
-        }
-
-        [Benchmark]
         public void AlgoNet_Iterative_Max()
         {
             ExtraMath.IterativeMax(_array.AsSpan());
+        }
+
+        [Benchmark]
+        public void AlgoNet_Iterative_Min()
+        {
+            ExtraMath.IterativeMin(_array.AsSpan());
         }
 
         [Benchmark]
@@ -72,15 +54,45 @@ namespace AlgoNet.Benchmarks.Benchmarks
         }
 
         [Benchmark]
+        public void AlgoNet_QuickSelect_Min()
+        {
+            QuickSelect.Select(_array, 0);
+        }
+
+        [Benchmark]
         public void AlgoNet_Quick3Select_Max()
         {
             Quick3Select.Select(_array, _array.Length - 1);
         }
 
         [Benchmark]
+        public void AlgoNet_Quick3Select_Min()
+        {
+            Quick3Select.Select(_array, 0);
+        }
+
+        [Benchmark]
         public void AlgoNet_Recursive_Max()
         {
             ExtraMath.RecursiveMax(_array.AsSpan());
+        }
+
+        [Benchmark]
+        public void AlgoNet_Recursive_Min()
+        {
+            ExtraMath.RecursiveMin(_array.AsSpan());
+        }
+
+        [Benchmark]
+        public void Linq_Max()
+        {
+            _array.Max();
+        }
+
+        [Benchmark]
+        public void Linq_Min()
+        {
+            _array.Min();
         }
     }
 }
