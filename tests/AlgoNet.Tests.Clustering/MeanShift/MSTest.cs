@@ -39,6 +39,28 @@ namespace AlgoNet.Tests.Clustering.MeanShift
             MSC.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);
         }
 
+        public void RunAsyncCompare()
+        {
+            var basis = MSC.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);
+            var actual = MSC.ClusterAsync<T, TShape, TKernel>(Data, Kernel, Shape);
+
+            Assert.AreEqual(
+                basis.Count,
+                actual.Count,
+                $"Failed on test \"{Name}\" where {basis.Count} clusters were expected but {actual.Count} clusters were found.");
+
+            for (int i = 0; i < basis.Count; i++)
+            {
+                Assert.AreEqual(
+                    basis[i].Weight,
+                    actual[i].Weight,
+                    $"Failed on test \"{Name}\" because cluster {i} expected {basis[i].Weight} items and had {actual[i].Weight} items.");
+
+                Assert.IsTrue(Shape.AreEqual(basis[i].Centroid, actual[i].Centroid),
+                    $"Failed on test \"{Name}\" because cluster {i} expected was {actual[i]} but the expected values was {basis[i]}.");
+            }
+        }
+
         public void RunWeightedCompare()
         {
             var basis = MSC.Cluster<T, TShape, TKernel>(Data, Kernel, Shape);

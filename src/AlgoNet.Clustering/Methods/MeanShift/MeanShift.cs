@@ -6,6 +6,7 @@ using Microsoft.Collections.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace AlgoNet.Clustering
 {
@@ -68,10 +69,16 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel
-        {
-            return Cluster(points, points, kernel, shape);
-        }
+            where TKernel : struct, IKernel => Cluster(points, points, kernel, shape);
+
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        public static List<MSCluster<T, TShape>> ClusterAsync<T, TShape, TKernel>(
+            ReadOnlySpan<T> points,
+            TKernel kernel,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel => ClusterAsync(points, points, kernel, shape);
 
         /// <summary>
         /// Clusters a set of points using MeanShift over a field.
@@ -95,13 +102,17 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel
-        {
-            // Take the regular raw cluster.
-            (T, int)[] raw = ClusterRaw(points, field, kernel, shape);
+            where TKernel : struct, IKernel => Wrap<T, TShape>(ClusterRaw(points, field, kernel, shape));
 
-            return Wrap<T, TShape>(raw);
-        }
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        public static List<MSCluster<T, TShape>> ClusterAsync<T, TShape, TKernel>(
+            ReadOnlySpan<T> points,
+            ReadOnlySpan<T> field,
+            TKernel kernel,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel => Wrap<T, TShape>(ClusterRawAsync(points, field, kernel, shape));
 
         /// <inheritdoc cref="ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
         public static unsafe (T, int)[] ClusterRaw<T, TShape, TKernel>(
@@ -110,10 +121,16 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel
-        {
-            return ClusterRaw(points, points, kernel, shape);
-        }
+            where TKernel : struct, IKernel => ClusterRaw(points, points, kernel, shape);
+
+        /// <inheritdoc cref="ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        public static unsafe (T, int)[] ClusterRawAsync<T, TShape, TKernel>(
+            ReadOnlySpan<T> points,
+            TKernel kernel,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel => ClusterRawAsync(points, points, kernel, shape);
 
         /// <remarks>
         /// It is usually wise to use <see cref="WeightedMeanShift.ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
@@ -148,6 +165,46 @@ namespace AlgoNet.Clustering
 
                     // TODO: Track points in the cluster
                 }
+            }
+
+            return PostProcess(clusters, kernel, shape);
+        }
+
+        /// <remarks>
+        /// It is usually wise to use <see cref="WeightedMeanShift.ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
+        /// Weighted MeanShift greatly reduces computation time when dealing with duplicate points.
+        /// </remarks>
+        /// <returns>An array of clusters weighted by the contributing points.</returns>
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        public static unsafe (T, int)[] ClusterRawAsync<T, TShape, TKernel>(
+            ReadOnlySpan<T> points,
+            ReadOnlySpan<T> field,
+            TKernel kernel,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IGeometricPoint<T>
+            where TKernel : struct, IKernel
+        {
+            // Points will bed cloned into a modifiable list of clusters
+            T[] clusters = new T[points.Length];
+
+            fixed (T* f = field)
+            fixed(T* p = points)
+            {
+                T* f0 = f;
+                T* p0 = p;
+                int pointCount = points.Length;
+                int fieldLength = field.Length;
+
+                Parallel.For(0, clusters.Length, (i, state) =>
+                {
+                    (T, double)[] fieldWeights = new (T, double)[fieldLength];
+
+                    // Shift each cluster to its convergence point.
+                    T point = p0[i];
+                    T cluster = MeanShiftPoint(point, f0, pointCount, shape, kernel, fieldWeights);
+                    clusters[i] = cluster;
+                });
             }
 
             return PostProcess(clusters, kernel, shape);

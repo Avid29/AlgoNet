@@ -11,9 +11,27 @@ namespace AlgoNet.Tests.Clustering.MeanShift
         public const double ACCEPTED_ERROR = .000001;
 
         [TestMethod]
-        public void WeightedEquivalencyExplicit()
+        public void AsyncEquivalencyExplicit()
         {
             foreach (var test in ExplicitTests.All)
+            {
+                test.RunAsyncCompare();
+            }
+        }
+
+        [TestMethod]
+        public void AsyncEquivalencGradient()
+        {
+            foreach (var test in ExplicitTests.All)
+            {
+                test.RunAsyncCompare();
+            }
+        }
+
+        [TestMethod]
+        public void WeightedEquivalencyExplicit()
+        {
+            foreach (var test in GradientTests.All)
             {
                 test.RunWeightedCompare();
             }

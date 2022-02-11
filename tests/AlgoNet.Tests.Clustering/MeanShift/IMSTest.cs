@@ -4,6 +4,8 @@ namespace AlgoNet.Tests.Clustering.MeanShift
 {
     public interface IMSTest : ITest
     {
+        void RunAsyncCompare();
+
         void RunWeightedCompare();
     }
 }
