@@ -10,7 +10,7 @@ namespace AlgoNet.Sorting.Select
     public static class QuickSelect
     {
         /// <inheritdoc cref="Select{T}(Span{T},int)"/>
-        public static T Select<T>(T[] array, int k) where T : IComparable<T> => Select(array.AsSpan(), k);
+        public static T? Select<T>(T[] array, int k) where T : IComparable<T> => Select(array.AsSpan(), k);
 
         /// <summary>
         /// Runs quick select on an array.
@@ -22,7 +22,7 @@ namespace AlgoNet.Sorting.Select
         /// <param name="array">The array to select on.</param>
         /// <param name="k">The position to select.</param>
         /// <returns>The kth smallest item in the array.</returns>
-        public static T Select<T>(Span<T> array, int k)
+        public static T? Select<T>(Span<T> array, int k)
             where T : IComparable<T>
         {
             while (true)

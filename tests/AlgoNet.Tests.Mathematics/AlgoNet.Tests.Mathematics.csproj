@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AlgoNet.Math\AlgoNet.Mathematics.csproj" />
+    <ProjectReference Include="..\..\src\AlgoNet.Mathematics\AlgoNet.Mathematics.csproj" />
   </ItemGroup>
 
 </Project>

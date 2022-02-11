@@ -18,6 +18,7 @@ namespace AlgoNet.Tests.Gradients.Easing
                     EaseFunc = QuadEaseOut;
                     break;
                 case EasingMode.EaseInOut:
+                default:
                     EaseFunc = QuadEaseInOut;
                     break;
             }

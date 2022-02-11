@@ -18,6 +18,7 @@ namespace AlgoNet.Tests.Gradients.Easing
                     EaseFunc = CubicEaseOut;
                     break;
                 case EasingMode.EaseInOut:
+                default:
                     EaseFunc = CubicEaseInOut;
                     break;
             }

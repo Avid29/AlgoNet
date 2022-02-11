@@ -6,7 +6,7 @@ namespace AlgoNet.Tests.Data
 {
     public static class ExplicitSets
     {
-        public static DataSet<double> Double_Test1 = new DataSet<double>(
+        public static ExplicitDataSet<double> Double_Test1 = new ExplicitDataSet<double>(
             "Double test 1",
             new double[]
             {
@@ -19,7 +19,7 @@ namespace AlgoNet.Tests.Data
                 24,
             });
         
-        public static DataSet<Vector2> Vector2_Test1 = new DataSet<Vector2>(
+        public static ExplicitDataSet<Vector2> Vector2_Test1 = new ExplicitDataSet<Vector2>(
             "Vector2 Test 1",
             new Vector2[]
             {

@@ -19,6 +19,14 @@ namespace AlgoNet.Sorting
             return result;
         }
 
+        /// <summary>
+        /// Sorts an array using Counting Sort.
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the array.</typeparam>
+        /// <param name="array">The array to sort.</param>
+        /// <param name="valueMethod">A function that grabs an int less than <paramref name="k"/> from a <typeparamref name="T"/> in the array.</param>
+        /// <param name="k">The max value output of the <paramref name="valueMethod"/>.</param>
+        /// <returns>A sorted clone of <paramref name="array"/>.</returns>
         public static Span<T> Sort<T>(Span<T> array, Func<T, int> valueMethod, int k)
         {
             Span<T> result = new T[array.Length];
