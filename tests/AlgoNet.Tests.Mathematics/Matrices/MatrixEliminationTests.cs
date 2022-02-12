@@ -21,5 +21,28 @@ namespace AlgoNet.Tests.Mathematics.Matrices
 
             MatrixOperations.RowEchelon(matrix);
         }
+
+        [TestMethod]
+        public void ReduceRowEchelon()
+        {
+            Matrix matrix = new double[,]
+            {
+                { 1, 3, 4 },
+                { 1, 4, 5 },
+                { 2, 6, 9 },
+            };
+
+            MatrixOperations.ReducedRowEchelon(matrix);
+
+
+            Matrix identity = new double[,]
+            {
+                { 1, 0, 0 },
+                { 0, 1, 0 },
+                { 0, 0, 1 },
+            };
+
+            CollectionAssert.AreEqual(identity.ToArray(), matrix.ToArray());
+        }
     }
 }
