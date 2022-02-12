@@ -9,6 +9,43 @@ namespace AlgoNet.Sorting.Select
     /// </summary>
     public static class QuickSelect
     {
+        /// Quick Select finds the kth greatest value in an array and sets all values greater than
+        /// k before and all values less than k after it.
+        /// This is done by recursively partitioning an array around a pivot sorting only the section containing the kth element.
+        /// 
+        /// For example
+        /// Let's select K = 2 from this list
+        /// | 2   4   6   1   5   3 |
+        /// 
+        /// Step 1
+        ///     Group | - Unpartitioned - - - | 
+        ///     Value | 2   4   6   3   5   1 |
+        ///     Index | 0   1   2   3   4   5 |
+        ///     Pivot |             ^       ^ |
+        ///     
+        ///     In step 1 we selected the middle index (6 / 2 = 3) as the pivot
+        ///     Then we swapped it with the last index for partitioning
+        ///     
+        /// Step 2
+        ///     Group | L | - Contains kth -  | 
+        ///     Value | 1 | 4   6   2   5   3 |
+        ///     Index | 0 | 1   2   3   4   5 |
+        ///     Pivot |   |         ^       ^ |
+        ///     
+        ///     In step 2 we partitioned the array so values less than the pivot are on left of it
+        ///     and values greater than the pivot are to its right.
+        ///     There were no values smaller than the pivot.
+        ///     We also sliced the section that contains k to select in there.
+        ///     
+        /// Step 3
+        ///     Group | Lower | K |  Greater  | 
+        ///     Value | 1   2 | 3 | 4   5   6 |
+        ///     Index | 0   1 | 2 | 3   4   5 |
+        ///     Pivot |       |   |           |
+        ///     
+        ///     In step 3 we paritioned the values that contained K and found that our pivot was k.
+        ///     In this case the list happens to be sorted in full, but that is not guarenteed and is unlikely for larger lists.
+
         /// <inheritdoc cref="Select{T}(Span{T},int)"/>
         public static T? Select<T>(T[] array, int k) where T : IComparable<T> => Select(array.AsSpan(), k);
 
