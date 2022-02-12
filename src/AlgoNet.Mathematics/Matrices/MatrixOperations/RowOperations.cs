@@ -19,7 +19,7 @@ namespace AlgoNet.Mathematics.Matrices
             }
         }
 
-        internal static void Add(Row row1, Row row2, double coefficient)
+        internal static void Add(Row row1, ReadOnlyRow row2, double coefficient)
         {
             for (int i = 0; i < row1.Length; i++)
                 row1[i] += coefficient * row2[i];

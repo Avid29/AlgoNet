@@ -17,9 +17,10 @@ namespace AlgoNet.Mathematics.Matrices
             int r = 0;
             Unsafe.SkipInit(out double co);
 
-            for (int i = 0; i < matrix.Height - 1; i++)
+            for (int row = 0; row < matrix.Height - 1; row++)
             {
-                // Find next non-zero column.
+                // Find next non-zero column
+                // and the row of the first non-zero value in it
                 for (; col < matrix.Width; col++)
                     if (!IsZeroColumn(matrix.GetColumn(col), r, out r)) break;
 
@@ -27,8 +28,8 @@ namespace AlgoNet.Mathematics.Matrices
                 if (col == matrix.Width) return matrix;
 
                 // Put row with leading 1 in col at row i
-                if (r != i) SwapRows(matrix, r, i);
-                Row rowi = matrix.GetRow(i);
+                if (r != row) SwapRows(matrix, r, row);
+                Row rowi = matrix.GetRow(row);
                 co = rowi[col];
                 if (co != 1) Divide(rowi, co);
 
@@ -43,6 +44,38 @@ namespace AlgoNet.Mathematics.Matrices
 
                 col++;
                 r++;
+            }
+
+            return matrix;
+        }
+
+        /// <summary>
+        /// Reduces a matrix to reduced row echelon form.
+        /// </summary>
+        /// <param name="matrix">The matrix to reduce.</param>
+        /// <returns>The matrix in reduced row echelon form.</returns>
+        public static Matrix ReducedRowEchelon(Matrix matrix)
+        {
+            // Put matrix in row echelon form.
+            RowEchelon(matrix);
+
+            // Start at column 1 because column 0 is guarenteed complete
+            for (int i = 1; i < matrix.Width; i++)
+            {
+                int r;
+                // Find the first non-zero column
+                ReadOnlyColumn coli = matrix.GetColumn(i);
+                for (r = coli.Length - 1; r >= 0; r--)
+                    if (coli[r] != 0) break;
+
+                ReadOnlyRow rowr = matrix.GetRow(r);
+                for (int j = r-1; j >= 0; j--)
+                {
+                    Row rowj = matrix.GetRow(j);
+                    double co = -rowj[i];
+                    if (co != 0)
+                        Add(rowj, rowr, co);
+                }
             }
 
             return matrix;
