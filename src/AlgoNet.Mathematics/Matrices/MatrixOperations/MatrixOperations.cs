@@ -7,37 +7,8 @@ namespace AlgoNet.Mathematics.Matrices
     /// <summary>
     /// A static class containing operations for <see cref="Matrix"/> as a matrix.
     /// </summary>
-    public class MatrixOperations
+    public static partial class MatrixOperations
     {
-        /// <summary>
-        /// Multiplies matrix A by matrix B.
-        /// </summary>
-        /// <param name="a">Matrix A.</param>
-        /// <param name="b">Matrix B.</param>
-        /// <returns>Matrix AB.</returns>
-        public static Matrix Multiply(Matrix a, Matrix b)
-        {
-            if (a.Width != b.Height) ThrowHelper.ThrowArgumentException($"Dimensions of a and b don't match.");
-
-            Matrix r = new double[a.Height, b.Width];
-
-            // Rows
-            for (int i = 0; i < a.Height; i++)
-            {
-                // Columns
-                for (int j = 0; j < b.Width; j++)
-                {
-                    // Sum
-                    for (int k = 0; k < a.Width; k++)
-                    {
-                        r[i, j] += a[i, k] * b[k, j];
-                    }
-                }
-            }
-
-            return r;
-        }
-
         /// <inheritdoc cref="Add(Matrix, Matrix, Matrix"/>
         public static Matrix Add(Matrix a, Matrix b)
         {
@@ -84,6 +55,35 @@ namespace AlgoNet.Mathematics.Matrices
                     target[i, j] = a[i, j] - b[i, j];
 
             return target;
+        }
+
+        /// <summary>
+        /// Multiplies matrix A by matrix B.
+        /// </summary>
+        /// <param name="a">Matrix A.</param>
+        /// <param name="b">Matrix B.</param>
+        /// <returns>Matrix AB.</returns>
+        public static Matrix Multiply(Matrix a, Matrix b)
+        {
+            if (a.Width != b.Height) ThrowHelper.ThrowArgumentException($"Dimensions of a and b don't match.");
+
+            Matrix r = new double[a.Height, b.Width];
+
+            // Rows
+            for (int i = 0; i < a.Height; i++)
+            {
+                // Columns
+                for (int j = 0; j < b.Width; j++)
+                {
+                    // Sum
+                    for (int k = 0; k < a.Width; k++)
+                    {
+                        r[i, j] += a[i, k] * b[k, j];
+                    }
+                }
+            }
+
+            return r;
         }
     }
 }
