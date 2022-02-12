@@ -62,12 +62,13 @@ namespace AlgoNet.Mathematics.Matrices
             // Start at column 1 because column 0 is guarenteed complete
             for (int i = 1; i < matrix.Width; i++)
             {
-                int r;
                 // Find the first non-zero column
+                Unsafe.SkipInit(out int r);
                 ReadOnlyColumn coli = matrix.GetColumn(i);
                 for (r = coli.Length - 1; r >= 0; r--)
                     if (coli[r] != 0) break;
 
+                // Put only zeros above rowr in the active column
                 ReadOnlyRow rowr = matrix.GetRow(r);
                 for (int j = r-1; j >= 0; j--)
                 {
