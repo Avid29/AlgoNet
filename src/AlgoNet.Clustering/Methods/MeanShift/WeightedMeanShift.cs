@@ -23,10 +23,7 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel
-        {
-            return Cluster(points, points, kernel, shape);
-        }
+            where TKernel : struct, IKernel => Cluster(points, points, kernel, shape);
 
         /// <summary>
         /// Clusters a set of points using a weighted version of MeanShift over a field by merging equal points.
@@ -49,14 +46,7 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel
-        {
-            // Take the regular raw cluster.
-            (T, double)[] raw = ClusterRaw(points, field, kernel, shape);
-
-            // Convert tuples into MSClusters
-            return Wrap<T, TShape>(raw);
-        }
+            where TKernel : struct, IKernel => Wrap<T, TShape>(ClusterRaw(points, field, kernel, shape));
 
         /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{(T, double)}, ReadOnlySpan{(T, double)}, TKernel, TShape)"/>
         public static List<MSCluster<T, TShape>> Cluster<T, TShape, TKernel>(
@@ -65,10 +55,7 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel
-        {
-            return Cluster(points, points, kernel, shape);
-        }
+            where TKernel : struct, IKernel => Cluster(points, points, kernel, shape);
 
         /// <summary>
         /// Clusters a set of weighted points using MeanShift over a weighted field.
@@ -88,14 +75,7 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel
-        {
-            // Take the regular raw cluster.
-            (T, double)[] raw = ClusterRaw(points, field, kernel, shape);
-
-            // Convert tuples into MSClusters
-            return Wrap<T, TShape>(raw);
-        }
+            where TKernel : struct, IKernel => Wrap<T, TShape>(ClusterRaw(points, field, kernel, shape));
 
         /// <remarks>
         /// If all points are unique, it is wise to use <see cref="MeanShift.ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape){T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead since there's no duplicates to merge.
@@ -109,12 +89,7 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel
-        {
-            ReadOnlySpan<(T, double)> weightedPoints = MakeWeighted(points);
-            ReadOnlySpan<(T, double)> weightedField = MakeWeighted(field);
-            return ClusterRaw(weightedPoints, weightedField, kernel, shape);
-        }
+            where TKernel : struct, IKernel => ClusterRaw(MakeWeighted(points), MakeWeighted(field), kernel, shape)
 
         /// <returns>An array clusters weighted by their contributing points.</returns>
         /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{(T, double)}, ReadOnlySpan{(T, double)}, TKernel, TShape)"/>
@@ -202,11 +177,7 @@ namespace AlgoNet.Clustering
         {
             bool changed = true;
 
-#if NET6_0_OR_GREATER
             Unsafe.SkipInit(out T newCluster);
-#else
-            T newCluster;
-#endif
 
             // Shift point until it converges
             while (changed)

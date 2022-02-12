@@ -182,11 +182,7 @@ namespace AlgoNet.Clustering
         {
             bool changed = true;
 
-#if NET6_0_OR_GREATER
             Unsafe.SkipInit(out T newCluster);
-#else
-            T newCluster;
-#endif
 
             // Shift point until it converges
             while (changed)
