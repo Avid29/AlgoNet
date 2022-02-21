@@ -39,7 +39,7 @@ namespace AlgoNet.Mathematics.Matrices
             Matrix b21 = b.Slice(k, 0, k, k);
             Matrix b22 = b.Slice(k, k, k, k);
 
-            // P1 = A11 * (B12 + B22)
+            // P1 = A11 * (B12 - B22)
             Matrix p1 = Multiply(a11, MO.Subtract(b12, b22));
             
             // P2 = (A11 + A12) * B22
