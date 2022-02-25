@@ -5,6 +5,7 @@ using System.Numerics;
 using AlgoNet.Mathematics.Matrices;
 using Matrix = Microsoft.Toolkit.HighPerformance.Span2D<double>;
 using System;
+using MOGPU = AlgoNet.Mathematics.GPU.Matricies.MatrixOperations.MatrixOperations;
 
 namespace AlgoNet.Tests.Mathematics.Matrices
 {
@@ -69,6 +70,21 @@ namespace AlgoNet.Tests.Mathematics.Matrices
                 var canon = AsMatrix(mCanon);
 
                 var result = Strassen.Multiply(a, b);
+                Assert.IsTrue(AreEqual(canon, result));
+            }
+        }
+
+        [TestMethod]
+        public void GPUMultiply()
+        {
+            foreach (var pair in _pairs)
+            {
+                var mCanon = pair.Item1 * pair.Item2;
+                var a = AsMatrix(pair.Item1);
+                var b = AsMatrix(pair.Item2);
+                var canon = AsMatrix(mCanon);
+
+                var result = MOGPU.Multiply(a, b);
                 Assert.IsTrue(AreEqual(canon, result));
             }
         }

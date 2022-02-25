@@ -89,7 +89,7 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IGeometricPoint<T>
-            where TKernel : struct, IKernel => ClusterRaw(MakeWeighted(points), MakeWeighted(field), kernel, shape)
+            where TKernel : struct, IKernel => ClusterRaw(MakeWeighted(points), MakeWeighted(field), kernel, shape);
 
         /// <returns>An array clusters weighted by their contributing points.</returns>
         /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{(T, double)}, ReadOnlySpan{(T, double)}, TKernel, TShape)"/>
