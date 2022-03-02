@@ -22,21 +22,21 @@ namespace AlgoNet.Mathematics.Matrices
                 // Find next non-zero column
                 // and the row of the first non-zero value in it
                 for (; col < matrix.Width; col++)
-                    if (!IsZeroColumn(matrix.GetColumn(col), r, out r)) break;
+                    if (!IsZeroColumn(matrix.AsSpan2D().GetColumn(col), r, out r)) break;
 
                 // Done
                 if (col == matrix.Width) return matrix;
 
                 // Put row with leading 1 in col at row i
                 if (r != row) SwapRows(matrix, r, row);
-                Row rowi = matrix.GetRow(row);
+                Row rowi = matrix.AsSpan2D().GetRow(row);
                 co = rowi[col];
                 if (co != 1) Divide(rowi, co);
 
                 // Put only zeros beneath rowi in the active column
                 for (int j = r+1; j < matrix.Height; j++)
                 {
-                    Row rowj = matrix.GetRow(j);
+                    Row rowj = matrix.AsSpan2D().GetRow(j);
                     co = -rowj[col];
                     if (co != 0)
                         Add(rowj, rowi, co);
@@ -64,15 +64,15 @@ namespace AlgoNet.Mathematics.Matrices
             {
                 // Find the first non-zero column
                 Unsafe.SkipInit(out int r);
-                ReadOnlyColumn coli = matrix.GetColumn(i);
+                ReadOnlyColumn coli = matrix.AsSpan2D().GetColumn(i);
                 for (r = coli.Length - 1; r >= 0; r--)
                     if (coli[r] != 0) break;
 
                 // Put only zeros above rowr in the active column
-                ReadOnlyRow rowr = matrix.GetRow(r);
+                ReadOnlyRow rowr = matrix.AsSpan2D().GetRow(r);
                 for (int j = r-1; j >= 0; j--)
                 {
-                    Row rowj = matrix.GetRow(j);
+                    Row rowj = matrix.AsSpan2D().GetRow(j);
                     double co = -rowj[i];
                     if (co != 0)
                         Add(rowj, rowr, co);
