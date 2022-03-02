@@ -1,5 +1,7 @@
 ﻿using ComputeSharp;
 using AlgoNet.Mathematics.GPU.Matricies.MatrixOperations.Shaders;
+using AlgoNet.Mathematics.Matrices;
+using Microsoft.Toolkit.HighPerformance;
 
 namespace AlgoNet.Mathematics.GPU.Matricies.MatrixOperations
 {

@@ -107,12 +107,17 @@ namespace AlgoNet.Mathematics.Matrices
             };
         }
 
-
         /// <summary>
         /// Implicitly converts a given <see cref="Matrix"/> into a <see cref="Span2D{double}"/> instance.
         /// </summary>
         /// <param name="matrix">The input <see cref="Matrix"/> to convert.</param>
         public static implicit operator Span2D<double>(Matrix matrix) => matrix.AsSpan2D();
+
+        /// <summary>
+        /// Implicitly converts a given <see cref="Matrix"/> into a <see cref="ReadOnlySpan2D{double}"/> instance.
+        /// </summary>
+        /// <param name="matrix">The input <see cref="Matrix"/> to convert.</param>
+        public static implicit operator ReadOnlySpan2D<double>(Matrix matrix) => matrix.AsSpan2D();
 
         /// <summary>
         /// Explictily converts a given <see cref="Matrix"/> into a 2D array.

@@ -68,9 +68,9 @@ namespace AlgoNet.Tests.Mathematics.Matrices
             foreach (var pair in _pairs)
             {
                 var mCanon = pair.Item1 * pair.Item2;
-                var a = AsMatrix(pair.Item1);
-                var b = AsMatrix(pair.Item2);
-                var canon = AsMatrix(mCanon);
+                var a = (Matrix)pair.Item1;
+                var b = (Matrix)pair.Item2;
+                var canon = (Matrix)mCanon;
 
                 var result = MOGPU.Multiply(a, b);
                 Assert.IsTrue(AreEqual(canon, result));
