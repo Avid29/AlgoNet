@@ -44,7 +44,6 @@ namespace AlgoNet.Mathematics.Matrices
 
         private static Matrix MultiplyNN(Matrix a, Matrix b)
         {
-            // TODO: NxM multiplication
             int n = a.Width;
 
             Matrix c;
