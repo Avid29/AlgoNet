@@ -30,20 +30,15 @@ namespace AlgoNet.Mathematics.Matrices
             b = IdentityExpand2(b);
             
             Matrix result = MultiplyNN(a, b);
-            return result.Slice(0, 0, finalHeight, finalWidth);
+            return result.AsSpan2D().Slice(0, 0, finalHeight, finalWidth);
         }
 
         private static Matrix IdentityExpand2(Matrix matrix)
         {
             int max = ExtraMath.Max(matrix.Width, matrix.Height);
             max = ExtraMath.RoundUpPow2(max);
-            Matrix result = new double[max, max];
-            for (int i = 0; i < max; i++)
-            {
-                result[i, i] = 1;
-            }
-
-            matrix.CopyTo(result);
+            Matrix result = Matrix.GetIdentityMatrix(max);
+            matrix.AsSpan2D().CopyTo(result);
             return result;
         }
 
@@ -62,14 +57,14 @@ namespace AlgoNet.Mathematics.Matrices
 
             int k = n / 2;
 
-            Matrix a11 = a.Slice(0, 0, k, k);
-            Matrix a12 = a.Slice(0, k, k, k);
-            Matrix a21 = a.Slice(k, 0, k, k);
-            Matrix a22 = a.Slice(k, k, k, k);
-            Matrix b11 = b.Slice(0, 0, k, k);
-            Matrix b12 = b.Slice(0, k, k, k);
-            Matrix b21 = b.Slice(k, 0, k, k);
-            Matrix b22 = b.Slice(k, k, k, k);
+            Matrix a11 = a.AsSpan2D().Slice(0, 0, k, k);
+            Matrix a12 = a.AsSpan2D().Slice(0, k, k, k);
+            Matrix a21 = a.AsSpan2D().Slice(k, 0, k, k);
+            Matrix a22 = a.AsSpan2D().Slice(k, k, k, k);
+            Matrix b11 = b.AsSpan2D().Slice(0, 0, k, k);
+            Matrix b12 = b.AsSpan2D().Slice(0, k, k, k);
+            Matrix b21 = b.AsSpan2D().Slice(k, 0, k, k);
+            Matrix b22 = b.AsSpan2D().Slice(k, k, k, k);
 
             // P1 = A11 * (B12 - B22)
             Matrix p1 = MultiplyNN(a11, MO.Subtract(b12, b22));
@@ -93,10 +88,10 @@ namespace AlgoNet.Mathematics.Matrices
             Matrix p7 = MultiplyNN(MO.Subtract(a11, a21), MO.Add(b11, b12));
 
             c = new double[n, n];
-            Matrix c11 = c.Slice(0, 0, k, k);
-            Matrix c12 = c.Slice(0, k, k, k);
-            Matrix c21 = c.Slice(k, 0, k, k);
-            Matrix c22 = c.Slice(k, k, k, k);
+            Matrix c11 = c.AsSpan2D().Slice(0, 0, k, k);
+            Matrix c12 = c.AsSpan2D().Slice(0, k, k, k);
+            Matrix c21 = c.AsSpan2D().Slice(k, 0, k, k);
+            Matrix c22 = c.AsSpan2D().Slice(k, k, k, k);
 
             // C11 = P5 + P4 - P2 + P6
             MO.Add(p5, p4, c11).Subtract(p2).Add(p6);

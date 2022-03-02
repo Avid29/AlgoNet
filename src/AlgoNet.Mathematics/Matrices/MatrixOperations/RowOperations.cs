@@ -6,7 +6,7 @@ namespace AlgoNet.Mathematics.Matrices
     {
         internal static void SwapRows(Matrix matrix, int row1, int row2)
         {
-            SwapRows(matrix.GetRow(row1), matrix.GetRow(row2));
+            SwapRows(matrix.AsSpan2D().GetRow(row1), matrix.AsSpan2D().GetRow(row2));
         }
 
         internal static void SwapRows(Row row1, Row row2)
