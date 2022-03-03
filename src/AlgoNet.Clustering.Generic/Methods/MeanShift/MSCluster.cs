@@ -9,9 +9,9 @@ namespace AlgoNet.Clustering.Generic
     /// </summary>
     /// <typeparam name="T">The type of points in the cluster.</typeparam>
     /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
-    public class MSCluster<T, TShape, TWeight, TDistance> : Cluster<T, TShape, TDistance>, ICentroidCluster<T>, IWeightedCluster<TDistance>
+    public class MSCluster<T, TShape, TWeight, TDistance> : Cluster<T, TShape, TDistance>, ICentroidCluster<T>, IWeightedCluster<TWeight>
         where T : unmanaged
-        where TShape : struct, IGeometricPoint<T, TWeight, TDistance>
+        where TShape : struct, IGeometricPoint<T, TDistance>
         where TWeight : INumber<TWeight>
         where TDistance : unmanaged, IFloatingPoint<TDistance>
     {
@@ -30,6 +30,6 @@ namespace AlgoNet.Clustering.Generic
         public T Centroid { get; }
 
         /// <inheritdoc/>
-        public TDistance Weight { get; }
+        public TWeight Weight { get; }
     }
 }

@@ -67,7 +67,7 @@ namespace AlgoNet.Clustering.Generic
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricPoint<T, int, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TKernel : struct, IKernel<TDistance>
             where TDistance : unmanaged, IFloatingPoint<TDistance>
         {
@@ -95,7 +95,7 @@ namespace AlgoNet.Clustering.Generic
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricPoint<T, int, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TKernel : struct, IKernel<TDistance>
             where TDistance : unmanaged, IFloatingPoint<TDistance>
         {
@@ -111,7 +111,7 @@ namespace AlgoNet.Clustering.Generic
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricPoint<T, int, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TKernel : struct, IKernel<TDistance>
             where TDistance : unmanaged, IFloatingPoint<TDistance>
         {
@@ -130,7 +130,7 @@ namespace AlgoNet.Clustering.Generic
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricPoint<T, int, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TKernel : struct, IKernel<TDistance>
             where TDistance : unmanaged, IFloatingPoint<TDistance>
         {
@@ -162,7 +162,7 @@ namespace AlgoNet.Clustering.Generic
         /// </summary>
         private static List<MSCluster<T, TShape, int, TDistance>> Wrap<T, TShape, TDistance>((T, int)[] raw)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricPoint<T, int, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TDistance : unmanaged, IFloatingPoint<TDistance>
         {
             List<MSCluster<T, TShape, int, TDistance>> clusters = new();
@@ -182,7 +182,7 @@ namespace AlgoNet.Clustering.Generic
             TKernel kernel,
             (T, TDistance)[] fieldWeights)
             where T : unmanaged
-            where TShape : struct, IGeometricPoint<T, int, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TKernel : struct, IKernel<TDistance>
             where TDistance : unmanaged, IFloatingPoint<TDistance>
         {
@@ -215,7 +215,7 @@ namespace AlgoNet.Clustering.Generic
             TKernel kernel,
             TShape shape)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricPoint<T, int, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TKernel : struct, IKernel<TDistance>
             where TDistance : unmanaged, IFloatingPoint<TDistance>
         {

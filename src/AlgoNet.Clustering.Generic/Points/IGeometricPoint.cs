@@ -11,10 +11,8 @@ namespace AlgoNet.Clustering.Generic
     /// Geometric points are defined by their absolute positions in space.
     /// </remarks>
     /// <typeparam name="T">The type being wrapped by the implementation.</typeparam>
-    /// <typeparam name="TWeight">The type of number used for weight.</typeparam>
     /// <typeparam name="TDistance">The type of floating point used for distance.</typeparam>
-    public interface IGeometricPoint<T, TWeight, TDistance> : IMetricPoint<T, TDistance>
-        where TWeight : INumber<TWeight>
+    public interface IGeometricPoint<T, TDistance> : IMetricPoint<T, TDistance>
         where TDistance : IFloatingPoint<TDistance>
     {
         /// <summary>
@@ -25,17 +23,10 @@ namespace AlgoNet.Clustering.Generic
         T Average(T[] items);
 
         /// <summary>
-        /// Gets the weighted average value of a list of (T, TDistance) by point and weight.
-        /// </summary>
-        /// <param name="items">A weighted list of points.</param>
-        /// <returns>The weighted center of the points.</returns>
-        T WeightedAverage((T, TDistance)[] items);
-
-        /// <summary>
         /// Gets the weighted average value of a list of (T, TWeight) by point and weight.
         /// </summary>
         /// <param name="items">A weighted list of points.</param>
         /// <returns>The weighted center of the points.</returns>
-        T WeightedAverage((T, TWeight)[] items);
+        T WeightedAverage<TWeight>((T, TWeight)[] items) where TWeight : INumber<TWeight>;
     }
 }
