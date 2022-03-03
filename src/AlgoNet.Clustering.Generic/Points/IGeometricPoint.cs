@@ -25,6 +25,13 @@ namespace AlgoNet.Clustering.Generic
         T Average(T[] items);
 
         /// <summary>
+        /// Gets the weighted average value of a list of (T, TDistance) by point and weight.
+        /// </summary>
+        /// <param name="items">A weighted list of points.</param>
+        /// <returns>The weighted center of the points.</returns>
+        T WeightedAverage((T, TDistance)[] items);
+
+        /// <summary>
         /// Gets the weighted average value of a list of (T, TWeight) by point and weight.
         /// </summary>
         /// <param name="items">A weighted list of points.</param>
