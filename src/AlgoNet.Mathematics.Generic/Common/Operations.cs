@@ -4,7 +4,7 @@ using System;
 
 namespace AlgoNet.Mathematics.Generic
 {
-    public static class ExtraMath
+    public static partial class ExtraMath
     {
         public static T Sum<T>(params T[] values)
             where T : unmanaged, IAdditionOperators<T, T, T>
