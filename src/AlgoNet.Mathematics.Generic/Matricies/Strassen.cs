@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Numerics;
 using MO = AlgoNet.Mathematics.Generic.Matrices.MatrixOperations;
 
 namespace AlgoNet.Mathematics.Generic.Matrices
@@ -37,7 +38,7 @@ namespace AlgoNet.Mathematics.Generic.Matrices
             where T : INumber<T>
         {
             int max = ExtraMath.Max(matrix.Width, matrix.Height);
-            max = Mathematics.ExtraMath.RoundUpPow2(max);
+            max = (int)BitOperations.RoundUpToPowerOf2((uint)max);
             Matrix<T> result = Matrix<T>.GetIdentityMatrix(max);
             matrix.AsSpan2D().CopyTo(result);
             return result;

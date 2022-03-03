@@ -61,7 +61,7 @@ namespace AlgoNet.Clustering.Generic
         private const double ACCEPTED_ERROR = 0.000005;
 
 
-        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
         public static List<MSCluster<T, TShape, int, TDistance>> Cluster<T, TShape, TKernel, TDistance>(
             ReadOnlySpan<T> points,
             TKernel kernel,
@@ -78,12 +78,13 @@ namespace AlgoNet.Clustering.Generic
         /// Clusters a set of points using MeanShift over a field.
         /// </summary>
         /// <remarks>
-        /// It is usually wise to use <see cref="WeightedMeanShift.Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
+        /// It is usually wise to use <see cref="WeightedMeanShift.Cluster{T, TShape, TKernel, TWeight, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
         /// Weighted MeanShift greatly reduces computation time when dealing with duplicate points.
         /// </remarks>
         /// <typeparam name="T">The type of points to cluster.</typeparam>
         /// <typeparam name="TShape">The type of shape to use on the points to cluster.</typeparam>
         /// <typeparam name="TKernel">The type of kernel to use on the cluster.</typeparam>
+        /// <typeparam name="TDistance">The type of floating point used for distance.</typeparam>
         /// <param name="points">The points to shift until convergence.</param>
         /// <param name="field">The field of points to converge over.</param>
         /// <param name="kernel">The kernel to use for clustering.</param>
@@ -105,7 +106,7 @@ namespace AlgoNet.Clustering.Generic
             return Wrap<T, TShape, TDistance>(raw);
         }
 
-        /// <inheritdoc cref="ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        /// <inheritdoc cref="ClusterRaw{T, TShape, TKernel, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
         public static unsafe (T, int)[] ClusterRaw<T, TShape, TKernel, TDistance>(
             ReadOnlySpan<T> points,
             TKernel kernel,
@@ -119,11 +120,11 @@ namespace AlgoNet.Clustering.Generic
         }
 
         /// <remarks>
-        /// It is usually wise to use <see cref="WeightedMeanShift.ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
+        /// It is usually wise to use <see cref="WeightedMeanShift.Cluster{T, TShape, TKernel, TWeight, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
         /// Weighted MeanShift greatly reduces computation time when dealing with duplicate points.
         /// </remarks>
         /// <returns>An array of clusters weighted by the contributing points.</returns>
-        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
         public static unsafe (T, int)[] ClusterRaw<T, TShape, TKernel, TDistance>(
             ReadOnlySpan<T> points,
             ReadOnlySpan<T> field,

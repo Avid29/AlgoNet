@@ -25,7 +25,7 @@ namespace AlgoNet.Clustering.Generic
             KMeansConfig<T, TShape, TWeight, TDistance> config,
             TShape shape)
             where T : unmanaged
-            where TShape : struct, IGeometricPoint<T, TWeight, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TWeight : INumber<TWeight>
             where TDistance : IFloatingPoint<TDistance>
         {
@@ -81,7 +81,7 @@ namespace AlgoNet.Clustering.Generic
             KMeansCluster<T, TShape, TWeight, TDistance>[] clusters,
             TShape shape)
             where T : unmanaged
-            where TShape : struct, IGeometricPoint<T, TWeight, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TWeight : INumber<TWeight>
             where TDistance : IFloatingPoint<TDistance>
         {
@@ -119,7 +119,7 @@ namespace AlgoNet.Clustering.Generic
             ReadOnlySpan<T> points,
             int clusterCount)
             where T : unmanaged
-            where TShape : struct, IGeometricPoint<T, TWeight, TDistance>
+            where TShape : struct, IGeometricPoint<T, TDistance>
             where TWeight : INumber<TWeight>
             where TDistance : IFloatingPoint<TDistance>
         {

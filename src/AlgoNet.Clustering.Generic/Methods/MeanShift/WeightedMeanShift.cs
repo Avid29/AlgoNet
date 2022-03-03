@@ -16,7 +16,7 @@ namespace AlgoNet.Clustering.Generic
     {
         private const double ACCEPTED_ERROR = 0.000005;
 
-        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel, TWeight, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
         public static List<MSCluster<T, TShape, TWeight, TDistance>> Cluster<T, TShape, TKernel, TWeight, TDistance>(
             ReadOnlySpan<T> points,
             TKernel kernel,
@@ -31,11 +31,13 @@ namespace AlgoNet.Clustering.Generic
         /// Clusters a set of points using a weighted version of MeanShift over a field by merging equal points.
         /// </summary>
         /// <remarks>
-        /// If all points are unique, it is wise to use <see cref="MeanShift.Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead since there's no duplicates to merge.
+        /// If all points are unique, it is wise to use <see cref="MeanShift.Cluster{T, TShape, TKernel, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead since there's no duplicates to merge.
         /// </remarks>
         /// <typeparam name="T">The type of points to cluster.</typeparam>
         /// <typeparam name="TShape">The type of shape to use on the points to cluster.</typeparam>
         /// <typeparam name="TKernel">The type of kernel to use on the cluster.</typeparam>
+        /// <typeparam name="TWeight">The type of number used for weight.</typeparam>
+        /// <typeparam name="TDistance">The type of floating point used for distance.</typeparam>
         /// <param name="points">The points to shift until convergence.</param>
         /// <param name="field">The field of points to converge over.</param>
         /// <param name="kernel">The kernel to use for clustering.</param>
@@ -53,7 +55,7 @@ namespace AlgoNet.Clustering.Generic
             where TDistance : unmanaged, IFloatingPoint<TDistance> =>
             Wrap<T, TShape, TWeight, TDistance>(ClusterRaw<T, TShape, TKernel, TWeight, TDistance>(points, field, kernel, shape));
 
-        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{(T, double)}, ReadOnlySpan{(T, double)}, TKernel, TShape)"/>
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel, TWeight, TDistance}(ReadOnlySpan{(T, TWeight)}, ReadOnlySpan{(T, TWeight)}, TKernel, TShape)"/>
         public static List<MSCluster<T, TShape, TWeight, TDistance>> Cluster<T, TShape, TKernel, TWeight, TDistance>(
             ReadOnlySpan<(T, TWeight)> points,
             TKernel kernel,
@@ -70,6 +72,8 @@ namespace AlgoNet.Clustering.Generic
         /// <typeparam name="T">The type of points to cluster.</typeparam>
         /// <typeparam name="TShape">The type of shape to use on the points to cluster.</typeparam>
         /// <typeparam name="TKernel">The type of kernel to use on the cluster.</typeparam>
+        /// <typeparam name="TWeight">The type of number used for weight.</typeparam>
+        /// <typeparam name="TDistance">The type of floating point used for distance.</typeparam>
         /// <param name="points">The weighted points to shift until convergence.</param>
         /// <param name="field">The field of weighted points to converge over.</param>
         /// <param name="kernel">The kernel to use for clustering.</param>
@@ -88,10 +92,10 @@ namespace AlgoNet.Clustering.Generic
             Wrap<T, TShape, TWeight, TDistance>(ClusterRaw<T, TShape, TKernel, TWeight, TDistance>(points, field, kernel, shape));
 
         /// <remarks>
-        /// If all points are unique, it is wise to use <see cref="MeanShift.ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape){T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead since there's no duplicates to merge.
+        /// If all points are unique, it is wise to use <see cref="MeanShift.ClusterRaw{T, TShape, TKernel, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead since there's no duplicates to merge.
         /// </remarks>
         /// <returns>An array clusters weighted by their contributing points.</returns>
-        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel, TWeight, TDistance}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/>
         public static (T, TWeight)[] ClusterRaw<T, TShape, TKernel, TWeight, TDistance>(
             ReadOnlySpan<T> points,
             ReadOnlySpan<T> field,
@@ -105,7 +109,7 @@ namespace AlgoNet.Clustering.Generic
             ClusterRaw<T, TShape, TKernel, TWeight, TDistance>(MakeWeighted<T, TWeight>(points), MakeWeighted<T, TWeight>(field), kernel, shape);
 
         /// <returns>An array clusters weighted by their contributing points.</returns>
-        /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{(T, double)}, ReadOnlySpan{(T, double)}, TKernel, TShape)"/>
+        /// <inheritdoc cref="Cluster{T, TShape, TKernel, TWeight, TDistance}(ReadOnlySpan{(T, TWeight)}, ReadOnlySpan{(T, TWeight)}, TKernel, TShape)"/>
         public static unsafe (T, TWeight)[] ClusterRaw<T, TShape, TKernel, TWeight, TDistance>(
             ReadOnlySpan<(T, TWeight)> points,
             ReadOnlySpan<(T, TWeight)> field,

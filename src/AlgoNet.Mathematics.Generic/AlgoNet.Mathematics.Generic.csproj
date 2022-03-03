@@ -2,13 +2,9 @@
 
   <PropertyGroup>
     <EnablePreviewFeatures>true</EnablePreviewFeatures>
-	 <LangVersion>preview</LangVersion>
+	<LangVersion>preview</LangVersion>
     <TargetFrameworks>net7.0</TargetFrameworks>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Common\Operations.cs~RF1b2a9b65.TMP" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Diagnostics" Version="7.1.2" />

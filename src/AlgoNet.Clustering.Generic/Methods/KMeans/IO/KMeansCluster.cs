@@ -12,7 +12,7 @@ namespace AlgoNet.Clustering.Generic
     /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
     public class KMeansCluster<T, TShape, TWeight, TDistance> : Cluster<T, TShape, TDistance>, ICentroidCluster<T>, IPointsCluster<T>, IWeightedCluster<TWeight>
         where T : unmanaged
-        where TShape : struct, IGeometricPoint<T, TWeight, TDistance>
+        where TShape : struct, IGeometricPoint<T, TDistance>
         where TWeight : INumber<TWeight>
         where TDistance : IFloatingPoint<TDistance>
     {

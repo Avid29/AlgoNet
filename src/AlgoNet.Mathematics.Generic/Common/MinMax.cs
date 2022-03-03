@@ -2,7 +2,7 @@
 
 namespace AlgoNet.Mathematics.Generic
 {
-    internal class ExtraMath
+    public static partial class ExtraMath
     {
         /// <summary>
         /// Returns the largest number.
