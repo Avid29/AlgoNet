@@ -2,7 +2,7 @@
 
 using System;
 
-namespace AlgoNet.Mathematics.Generic.Common
+namespace AlgoNet.Mathematics.Generic
 {
     public static class ExtraMath
     {
