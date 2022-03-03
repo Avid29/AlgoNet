@@ -31,7 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Tests.Mathematics",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Mathematics", "src\AlgoNet.Mathematics\AlgoNet.Mathematics.csproj", "{9D6436D0-4C51-4558-87BB-093A57276E2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoNet.Benchmarks.Mathematics", "bench\AlgoNet.Benchmarks.Mathematics\AlgoNet.Benchmarks.Mathematics.csproj", "{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Benchmarks.Mathematics", "bench\AlgoNet.Benchmarks.Mathematics\AlgoNet.Benchmarks.Mathematics.csproj", "{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Mathematics.Generic", "src\AlgoNet.Mathematics.Generic\AlgoNet.Mathematics.Generic.csproj", "{5ECB2311-BDE4-4637-BE85-43F36662D184}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoNet.Clustering.Generic", "src\AlgoNet.Clustering.Generic\AlgoNet.Clustering.Generic.csproj", "{0D23B90C-2683-4791-A818-6CF6B124BE04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -247,6 +251,46 @@ Global
 		{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}.Release|x64.Build.0 = Release|Any CPU
 		{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}.Release|x86.ActiveCfg = Release|Any CPU
 		{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}.Release|x86.Build.0 = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|ARM.Build.0 = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|x64.Build.0 = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|x86.Build.0 = Debug|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|ARM.Build.0 = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|ARM64.Build.0 = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|x64.ActiveCfg = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|x64.Build.0 = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|x86.ActiveCfg = Release|Any CPU
+		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|x86.Build.0 = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|ARM.Build.0 = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|x64.Build.0 = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Debug|x86.Build.0 = Debug|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|ARM.Build.0 = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|ARM64.Build.0 = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|x64.ActiveCfg = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|x64.Build.0 = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D23B90C-2683-4791-A818-6CF6B124BE04}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

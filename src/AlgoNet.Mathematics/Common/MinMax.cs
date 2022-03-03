@@ -14,7 +14,6 @@ namespace AlgoNet.Mathematics
         /// <param name="nums">The numbers to pull from.</param>
         /// <returns>The largest number</returns>
         public static T Max<T>(params T[] nums)
-            // Can safely suppress null because k is less than nums.Length - 1
             where T : IComparable<T> => IterativeMax(nums.AsSpan())!;
 
         /// <summary>
@@ -23,7 +22,6 @@ namespace AlgoNet.Mathematics
         /// <param name="nums">The numbers to pull from.</param>
         /// <returns>The smallest number</returns>
         public static T Min<T>(params T[] nums)
-            // Can safely suppress null because k is less than nums.Length - 1
             where T : IComparable<T> => IterativeMin(nums.AsSpan());
 
         internal static T IterativeMax<T>(Span<T> nums)
