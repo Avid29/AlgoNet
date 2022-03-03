@@ -11,11 +11,11 @@ namespace AlgoNet.Clustering.Generic
     /// Geometric points are defined by their absolute positions in space.
     /// </remarks>
     /// <typeparam name="T">The type being wrapped by the implementation.</typeparam>
-    /// <typeparam name="TFloat">The type of floating point used for distance.</typeparam>
-    /// <typeparam name="TWeight">The type of floating point used for weight.</typeparam>
-    public interface IGeometricPoint<T, TFloat, TWeight> : IMetricPoint<T, TFloat>
-        where TFloat : IFloatingPoint<TFloat>
+    /// <typeparam name="TWeight">The type of number used for weight.</typeparam>
+    /// <typeparam name="TDistance">The type of floating point used for distance.</typeparam>
+    public interface IGeometricPoint<T, TWeight, TDistance> : IMetricPoint<T, TDistance>
         where TWeight : INumber<TWeight>
+        where TDistance : IFloatingPoint<TDistance>
     {
         /// <summary>
         /// Gets the average value of a list of <typeparamref name="T"/> items.
