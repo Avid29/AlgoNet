@@ -1,5 +1,6 @@
 ﻿using AlgoNet.Mathematics.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Numerics;
 
 namespace AlgoNet.Tests.Mathematics.Generic
@@ -9,6 +10,7 @@ namespace AlgoNet.Tests.Mathematics.Generic
     {
         private BigInteger[] _values = new BigInteger[]
         {
+            0,
             1,
             10,
             ulong.MaxValue,
@@ -34,6 +36,20 @@ namespace AlgoNet.Tests.Mathematics.Generic
         private (UInt128, UInt128) ConvertPair((BigInteger, BigInteger) pair) => ((UInt128)pair.Item1, (UInt128)pair.Item2);
 
         private (UInt128, int) ConvertPair((BigInteger, int) pair) => ((UInt128)pair.Item1, pair.Item2);
+
+        [TestMethod]
+        public void Sign()
+        {
+            foreach (var value in _values)
+            {
+                BigInteger valueBig = value;
+                UInt128 value128 = (UInt128)value;
+                int canon = valueBig.Sign;
+                UInt128 result = UInt128.Sign(value128);
+
+                Assert.IsTrue(canon == result);
+            }
+        }
 
         [TestMethod]
         public void Add()
@@ -164,6 +180,20 @@ namespace AlgoNet.Tests.Mathematics.Generic
                 UInt128 result = pair128.Item1 << pair128.Item2;
 
                 Assert.IsTrue(canon == (BigInteger)result);
+            }
+        }
+
+        [TestMethod]
+        public void IsPow2()
+        {
+            foreach (var value in _values)
+            {
+                UInt128 value128 = (UInt128)value;
+                bool result = UInt128.IsPow2(value128);
+                UInt128 log2 = UInt128.Log2(value128);
+                bool canon = ExtraMath.Pow((UInt128)2, log2) == value128;
+
+                Assert.IsTrue(canon == result);
             }
         }
     }

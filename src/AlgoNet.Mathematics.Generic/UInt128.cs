@@ -13,6 +13,9 @@ namespace AlgoNet.Mathematics.Generic
     [DebuggerDisplay("{ToString()}")]
     public struct UInt128 : IBinaryInteger<uint128>, IUnsignedNumber<uint128>
     {
+        private const int ulongBits = sizeof(ulong) * 8; // 64
+        private const int bitCount = ulongBits * 2; // 128
+
         private ulong s0;
         private ulong s1;
 
@@ -133,19 +136,21 @@ namespace AlgoNet.Mathematics.Generic
         }
 
         /// <inheritdoc/>
-        public static bool IsPow2(uint128 value) => (value & (value - 1)) == 0 && value != 0;
+        public static bool IsPow2(uint128 value)
+            => (value & (value - 1)) == 0 && value != 0;
 
         /// <inheritdoc/>
         public static uint128 LeadingZeroCount(uint128 value)
         {
-            throw new NotImplementedException();
+            int s1Leading = BitOperations.LeadingZeroCount(value.s1);
+            if (s1Leading == ulongBits)
+                return BitOperations.LeadingZeroCount(value.s0) + ulongBits;
+            return s1Leading;
         }
 
         /// <inheritdoc/>
         public static uint128 Log2(uint128 value)
-        {
-            throw new NotImplementedException();
-        }
+            => (bitCount - 1) - LeadingZeroCount(value);
 
         /// <inheritdoc/>
         public static uint128 Max(uint128 x, uint128 y) => x > y ? x : y;
@@ -155,53 +160,43 @@ namespace AlgoNet.Mathematics.Generic
 
         /// <inheritdoc/>
         public static uint128 Parse(string s, NumberStyles style, IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+            => BigInteger.Parse(s, style, provider);
 
         /// <inheritdoc/>
         public static uint128 Parse(ReadOnlySpan<char> s, NumberStyles style, IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+            => BigInteger.Parse(s, style, provider);
 
         /// <inheritdoc/>
         public static uint128 Parse(ReadOnlySpan<char> s, IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+            => BigInteger.Parse(s, NumberStyles.Integer, provider);
 
         /// <inheritdoc/>
         public static uint128 Parse(string s, IFormatProvider? provider)
-        {
-            throw new NotImplementedException();
-        }
+            => BigInteger.Parse(s, NumberStyles.Integer, provider);
 
         /// <inheritdoc/>
-        public static uint128 PopCount(uint128 value) => BitOperations.PopCount(value.s0) + BitOperations.PopCount(value.s1);
+        public static uint128 PopCount(uint128 value)
+            => BitOperations.PopCount(value.s0) + BitOperations.PopCount(value.s1);
 
         /// <inheritdoc/>
         public static uint128 RotateLeft(uint128 value, int rotateAmount)
-        {
-            throw new NotImplementedException();
-        }
+            => (value << rotateAmount) | (value >> (128 - rotateAmount));
 
         /// <inheritdoc/>
         public static uint128 RotateRight(uint128 value, int rotateAmount)
-        {
-            throw new NotImplementedException();
-        }
+            => (value >> rotateAmount) | (value << (128 - rotateAmount));
 
         /// <inheritdoc/>
         public static uint128 Sign(uint128 value)
-        {
-            throw new NotImplementedException();
-        }
+            => value == 0 ? 0 : 1;
 
         /// <inheritdoc/>
         public static uint128 TrailingZeroCount(uint128 value)
         {
-            throw new NotImplementedException();
+            int s0Trailing = BitOperations.TrailingZeroCount(value.s0);
+            if (s0Trailing == ulongBits)
+                return BitOperations.TrailingZeroCount(value.s1) + ulongBits;
+            return s0Trailing;
         }
 
         /// <inheritdoc/>
@@ -335,19 +330,16 @@ namespace AlgoNet.Mathematics.Generic
         }
 
         /// <inheritdoc/>
-        public bool Equals(uint128 other) => s0 == other.s0 && s1 == other.s1;
+        public bool Equals(uint128 other)
+            => s0 == other.s0 && s1 == other.s1;
 
         /// <inheritdoc/>
         public string ToString(string? format, IFormatProvider? formatProvider)
-        {
-            return ((BigInteger)this).ToString(format, formatProvider);
-        }
+            => ((BigInteger)this).ToString(format, formatProvider);
 
         /// <inheritdoc/>
         public override string ToString()
-        {
-            return ((BigInteger)this).ToString();
-        }
+            => ((BigInteger)this).ToString();
 
         /// <inheritdoc/>
         public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
@@ -357,9 +349,7 @@ namespace AlgoNet.Mathematics.Generic
 
         /// <inheritdoc/>
         public static uint128 operator +(uint128 value)
-        {
-            return value;
-        }
+            => value;
 
         /// <inheritdoc/>
         public static uint128 operator +(uint128 left, uint128 right)
@@ -372,7 +362,8 @@ namespace AlgoNet.Mathematics.Generic
         }
 
         /// <inheritdoc/>
-        public static uint128 operator -(uint128 value) => 0 - value;
+        public static uint128 operator -(uint128 value)
+            => 0 - value;
 
         /// <inheritdoc/>
         public static uint128 operator -(uint128 left, uint128 right)
@@ -393,10 +384,12 @@ namespace AlgoNet.Mathematics.Generic
         }
 
         /// <inheritdoc/>
-        public static uint128 operator ++(uint128 value) => value + 1;
+        public static uint128 operator ++(uint128 value)
+            => value + 1;
 
         /// <inheritdoc/>
-        public static uint128 operator --(uint128 value) => value - 1;
+        public static uint128 operator --(uint128 value)
+            => value - 1;
         
         /// <inheritdoc/>
         public static uint128 operator *(uint128 left, uint128 right)
@@ -409,7 +402,7 @@ namespace AlgoNet.Mathematics.Generic
         {
             throw new NotImplementedException();
         }
-        
+
         /// <inheritdoc/>
         public static uint128 operator %(uint128 left, uint128 right)
         {
@@ -475,10 +468,12 @@ namespace AlgoNet.Mathematics.Generic
         }
         
         /// <inheritdoc/>
-        public static bool operator ==(uint128 left, uint128 right) => left.Equals(right);
+        public static bool operator ==(uint128 left, uint128 right)
+            => left.Equals(right);
         
         /// <inheritdoc/>
-        public static bool operator !=(uint128 left, uint128 right) => !left.Equals(right);
+        public static bool operator !=(uint128 left, uint128 right)
+            => !left.Equals(right);
 
         /// <inheritdoc/>
         public static bool operator <(uint128 left, uint128 right)
@@ -513,16 +508,27 @@ namespace AlgoNet.Mathematics.Generic
         }
         
         /// <inheritdoc/>
-        public static implicit operator uint128(int a) => Create(a);
+        public static implicit operator uint128(int a)
+            => Create(a);
 
         /// <inheritdoc/>
-        public static implicit operator uint128(ulong a) => Create(a);
+        public static implicit operator uint128(ulong a)
+            => Create(a);
 
         /// <inheritdoc/>
-        public static implicit operator uint128(BigInteger a) => new(a);
+        public static explicit operator uint128(float a)
+            => Create(a);
 
         /// <inheritdoc/>
-        public static implicit operator BigInteger(uint128 a)
+        public static explicit operator uint128(double a)
+            => Create(a);
+
+        /// <inheritdoc/>
+        public static implicit operator uint128(BigInteger a)
+            => new(a);
+
+        /// <inheritdoc/>
+        public static explicit operator BigInteger(uint128 a)
         {
             if (a.s1 == 0)
                 return a.s0;
