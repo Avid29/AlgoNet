@@ -8,7 +8,7 @@ namespace AlgoNet.Tests.Graph.Shapes
     /// <summary>
     /// A shape for treating integers as a linear graph.
     /// </summary>
-    public struct LinearIntegerGraph : INode<int>
+    public struct LinearIntegerGraph : IWeightedNode<int>
     {
         private int _min;
         private int _max;
@@ -44,6 +44,12 @@ namespace AlgoNet.Tests.Graph.Shapes
 
             // Return the next node
             return new[] { node + 1 };
+        }
+
+        /// <inheritdoc/>
+        public double GetEdgeLength(int node1, int node2)
+        {
+            return CheckEdge(node1, node2) ? 1 : 0;
         }
     }
 }
