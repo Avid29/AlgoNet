@@ -10,14 +10,14 @@ namespace AlgoNet.Sorting
     /// <summary>
     /// A static class containing merge sort methods.
     /// </summary>
-    public static partial class MergeSort
+    internal static partial class MergeSort
     {
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
-        public static void Sort<T>(T[] array) where T : IComparable<T>
+        internal static void Sort<T>(T[] array) where T : IComparable<T>
             => Sort(array.AsSpan());
 
         /// <inheritdoc cref="SortAsync{T}(Memory{T})"/>
-        public static Task SortAsync<T>(T[] array) where T : IComparable<T>
+        internal static Task SortAsync<T>(T[] array) where T : IComparable<T>
             => SortAsync(array.AsMemory());
 
 
