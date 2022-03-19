@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlgoNet.Clustering\AlgoNet.Clustering.csproj" />
+    <ProjectReference Include="..\AlgoNet.Mathematics\AlgoNet.Mathematics.csproj" />
     <ProjectReference Include="..\AlgoNet.Sorting\AlgoNet.Sorting.csproj" />
   </ItemGroup>
 </Project>

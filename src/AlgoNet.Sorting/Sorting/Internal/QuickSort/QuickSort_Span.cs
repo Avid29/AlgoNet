@@ -1,6 +1,7 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Threading.Tasks;
 
 namespace AlgoNet.Sorting
 {
@@ -10,9 +11,9 @@ namespace AlgoNet.Sorting
     /// <remarks>
     /// This is a 2-way partitioned quick sort. This has very little overhead, but is slower than 3-way.
     /// </remarks>
-    public static class QuickSort
+    internal static partial class QuickSort
     {
-        /// QuickSort works be recursively partitioning smaller values above and greater values below a pivot.
+        /// QuickSort works by recursively partitioning smaller values above and greater values below a pivot.
         /// The partition step is done in place. To start the partiton, the last value is selected as the pivot.
         /// Then swaps are performed moving all values lower than the pivot to the start of the array.
         /// The first value larger than the pivot is then swapped with the pivot. As a result, all values less than
@@ -54,18 +55,18 @@ namespace AlgoNet.Sorting
         ///     The values greater than 3 are already sorted, and the values below need only a single swap.
 
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
-        public static void Sort<T>(T[] array) where T : IComparable => Sort(array.AsSpan());
+        internal static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
 
-        /// <inheritdoc cref="Select{T}(Span{T},int)"/>
-        public static T Select<T>(T[] array, int k) where T : IComparable => Select(array.AsSpan(), k);
+        /// <inheritdoc cref="SortAsync{T}(Memory{T})"/>
+        internal static Task SortAsync<T>(T[] array) where T : IComparable<T> => SortAsync(array.AsMemory());
 
         /// <summary>
         /// Runs quick sort on an array.
         /// </summary>
         /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
         /// <param name="array">The array to sort.</param>
-        public static void Sort<T>(Span<T> array)
-            where T : IComparable
+        internal static void Sort<T>(Span<T> array)
+            where T : IComparable<T>
         {
             // Nothing to sort (base case)
             if (array.Length <= 1) return;
@@ -81,49 +82,28 @@ namespace AlgoNet.Sorting
         }
 
         /// <summary>
-        /// Runs quick select on an array.
+        /// Runs quick sort on an array.
         /// </summary>
-        /// <remarks>
-        /// After running all values before k will be less than k and all after k below will be greater.
-        /// </remarks>
-        /// <typeparam name="T">The type of item in the array.</typeparam>
-        /// <param name="array">The array to select on.</param>
-        /// <param name="k">The position to select.</param>
-        /// <returns>The kth smallest item in the array.</returns>
-        public static T Select<T>(Span<T> array, int k)
-            where T : IComparable
+        /// <typeparam name="T">The type of item in the array being sorted.</typeparam>
+        /// <param name="array">The array to sort.</param>
+        internal static async Task SortAsync<T>(Memory<T> array)
+            where T : IComparable<T>
         {
-            // Nothing left to sort (base case)
-            if (array.Length == 1) return array[0];
-            else if (array.Length < 1) return default;
+            // Nothing to sort (base case)
+            if (array.Length <= 1) return;
 
-            // Partition around the center value.
-            int center = array.Length / 2;
-            center = Partition(array, center);
+            // Partition values before and after the pivot.
+            int pivot = Partition(array.Span);
 
-            // The kth item has been found
-            if (k == center)
-                return array[k];
+            // Sort values before the pivot
+            await Task.Run(() => SortAsync(array.Slice(0, pivot)));
 
-            // The kth item is before the new center
-            if (k < center)
-                return Select(array.Slice(0, center), k);
-
-            // The kth item is after the new center
-            return Select(array.Slice(center), k - center);
-        }
-
-        private static int Partition<T>(Span<T> array, int pivotIndex)
-            where T : IComparable
-        {
-            // Swap the pivot index with the last index
-            // Then run Partition where the last index is the pivot.
-            Common.Swap(ref array[pivotIndex], ref array[array.Length - 1]);
-            return Partition(array);
+            // Sort values after the pivot
+            await Task.Run(() => SortAsync(array.Slice(pivot + 1)));
         }
 
         private static int Partition<T>(Span<T> array)
-            where T : IComparable
+            where T : IComparable<T>
         {
             // Cache the pivot value
             T pivot = array[array.Length - 1];
@@ -131,7 +111,7 @@ namespace AlgoNet.Sorting
             // Track the index of the split between above and below.
             int low = 0;
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length - 1; i++)
             {
                 // If the value is lower than the pivot.
                 if (array[i].CompareTo(pivot) < 0)

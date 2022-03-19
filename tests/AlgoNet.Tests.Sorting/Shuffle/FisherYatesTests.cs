@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using AlgoNet.Mathematics;
 using AlgoNet.Sorting.Shuffle;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -10,14 +11,26 @@ namespace AlgoNet.Tests.Sorting.Shuffle
     [TestClass]
     public class FisherYatesTests
     {
+        private const int SAMPLES = 1_000;
+
         private static void RunTest(int[] data)
         {
             int[] clone = new int[data.Length];
             Array.Copy(data, clone, data.Length);
 
-            FisherYates.Shuffle(data, 0);
+            double[] distirbution = new double[data.Length];
 
-            Assert.IsFalse(Common.AreEquivilent(data, clone));
+            for (int i = 0; i < SAMPLES; i++)
+            {
+                FisherYates.Shuffle(data, i);
+
+                for (int j = 0; j < data.Length; j++)
+                    distirbution[j] += data[j];
+            }
+
+            double stdDev = Statistics.StandardDeviation(distirbution);
+
+            CollectionAssert.AreNotEqual(data, clone);
         }
 
         [TestMethod]

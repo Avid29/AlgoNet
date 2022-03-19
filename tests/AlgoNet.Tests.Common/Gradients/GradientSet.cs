@@ -12,7 +12,7 @@ namespace AlgoNet.Tests.Gradients
         private DimensionSpecs[] _specs;
 
         public GradientSet(string name, DimensionSpecs[] specs) :
-            base(name, null)
+            base(name)
         {
             _specs = specs;
         }

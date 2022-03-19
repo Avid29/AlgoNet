@@ -17,12 +17,18 @@ namespace AlgoNet.Tests.Sorting.DataSets
 
         public static int[] UniqueInteger100 = Reverse(PresortedSets.UniqueInteger100);
 
-        public static int[] DuplicateInteger10 = Reverse(PresortedSets.DuplicateInteger10);
+        public static int[] UniqueInteger1000 = Reverse(PresortedSets.UniqueInteger1000);
+
+        public static int[] DuplicateInteger100 = Reverse(PresortedSets.DuplicateInteger100);
+
+        public static int[] DuplicateInteger1000 = Reverse(PresortedSets.DuplicateInteger1000);
 
         public static int[][] All = new int[][]
         {
             UniqueInteger100,
-            DuplicateInteger10,
+            UniqueInteger1000,
+            DuplicateInteger100,
+            DuplicateInteger1000,
         };
     }
 }

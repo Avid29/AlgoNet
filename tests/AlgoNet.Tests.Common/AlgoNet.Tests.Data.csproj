@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net472;netcoreapp3.1;net6.0</TargetFrameworks>
     <Platforms>AnyCPU;x86;x64;ARM;ARM64</Platforms>
-	<LangVersion>10.0</LangVersion>
+	<GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\AlgoNet\AlgoNet.csproj" />

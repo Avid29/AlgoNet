@@ -2,18 +2,12 @@
 
 using AlgoNet.Tests.Sorting.DataSets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QS = AlgoNet.Sorting.QuickSort;
 
-namespace AlgoNet.Tests.Sorting.Methods
+namespace AlgoNet.Tests.Sorting
 {
-    [TestClass]
-    public class QuickSortTests
+    public abstract class SortingTests
     {
-        private static void RunTest(int[] data)
-        {
-            QS.Sort(data);
-            Common.VerifySorted(data);
-        }
+        protected abstract void RunTest(int[] data);
 
         [TestMethod]
         public void PresortedTests()
