@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace AlgoNet.Sorting.Select
 {
@@ -10,7 +12,14 @@ namespace AlgoNet.Sorting.Select
     public static class Quick3Select
     {
         /// <inheritdoc cref="Select{T}(Span{T},int)"/>
-        public static T? Select<T>(T[] array, int k) where T : IComparable<T> => Select(array.AsSpan(), k);
+        public static T? Select<T>(T[] array, int k) where T : IComparable<T>
+            => Select(array.AsSpan(), k);
+
+#if NET5_0_OR_GREATER
+        /// <inheritdoc cref="Select{T}(Span{T},int)"/>
+        public static void Select<T>(List<T> list, int k) where T : IComparable<T>
+            => Select(CollectionsMarshal.AsSpan(list), k);
+#endif
 
         /// <summary>
         /// Runs quick select on an array.

@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace AlgoNet.Sorting
 {
@@ -10,7 +12,13 @@ namespace AlgoNet.Sorting
     internal static class InsertionSort
     {
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
-        internal static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
+        internal static void Sort<T>(T[] array) where T : IComparable<T>
+            => Sort(array.AsSpan());
+
+#if NET5_0_OR_GREATER
+        internal static void Sort<T>(List<T> list) where T : IComparable<T>
+            => Sort(CollectionsMarshal.AsSpan(list));
+#endif
 
         /// <summary>
         /// Runs insertion sort on an array.

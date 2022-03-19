@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace AlgoNet.Sorting
@@ -55,10 +57,18 @@ namespace AlgoNet.Sorting
         ///     The values greater than 3 are already sorted, and the values below need only a single swap.
 
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
-        internal static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
+        internal static void Sort<T>(T[] array) where T : IComparable<T>
+            => Sort(array.AsSpan());
 
         /// <inheritdoc cref="SortAsync{T}(Memory{T})"/>
-        internal static Task SortAsync<T>(T[] array) where T : IComparable<T> => SortAsync(array.AsMemory());
+        internal static Task SortAsync<T>(T[] array) where T : IComparable<T>
+            => SortAsync(array.AsMemory());
+
+
+#if NET5_0_OR_GREATER
+        internal static void Sort<T>(List<T> list) where T : IComparable<T>
+            => Sort(CollectionsMarshal.AsSpan(list));
+#endif
 
         /// <summary>
         /// Runs quick sort on an array.

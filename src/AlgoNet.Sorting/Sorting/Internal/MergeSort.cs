@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace AlgoNet.Sorting
@@ -11,10 +13,19 @@ namespace AlgoNet.Sorting
     public static partial class MergeSort
     {
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
-        public static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
+        public static void Sort<T>(T[] array) where T : IComparable<T>
+            => Sort(array.AsSpan());
 
         /// <inheritdoc cref="SortAsync{T}(Memory{T})"/>
-        public static Task SortAsync<T>(T[] array) where T : IComparable<T> => SortAsync(array.AsMemory());
+        public static Task SortAsync<T>(T[] array) where T : IComparable<T>
+            => SortAsync(array.AsMemory());
+
+
+#if NET5_0_OR_GREATER
+        internal static void Sort<T>(List<T> list) where T : IComparable<T>
+            => Sort(CollectionsMarshal.AsSpan(list));
+#endif
+
 
         /// <summary>
         /// Runs quick sort on an array.
