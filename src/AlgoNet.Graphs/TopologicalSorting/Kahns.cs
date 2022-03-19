@@ -1,5 +1,7 @@
 ﻿// Adam Dernis © 2022
 
+using Microsoft.Collections.Extensions;
+using System;
 using System.Collections.Generic;
 
 namespace AlgoNet.Graphs.TopologicalSorting
@@ -17,18 +19,23 @@ namespace AlgoNet.Graphs.TopologicalSorting
         /// <param name="graph">A list of nodes that make a graph</param>
         /// <param name="shape">A shape that can determine edges for the graph.</param>
         /// <returns>A topological ording of the graph.</returns>
-        public static List<T> Sort<T, TShape>(T[] graph, TShape shape = default)
+        public static List<T>? Sort<T, TShape>(T[] graph, TShape shape = default)
             where TShape : struct, INode<T>
         {
             // Counts the inward edges on each node.
             Dictionary<T, int> edgesIn = new Dictionary<T, int>(graph.Length);
+
+            foreach (T node in graph)
+            {
+                if (!edgesIn.ContainsKey(node))
+                    edgesIn.Add(node, 0);
+            }
+
             foreach (T node in graph)
             {
                 IEnumerable<T> connections = shape.GetConnectedNodes(node);
                 foreach (T connection in connections)
-                {
                     edgesIn[connection]++;
-                }
             }
 
             // Queue root nodes (nodes with no inward edges)
