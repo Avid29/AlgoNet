@@ -1,8 +1,10 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace AlgoNet.Sorting
 {
@@ -18,6 +20,12 @@ namespace AlgoNet.Sorting
             Sort(array.AsSpan(), result.AsSpan(), valueMethod, k);
             return result;
         }
+
+#if NET5_0_OR_GREATER
+        /// <inheritdoc cref="Sort{T}(Span{T},Func{T, int},int)"/>
+        public static void Sort<T>(List<T> list, Func<T, int> valueMethod, int k) where T : IComparable<T>
+            => Sort(CollectionsMarshal.AsSpan(list), valueMethod, k);
+#endif
 
         /// <summary>
         /// Sorts an array using Counting Sort.

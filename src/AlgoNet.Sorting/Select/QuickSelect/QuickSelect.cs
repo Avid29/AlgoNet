@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace AlgoNet.Sorting.Select
 {
@@ -47,7 +49,14 @@ namespace AlgoNet.Sorting.Select
         ///     In this case the list happens to be sorted in full, but that is not guarenteed and is unlikely for larger lists.
 
         /// <inheritdoc cref="Select{T}(Span{T},int)"/>
-        public static T? Select<T>(T[] array, int k) where T : IComparable<T> => Select(array.AsSpan(), k);
+        public static T? Select<T>(T[] array, int k) where T : IComparable<T>
+            => Select(array.AsSpan(), k);
+
+#if NET5_0_OR_GREATER
+        /// <inheritdoc cref="Select{T}(Span{T},int)"/>
+        public static void Select<T>(List<T> list, int k) where T : IComparable<T>
+            => Select(CollectionsMarshal.AsSpan(list), k);
+#endif
 
         /// <summary>
         /// Runs quick select on an array.

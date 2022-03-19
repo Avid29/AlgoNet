@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace AlgoNet.Sorting.Shuffle
 {
@@ -48,20 +50,31 @@ namespace AlgoNet.Sorting.Shuffle
         ///     Group |     Shuffled      |
         ///     Value | 5   1   3   2   4 |
 
-        /// <inheritdoc cref="Shuffle{T}(Span{T}, Random)"/>
-        public static void Shuffle<T>(T[] array) => Shuffle(array.AsSpan(), new Random());
+        /// <inheritdoc cref="Shuffle{T}(Span{T},Random)"/>
+        public static void Shuffle<T>(T[] array)
+            => Shuffle(array.AsSpan(), new Random());
 
-        /// <inheritdoc cref="Shuffle{T}(Span{T}, Random)"/>
-        public static void Shuffle<T>(T[] array, int seed) => Shuffle(array.AsSpan(), new Random(seed));
+        /// <inheritdoc cref="Shuffle{T}(Span{T},Random)"/>
+        public static void Shuffle<T>(T[] array, int seed)
+            => Shuffle(array.AsSpan(), new Random(seed));
 
-        /// <inheritdoc cref="Shuffle{T}(Span{T}, Random)"/>
-        public static void Shuffle<T>(T[] array, Random rand) => Shuffle(array.AsSpan(), rand);
+        /// <inheritdoc cref="Shuffle{T}(Span{T},Random)"/>
+        public static void Shuffle<T>(T[] array, Random rand)
+            => Shuffle(array.AsSpan(), rand);
 
-        /// <inheritdoc cref="Shuffle{T}(Span{T}, Random)"/>
-        public static void Shuffle<T>(Span<T> array) => Shuffle(array, new Random());
+        /// <inheritdoc cref="Shuffle{T}(Span{T},Random)"/>
+        public static void Shuffle<T>(Span<T> array)
+            => Shuffle(array, new Random());
 
-        /// <inheritdoc cref="Shuffle{T}(Span{T}, Random)"/>
-        public static void Shuffle<T>(Span<T> array, int seed) => Shuffle(array, new Random(seed));
+        /// <inheritdoc cref="Shuffle{T}(Span{T},Random)"/>
+        public static void Shuffle<T>(Span<T> array, int seed)
+            => Shuffle(array, new Random(seed));
+
+#if NET5_0_OR_GREATER
+        /// <inheritdoc cref="Shuffle{T}(Span{T},Random)"/>
+        public static void Shuffle<T>(List<T> list) where T : IComparable<T>
+            => Shuffle(CollectionsMarshal.AsSpan(list));
+#endif
 
         /// <summary>
         /// Runs Fisher-Yates on an array.

@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace AlgoNet.Sorting
 {
@@ -11,6 +13,11 @@ namespace AlgoNet.Sorting
     {
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
         internal static void Sort<T>(T[] array) where T : IComparable<T> => Sort(array.AsSpan());
+
+#if NET5_0_OR_GREATER
+        internal static void Sort<T>(List<T> list) where T : IComparable<T>
+            => Sort(CollectionsMarshal.AsSpan(list));
+#endif
 
         /// <summary>
         /// Runs selection sort on an array.
