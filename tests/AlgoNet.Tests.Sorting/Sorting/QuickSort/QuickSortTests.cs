@@ -19,11 +19,6 @@ namespace AlgoNet.Tests.Sorting.Methods.QuickSort
             Array.Copy(data, clone, data.Length);
             QS.Sort(data);
             Common.VerifySorted(data, clone);
-
-            // As list
-            var lClone = data.ToList();
-            QS.Sort(list);
-            Common.VerifySorted(list, lClone);
         }
     }
 }

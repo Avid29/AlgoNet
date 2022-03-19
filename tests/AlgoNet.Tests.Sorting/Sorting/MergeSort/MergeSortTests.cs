@@ -19,11 +19,6 @@ namespace AlgoNet.Tests.Sorting.Sorting
             Array.Copy(data, aClone, data.Length);
             MES.Sort(data);
             Common.VerifySorted(data, aClone);
-
-            // As list
-            var lClone = data.ToList();
-            MES.Sort(list);
-            Common.VerifySorted(list, lClone);
         }
     }
 }
