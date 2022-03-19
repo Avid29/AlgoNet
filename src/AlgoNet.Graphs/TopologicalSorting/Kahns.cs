@@ -1,7 +1,5 @@
 ﻿// Adam Dernis © 2022
 
-using Microsoft.Collections.Extensions;
-using System;
 using System.Collections.Generic;
 
 namespace AlgoNet.Graphs.TopologicalSorting
