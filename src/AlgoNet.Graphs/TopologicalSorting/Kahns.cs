@@ -29,6 +29,7 @@ namespace AlgoNet.Graphs.TopologicalSorting
                     edgesIn.Add(node, 0);
             }
 
+            // Find the number of incoming edges for each node
             foreach (T node in graph)
             {
                 IEnumerable<T> connections = shape.GetConnectedNodes(node);
