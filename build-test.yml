@@ -27,14 +27,14 @@ steps:
     displayName: 'nuget restore'
     inputs:
       command: restore
-      projects: '**/*.csproj'
+      projects: 'src/**/*.csproj'
       configuration: $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
     displayName: 'dotnet build'
     inputs:
       command: build
-      projects: '**/*.csproj'
+      projects: 'src/**/*.csproj'
       configuration: $(BuildConfiguration)
       
 # TODO: Run tests      
