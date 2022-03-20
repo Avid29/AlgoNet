@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using Microsoft.Collections.Extensions;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +16,7 @@ namespace AlgoNet.Graphs.Path.Dijkstras
             Target = target;
             Graph = graph;
             Queue = new List<T>();
-            Previous = new Dictionary<T, T?>();
+            Previous = new DictionarySlim<T, T?>();
             Distances = new Dictionary<T, double>();
         }
 
@@ -27,7 +28,7 @@ namespace AlgoNet.Graphs.Path.Dijkstras
 
         internal List<T> Queue { get; }
 
-        internal Dictionary<T, T?> Previous { get; }
+        internal DictionarySlim<T, T?> Previous { get; }
 
         internal Dictionary<T, double> Distances { get; }
     }

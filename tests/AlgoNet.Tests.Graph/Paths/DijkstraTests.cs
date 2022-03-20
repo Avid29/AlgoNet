@@ -14,12 +14,17 @@ namespace AlgoNet.Tests.Graph.Paths
         private static void RunTest<TNode>(int[] data, int source, int target, TNode shape = default)
             where TNode : struct, IWeightedNode<int>
         {
-            var result = Dijkstras.Path(data, source, target, shape, out Dictionary<int, double> dists, -1);
+            var result = Dijkstras.Path(data, source, target, out Dictionary<int, double> dists, shape);
 
             Assert.IsNotNull(result);
 
-            for (int i = source; i < target - 1; i++)
+            for (int i = 0; i < result.Count - 1; i++)
             {
+                if (i == 0)
+                    Assert.AreEqual(source, result[i]);
+                else if (i == result.Count - 2)
+                    Assert.AreEqual(target, result[i + 1]);
+
                 if (result[i] > result[i + 1])
                     Assert.Fail();
             }
@@ -32,6 +37,16 @@ namespace AlgoNet.Tests.Graph.Paths
         {
             int[] data = Enumerable.Range(0, size).ToArray();
             LinearIntegerGraph shape = new LinearIntegerGraph(0, size - 1);
+            RunTest(data, 0, size - 1, shape);
+        }
+
+        [TestMethod]
+        [DataRow(10)]
+        [DataRow(100)]
+        public void RunBinaryTreeTests(int size)
+        {
+            int[] data = Enumerable.Range(0, size).ToArray();
+            BinaryTreeGraph shape = new BinaryTreeGraph(size - 1, false);
             RunTest(data, 0, size - 1, shape);
         }
     }
