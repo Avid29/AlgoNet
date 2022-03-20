@@ -33,19 +33,19 @@ steps:
     inputs:
       command: restore
       projects: '**/*.csproj'
-      configuration: $(buildConfiguration)
+      configuration: $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
     displayName: 'dotnet build'
     inputs:
       command: build
       projects: '**/*.csproj'
-      configuration: $(buildConfiguration)
+      configuration: $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
     displayName: 'nuget push'
     inputs:
       command: push
-      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      packagesToPush: '$(Build.StagingDirectory)/*.nupkg'
       nuGetFeedType: 'internal'
       publishVstsFeed: 'https://api.nuget.org/v3/index.json'
