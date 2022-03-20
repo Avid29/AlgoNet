@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
 	<GenerateDocumentationFile>False</GenerateDocumentationFile>
+	<Configurations>Debug;Release;Preview</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

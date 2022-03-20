@@ -1,4 +1,5 @@
 <Project>
+  <!--Build Properties-->
   <PropertyGroup>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
@@ -6,5 +7,14 @@
 	<!--<EnablePreviewFeatures>True</EnablePreviewFeatures>-->
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <!--<TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
+  </PropertyGroup>
+
+  <!--Nuget Metadata-->
+  <PropertyGroup>
+	<Authors>Adam Dernis</Authors>
+	<RepositoryType>Git</RepositoryType>
+	<RepositoryUrl>https://github.com/Avid29/AlgoNet</RepositoryUrl>
+	<Version>0.1.0-alpha1</Version>
+	<Company>Adam Dernis</Company>
   </PropertyGroup>
 </Project>
