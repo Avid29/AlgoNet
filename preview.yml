@@ -13,7 +13,6 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU|x86|x64|ARM|ARM64'
   buildConfiguration: 'Preview'
-  api-key: 'oy2ob2hkfjotyqmdqroavmibgmicctmuphdaznyxusdhfu'
 
 steps:
   - task: UseDotNet@2
