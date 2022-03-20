@@ -53,3 +53,4 @@ steps:
         push "$(Build.ArtifactStagingDirectory)\*.nupkg"
         -s https://api.nuget.org/v3/index.json
         -k $(key)
+        --skip-duplicate
