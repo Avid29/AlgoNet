@@ -48,5 +48,15 @@ namespace AlgoNet.Tests.Graph.TopologicalSorting
             LinearIntegerGraph shape = new LinearIntegerGraph(0, size - 1, true);
             RunTest(data, shape, true);
         }
+
+        [TestMethod]
+        [DataRow(10)]
+        [DataRow(100)]
+        public void RunBinaryTreeTests(int size)
+        {
+            int[] data = Enumerable.Range(0, size).ToArray();
+            BinaryTreeGraph shape = new BinaryTreeGraph(size - 1);
+            RunTest(data, shape);
+        }
     }
 }
