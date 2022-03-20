@@ -38,8 +38,10 @@ steps:
       projects: '**/*.csproj'
       configuration: $(BuildConfiguration)
       
-  - task: DotNetCoreCLI@2
-    displayName: 'dotnet test'
-    inputs:
-      command: test
-      projects: '**/*.csproj'
+# TODO: Run tests      
+#  - task: DotNetCoreCLI@2
+#    displayName: 'dotnet test'
+#    inputs:
+#      command: test
+#      projects: '**/*.csproj'
+#
