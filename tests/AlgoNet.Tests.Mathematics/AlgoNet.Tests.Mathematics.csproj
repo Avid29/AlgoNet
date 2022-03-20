@@ -3,6 +3,7 @@
 	<TargetFrameworks>net472;netcoreapp3.1;net6.0</TargetFrameworks>
 	<Platforms>AnyCPU;x86;x64;ARM;ARM64</Platforms>
 	<GenerateDocumentationFile>False</GenerateDocumentationFile>
+	<Configurations>Debug;Release;Preview</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

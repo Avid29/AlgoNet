@@ -4,6 +4,7 @@
     <EnablePreviewFeatures>true</EnablePreviewFeatures>
 	<LangVersion>preview</LangVersion>
     <TargetFrameworks>net7.0</TargetFrameworks>
+    <Configurations>Debug;Release;Preview</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
