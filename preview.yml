@@ -3,8 +3,10 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-pr:
+trigger:
 - preview
+
+pr: none
 
 pool:
   vmImage: windows-latest
