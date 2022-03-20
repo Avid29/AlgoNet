@@ -9,10 +9,16 @@ namespace AlgoNet.Tests.Graph.TopologicalSorting
     [TestClass]
     public class KahnTests
     {
-        private static void RunTest<TNode>(int[] data, TNode shape = default)
+        private static void RunTest<TNode>(int[] data, TNode shape = default, bool cyclic = false)
             where TNode : struct, INode<int>
         {
             var result = Kahns.Sort(data, shape);
+
+            if (cyclic)
+            {
+                Assert.IsNull(result);
+                return;
+            }
 
             Assert.IsNotNull(result);
 
@@ -31,6 +37,16 @@ namespace AlgoNet.Tests.Graph.TopologicalSorting
             int[] data = Enumerable.Range(0, size).ToArray();
             LinearIntegerGraph shape = new LinearIntegerGraph(0, size-1);
             RunTest(data, shape);
+        }
+
+        [TestMethod]
+        [DataRow(10)]
+        [DataRow(100)]
+        public void RunLinearCyclicTests(int size)
+        {
+            int[] data = Enumerable.Range(0, size).ToArray();
+            LinearIntegerGraph shape = new LinearIntegerGraph(0, size - 1, true);
+            RunTest(data, shape, true);
         }
     }
 }
