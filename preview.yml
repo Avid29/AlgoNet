@@ -4,10 +4,15 @@
 # https://aka.ms/yaml
 
 trigger:
-- dev
+- preview
 
 pool:
   vmImage: windows-latest
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU|x86|x64|ARM|ARM64'
+  buildConfiguration: 'Release'
 
 steps:
   - task: UseDotNet@2
@@ -31,16 +36,22 @@ steps:
       configuration: $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
-    displayName: 'dotnet build'
+    displayName: 'dotnet pack'
     inputs:
-      command: build
-      projects: '**/*.csproj'
+      command: pack
+      packagesToPack: '**/*.csproj'
+      nobuild: false
+      includesymbols: true
+      versioningScheme: 'off'
       configuration: $(BuildConfiguration)
-      
-# TODO: Run tests      
-#  - task: DotNetCoreCLI@2
-#    displayName: 'dotnet test'
-#    inputs:
-#      command: test
-#      projects: '**/*.csproj'
-#
+
+  - task: DotNetCoreCLI@2
+    displayName: 'nuget push'
+    inputs:
+      command: custom
+      custom: nuget
+      arguments: >
+        push "$(Build.ArtifactStagingDirectory)\*.nupkg"
+        -s https://api.nuget.org/v3/index.json
+        -k $(key)
+        --skip-duplicate

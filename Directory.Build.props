@@ -8,12 +8,6 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
     <!--<TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
   </PropertyGroup>
-	
-  <!--Conditional Build Properties-->
-  <PropertyGroup Condition="'$(Configuration)'!='Debug'">
-	<Optimize>true</Optimize>
-	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
 
   <!--Nuget Metadata-->
   <PropertyGroup>
