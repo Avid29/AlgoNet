@@ -14,7 +14,7 @@
 	<Authors>Adam Dernis</Authors>
 	<RepositoryType>Git</RepositoryType>
 	<RepositoryUrl>https://github.com/Avid29/AlgoNet</RepositoryUrl>
-	<Version>0.1.0-alpha1</Version>
+	<Version>0.1.0-alpha2</Version>
 	<Company>Adam Dernis</Company>
   </PropertyGroup>
 </Project>

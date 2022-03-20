@@ -4,17 +4,10 @@
 # https://aka.ms/yaml
 
 trigger:
-- preview
-
-pr: none
+ - dev
 
 pool:
   vmImage: windows-latest
-
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU|x86|x64|ARM|ARM64'
-  buildConfiguration: 'Release'
 
 steps:
   - task: UseDotNet@2
@@ -34,26 +27,20 @@ steps:
     displayName: 'nuget restore'
     inputs:
       command: restore
-      projects: '**/*.csproj'
+      projects: 'src/**/*.csproj'
       configuration: $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
-    displayName: 'dotnet pack'
+    displayName: 'dotnet build'
     inputs:
-      command: pack
-      packagesToPack: '**/*.csproj'
-      nobuild: false
-      includesymbols: true
-      versioningScheme: 'off'
+      command: build
+      projects: 'src/**/*.csproj'
       configuration: $(BuildConfiguration)
-
-  - task: DotNetCoreCLI@2
-    displayName: 'nuget push'
-    inputs:
-      command: custom
-      custom: nuget
-      arguments: >
-        push "$(Build.ArtifactStagingDirectory)\*.nupkg"
-        -s https://api.nuget.org/v3/index.json
-        -k $(key)
-        --skip-duplicate
+      
+# TODO: Run tests      
+#  - task: DotNetCoreCLI@2
+#    displayName: 'dotnet test'
+#    inputs:
+#      command: test
+#      projects: '**/*.csproj'
+#
