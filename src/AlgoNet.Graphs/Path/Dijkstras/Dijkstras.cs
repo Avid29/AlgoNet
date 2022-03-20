@@ -72,6 +72,7 @@ namespace AlgoNet.Graphs
 
             if (context.Source.Equals(u))
             {
+                path.Add(u);
                 path.Reverse();
                 return path;
             }
