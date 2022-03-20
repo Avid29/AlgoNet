@@ -30,7 +30,6 @@ steps:
       projects: '**/*.csproj'
       configuration: $(BuildConfiguration)
 
-      
   - task: DotNetCoreCLI@2
     displayName: 'dotnet build'
     inputs:
