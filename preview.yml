@@ -6,6 +6,8 @@
 trigger:
 - preview
 
+pr: none
+
 pool:
   vmImage: windows-latest
 
