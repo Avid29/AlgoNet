@@ -11,11 +11,18 @@ namespace AlgoNet.Graphs
     /// </summary>
     public static class Dijkstras
     {
-        public static List<T>? Path<T, TShape>(T[] graph, T source, T? target, out Dictionary<T, double> dists)
-            where T : IEquatable<T>
-            where TShape : struct, IWeightedNode<T> => Path<T, TShape>(graph, source, target, default, out dists);
-
-        public static List<T>? Path<T, TShape>(T[] graph, T source, T? target, TShape shape, out Dictionary<T, double> dists)
+        /// <summary>
+        /// Finds the path from the source to the target.
+        /// </summary>
+        /// <typeparam name="T">The type of node in the graph.</typeparam>
+        /// <typeparam name="TShape">The type of shape to use assessing nodes as a graph.</typeparam>
+        /// <param name="graph">The nodes in the graph.</param>
+        /// <param name="source">The source node of the path.</param>
+        /// <param name="target">The target node of the path, or <see langword="null"/> if finding distance from all points.</param>
+        /// <param name="dists">A <see cref="Dictionary{T, double}"/> containing the distance of a given point from the source.</param>
+        /// <param name="shape">A shape that can determine edges in the graph.</param>
+        /// <returns>The path from the source node to the target node.</returns>
+        public static List<T>? Path<T, TShape>(T[] graph, T source, T? target, out Dictionary<T, double> dists, TShape shape = default)
             where T : IEquatable<T>
             where TShape : struct, IWeightedNode<T>
         {
@@ -33,7 +40,7 @@ namespace AlgoNet.Graphs
             {
                 T u = DequeMinDistance(context, out double uDistance);
 
-                if (u.Equals(context.Target))
+                if (context.Target != null && u.Equals(context.Target))
                     break;
 
                 foreach (T v in shape.GetConnectedNodes(u))

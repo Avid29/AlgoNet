@@ -14,7 +14,7 @@ namespace AlgoNet.Tests.Graph.Paths
         private static void RunTest<TNode>(int[] data, int source, int target, TNode shape = default)
             where TNode : struct, IWeightedNode<int>
         {
-            var result = Dijkstras.Path(data, source, target, shape, out Dictionary<int, double> dists);
+            var result = Dijkstras.Path(data, source, target, out Dictionary<int, double> dists, shape);
 
             Assert.IsNotNull(result);
 
