@@ -50,4 +50,4 @@ steps:
       arguments: >
         push "$(Build.ArtifactStagingDirectory)\*.nupkg"
         -s https://api.nuget.org/v3/index.json
-        -k $(Key)
+        -k $(key)
