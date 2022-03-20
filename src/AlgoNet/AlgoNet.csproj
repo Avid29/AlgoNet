@@ -5,6 +5,12 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<Configurations>Debug;Release;Preview</Configurations>
   </PropertyGroup>
+	
+  <!--Nuget MetaData-->
+  <PropertyGroup>
+	<PackageId>AlgoNet</PackageId>
+  </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\AlgoNet.Clustering\AlgoNet.Clustering.csproj" />
     <ProjectReference Include="..\AlgoNet.Mathematics\AlgoNet.Mathematics.csproj" />
