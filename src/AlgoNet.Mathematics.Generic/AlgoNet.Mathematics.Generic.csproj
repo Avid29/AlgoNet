@@ -4,7 +4,14 @@
     <EnablePreviewFeatures>true</EnablePreviewFeatures>
 	<LangVersion>preview</LangVersion>
     <TargetFrameworks>net7.0</TargetFrameworks>
+    <Configurations>Debug;Release;Preview</Configurations>
   </PropertyGroup>
+	
+  <!--Nuget MetaData-->
+  <PropertyGroup>
+	<PackageId>AlgoNet.Mathematics.Generic</PackageId>
+  </PropertyGroup>
+	
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Diagnostics" Version="7.1.2" />
