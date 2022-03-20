@@ -43,6 +43,7 @@ steps:
       nobuild: false
       includesymbols: true
       versioningScheme: 'off'
+      configuration: $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
     displayName: 'nuget push'
