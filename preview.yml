@@ -36,21 +36,16 @@ steps:
       configuration: $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
-    displayName: 'dotnet build'
-    inputs:
-      command: build
-      projects: '**/*.csproj'
-      configuration: $(BuildConfiguration)
-
-  - task: DotNetCoreCLI@2
+    displayName: 'dotnet pack'
     inputs:
       command: 'pack'
       packagesToPack: '**/*.csproj'
-      nobuild: true
+      nobuild: false
       includesymbols: true
       versioningScheme: 'off'
 
   - task: DotNetCoreCLI@2
+    displayName: 'nuget push'
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
