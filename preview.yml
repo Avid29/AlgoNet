@@ -43,11 +43,17 @@ steps:
       configuration: $(BuildConfiguration)
 
   - task: DotNetCoreCLI@2
-    displayName: 'nuget push'
     inputs:
-      command: custom
-      custom: nuget
-      arguments: >
-        push "$(Build.ArtifactStagingDirectory)\*.nupkg"
-        -s https://api.nuget.org/v3/index.json
-        -k $(key)
+      command: 'pack'
+      packagesToPack: '**/*.csproj'
+      nobuild: true
+      includesymbols: true
+      versioningScheme: 'off'
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: 'https://api.nuget.org/v3/index.json'
+      publishFeedCredentials: '$(key)'
