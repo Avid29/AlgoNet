@@ -11,11 +11,11 @@ namespace AlgoNet.Graphs
     /// </summary>
     public static class Dijkstras
     {
-        public static List<T>? Path<T, TShape>(T[] graph, T source, T? target, out Dictionary<T, double> dists, T? sentinel = default)
+        public static List<T>? Path<T, TShape>(T[] graph, T source, T? target, out Dictionary<T, double> dists)
             where T : IEquatable<T>
             where TShape : struct, IWeightedNode<T> => Path<T, TShape>(graph, source, target, default, out dists);
 
-        public static List<T>? Path<T, TShape>(T[] graph, T source, T? target, TShape shape, out Dictionary<T, double> dists, T? sentinel = default)
+        public static List<T>? Path<T, TShape>(T[] graph, T source, T? target, TShape shape, out Dictionary<T, double> dists)
             where T : IEquatable<T>
             where TShape : struct, IWeightedNode<T>
         {
@@ -24,7 +24,6 @@ namespace AlgoNet.Graphs
             foreach (T node in graph)
             {
                 context.Distances.Add(node, double.PositiveInfinity);
-                context.Previous.Add(node, sentinel);
                 context.Queue.Add(node); 
             }
 
@@ -43,16 +42,16 @@ namespace AlgoNet.Graphs
                     if (alt < context.Distances[v])
                     {
                         context.Distances[v] = alt;
-                        context.Previous[v] = u;
+                        context.Previous.GetOrAddValueRef(v) = u;
                     }
                 }
             }
 
             dists = context.Distances;
-            return BackTracePath(context, sentinel);
+            return BackTracePath(context);
         }
 
-        private static List<T>? BackTracePath<T, TShape>(DijkstrasContext<T, TShape> context, T? sentinel)
+        private static List<T>? BackTracePath<T, TShape>(DijkstrasContext<T, TShape> context)
             where T : IEquatable<T>
             where TShape : struct, IWeightedNode<T>
         {
@@ -64,10 +63,10 @@ namespace AlgoNet.Graphs
 
             while (context.Previous.TryGetValue(u, out T? prev))
             {
-                if (prev == null || prev.Equals(sentinel)) break;
+                if (prev == null) break;
 
                 path.Add(u);
-                u = context.Previous[u];
+                u = prev;
             }
 
             if (context.Source.Equals(u))
