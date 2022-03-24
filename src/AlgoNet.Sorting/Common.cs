@@ -1,5 +1,7 @@
 ﻿// Adam Dernis © 2022
 
+using System.Runtime.CompilerServices;
+
 namespace AlgoNet.Sorting
 {
     /// <summary>
@@ -7,11 +9,7 @@ namespace AlgoNet.Sorting
     /// </summary>
     internal static class Common
     {
-        internal static void Swap<T>(ref T a, ref T b)
-        {
-            T c = a;
-            a = b;
-            b = c;
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void Swap<T>(ref T a, ref T b) => (b, a) = (a, b);
     }
 }
