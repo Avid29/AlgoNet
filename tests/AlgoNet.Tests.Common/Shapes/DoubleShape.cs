@@ -36,9 +36,7 @@ namespace AlgoNet.Tests.Shapes
         }
 
         public double FindDistanceSquared(double it1, double it2)
-        {
-            return Math.Abs(it1 - it2);
-        }
+            => Math.Abs(it1 - it2);
 
         public double WeightedAverage((double, double)[] items)
         {

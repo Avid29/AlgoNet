@@ -12,6 +12,7 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\AlgoNet.Clustering.GPU\AlgoNet.Clustering.GPU.csproj" />
     <ProjectReference Include="..\AlgoNet.Clustering\AlgoNet.Clustering.csproj" />
     <ProjectReference Include="..\AlgoNet.Graphs\AlgoNet.Graphs.csproj" />
     <ProjectReference Include="..\AlgoNet.Mathematics\AlgoNet.Mathematics.csproj" />

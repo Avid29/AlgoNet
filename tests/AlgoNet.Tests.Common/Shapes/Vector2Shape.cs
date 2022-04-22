@@ -32,25 +32,18 @@ namespace AlgoNet.Tests.Shapes
         }
 
         public double FindDistanceSquared(Vector2 it1, Vector2 it2)
-        {
-            float x = it1.X - it2.X;
-            float y = it1.Y - it2.Y;
-            return x * x + y * y;
-        }
+            => (it1 - it2).LengthSquared();
 
         public Vector2 WeightedAverage((Vector2, double)[] items)
         {
-            Vector2 sumVector = new Vector2(0);
+            Vector2 sumVector = Vector2.Zero;
             double totalWeight = 0;
             foreach (var item in items)
             {
-                sumVector.X += item.Item1.X * (float)item.Item2;
-                sumVector.Y += item.Item1.Y * (float)item.Item2;
+                sumVector += item.Item1 * (float)item.Item2;
                 totalWeight += item.Item2;
             }
-            sumVector.X /= (float)totalWeight;
-            sumVector.Y /= (float)totalWeight;
-            return sumVector;
+            return sumVector / (float)totalWeight;
         }
     }
 }
