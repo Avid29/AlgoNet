@@ -13,28 +13,28 @@ namespace AlgoNet.Clustering.MeanShift.Shaders
 
         private ReadWriteBuffer<Vector3> _points;
         private ReadOnlyBuffer<Vector3> _field;
-        private ReadWriteTexture2D<double> _fieldWeight;
-        private double _windowDenominatorBandwidth;
+        private ReadWriteTexture2D<float> _fieldWeight;
+        private float _windowDenominatorBandwidth;
 
-        private double FindDistanceSquared(Vector3 item1, Vector3 item2)
+        private float FindDistanceSquared(Vector3 item1, Vector3 item2)
             => (item1 - item2).LengthSquared();
 
-        private double WeightDistance(double distanceSquared)
-            => Math.Exp(distanceSquared / _windowDenominatorBandwidth);
+        private float WeightDistance(float distanceSquared)
+            => Hlsl.Exp(distanceSquared / _windowDenominatorBandwidth);
 
         private Vector3 FieldWeightedAverage(int thread)
         {
             Vector3 sumVector = Vector3.Zero;
-            double sumWeight = 0;
+            float sumWeight = 0;
             for (int i = 0; i < thread; i++)
             {
                 Vector3 value = _field[i];
-                double weight = _fieldWeight[thread, i];
+                float weight = _fieldWeight[thread, i];
 
-                sumVector += value * (float)weight;
+                sumVector += value * weight;
                 sumWeight += weight;
             }
-            return sumVector / (float)sumWeight;
+            return sumVector / sumWeight;
         }
 
         /// <inheritdoc/>
@@ -50,8 +50,8 @@ namespace AlgoNet.Clustering.MeanShift.Shaders
                 for (int i = 0; i < _field.Length; i++)
                 {
                     Vector3 point = _field[i];
-                    double distSqrd = FindDistanceSquared(point, cluster);
-                    double weight = WeightDistance(distSqrd);
+                    float distSqrd = FindDistanceSquared(point, cluster);
+                    float weight = WeightDistance(distSqrd);
                     _fieldWeight[x, i] = weight;
                 }
 
