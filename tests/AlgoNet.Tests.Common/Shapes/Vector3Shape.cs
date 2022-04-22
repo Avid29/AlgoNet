@@ -1,40 +1,40 @@
-﻿// Adam Dernis © 2021
+﻿// Adam Dernis © 2022
 
 using AlgoNet.Clustering;
 using System.Numerics;
 
-namespace AlgoNet.Tests.Shapes
+namespace AlgoNet.Tests.Data.Shapes
 {
-    public struct Vector2Shape : IGeometricPoint<Vector2>
+    public struct Vector3Shape : IGeometricPoint<Vector3>
     {
-        public bool AreEqual(Vector2 it1, Vector2 it2)
+        public bool AreEqual(Vector3 it1, Vector3 it2)
         {
             return it1 == it2;
         }
 
-        public bool AreEqual(Vector2 it1, Vector2 it2, double error = 0)
+        public bool AreEqual(Vector3 it1, Vector3 it2, double error = 0)
         {
             return FindDistanceSquared(it1, it2) <= error;
         }
 
-        public Vector2 Average(Vector2[] items)
+        public Vector3 Average(Vector3[] items)
         {
-            Vector2 sumVector = Vector2.Zero;
+            Vector3 sumVector = Vector3.Zero;
             int count = 0;
             foreach (var item in items)
             {
                 sumVector += item;
                 count++;
             }
-            return sumVector /= count;
+            return sumVector /= count; ;
         }
 
-        public double FindDistanceSquared(Vector2 it1, Vector2 it2)
+        public double FindDistanceSquared(Vector3 it1, Vector3 it2)
             => (it1 - it2).LengthSquared();
 
-        public Vector2 WeightedAverage((Vector2, double)[] items)
+        public Vector3 WeightedAverage((Vector3, double)[] items)
         {
-            Vector2 sumVector = Vector2.Zero;
+            Vector3 sumVector = Vector3.Zero;
             double totalWeight = 0;
             foreach (var item in items)
             {

@@ -4,20 +4,24 @@ using ComputeSharp;
 using System;
 using System.Numerics;
 
-namespace AlgoNet.Clustering.MeanShift.Shaders
+namespace AlgoNet.Clustering.Shaders
 {
     [AutoConstructor]
+    [EmbeddedBytecode(DispatchAxis.X)]
     public partial struct EuclideanVector3MeanShiftShader : IComputeShader
     {
         private const double ACCEPTED_ERROR = 0.000005;
 
         private ReadWriteBuffer<Vector3> _points;
-        private ReadOnlyBuffer<Vector3> _field;
+        private ReadWriteBuffer<Vector3> _field;
         private ReadWriteTexture2D<float> _fieldWeight;
         private float _windowDenominatorBandwidth;
 
         private float FindDistanceSquared(Vector3 item1, Vector3 item2)
-            => (item1 - item2).LengthSquared();
+        {
+            Vector3 diff = item1 - item2;
+            return diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z;
+        }
 
         private float WeightDistance(float distanceSquared)
             => Hlsl.Exp(distanceSquared / _windowDenominatorBandwidth);

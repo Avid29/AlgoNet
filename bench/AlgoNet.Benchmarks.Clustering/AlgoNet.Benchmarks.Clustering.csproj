@@ -11,4 +11,11 @@
     <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\sample\AlgoNet.Samples.Color\AlgoNet.Samples.Color.csproj" />
+    <ProjectReference Include="..\..\src\AlgoNet.Clustering.GPU\AlgoNet.Clustering.GPU.csproj" />
+    <ProjectReference Include="..\..\src\AlgoNet.Clustering\AlgoNet.Clustering.csproj" />
+    <ProjectReference Include="..\..\tests\AlgoNet.Tests.Common\AlgoNet.Tests.Data.csproj" />
+  </ItemGroup>
+
 </Project>

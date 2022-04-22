@@ -204,7 +204,7 @@ namespace AlgoNet.Clustering
             return cluster;
         }
 
-        private static (T, int)[] PostProcess<T, TShape, TKernel>(
+        internal static (T, int)[] PostProcess<T, TShape, TKernel>(
             T[] clusters,
             TKernel kernel,
             TShape shape)
