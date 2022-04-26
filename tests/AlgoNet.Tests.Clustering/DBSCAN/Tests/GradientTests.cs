@@ -2,7 +2,6 @@
 
 using AlgoNet.Clustering;
 using AlgoNet.Tests.Data;
-using AlgoNet.Tests.Shapes;
 using System.Numerics;
 
 namespace AlgoNet.Tests.Clustering.DBSCAN.Tests

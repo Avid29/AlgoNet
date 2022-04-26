@@ -1,55 +1,51 @@
-﻿// Adam Dernis © 2021
+﻿// Adam Dernis © 2022
 
-using AlgoNet.Clustering;
 using System.Numerics;
 
-namespace AlgoNet.Tests.Shapes
+namespace AlgoNet.Clustering
 {
+    /// <summary>
+    /// A shape defining how to handle <see cref="Vector2"/>s in a geometric space.
+    /// </summary>
     public struct Vector2Shape : IGeometricSpace<Vector2>
     {
+        /// <inheritdoc/>
         public bool AreEqual(Vector2 it1, Vector2 it2)
         {
             return it1 == it2;
         }
 
-        public bool AreEqual(Vector2 it1, Vector2 it2, double error = 0)
-        {
-            return FindDistanceSquared(it1, it2) <= error;
-        }
-
+        /// <inheritdoc/>
         public Vector2 Average(Vector2[] items)
         {
-            Vector2 sumVector = new Vector2(0);
+            Vector2 sumVector = Vector2.Zero;
             int count = 0;
             foreach (var item in items)
             {
                 sumVector += item;
                 count++;
             }
-            sumVector.X /= count;
-            sumVector.Y /= count;
+            sumVector /= count;
             return sumVector;
         }
 
+        /// <inheritdoc/>
         public double FindDistanceSquared(Vector2 it1, Vector2 it2)
         {
-            float x = it1.X - it2.X;
-            float y = it1.Y - it2.Y;
-            return x * x + y * y;
+            return (it1 - it2).LengthSquared();
         }
 
+        /// <inheritdoc/>
         public Vector2 WeightedAverage((Vector2, double)[] items)
         {
-            Vector2 sumVector = new Vector2(0);
+            Vector2 sumVector = Vector2.Zero;
             double totalWeight = 0;
             foreach (var item in items)
             {
-                sumVector.X += item.Item1.X * (float)item.Item2;
-                sumVector.Y += item.Item1.Y * (float)item.Item2;
+                sumVector += item.Item1 * (float)item.Item2;
                 totalWeight += item.Item2;
             }
-            sumVector.X /= (float)totalWeight;
-            sumVector.Y /= (float)totalWeight;
+            sumVector /= (float)totalWeight;
             return sumVector;
         }
     }
