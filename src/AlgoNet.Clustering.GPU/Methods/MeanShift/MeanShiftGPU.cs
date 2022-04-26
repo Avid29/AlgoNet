@@ -13,7 +13,7 @@ namespace AlgoNet.Clustering
         public static (Vector3, int)[] ClusterRaw<TShape>(
             ReadOnlySpan<Vector3> points,
             GaussianKernel kernel)
-            where TShape : struct, IGeometricPoint<Vector3>
+            where TShape : struct, IDistanceSpace<Vector3>, IWeightedAverageSpace<Vector3>
         {
             var pointBuffer = GraphicsDevice.Default.AllocateReadWriteBuffer(points);
             var weightBuffer = GraphicsDevice.Default.AllocateReadWriteTexture2D<float>(points.Length, points.Length);

@@ -2,7 +2,6 @@
 
 using AlgoNet.Clustering;
 using AlgoNet.Clustering.Kernels;
-using AlgoNet.Tests.Data.Shapes;
 using BenchmarkDotNet.Attributes;
 using ColorExtractor;
 using System.Numerics;
