@@ -2,18 +2,18 @@
 
 using AlgoNet.Clustering;
 using AlgoNet.Tests.Data;
-using DBS = AlgoNet.Clustering.DBSCAN;
+using Box = AlgoNet.Clustering.Boxing;
 
-namespace AlgoNet.Tests.Clustering.DBSCAN
+namespace AlgoNet.Tests.Clustering.Boxing
 {
-    public class DBSTest<T, TShape> : IDBSTest
+    public class BoxingTest<T, TShape> : IBoxingTest
         where T : unmanaged
-        where TShape : struct, IDistanceSpace<T>
+        where TShape : struct, IRoundableSpace<T>, IAverageSpace<T>
     {
-        public DBSTest(DataSet<T> dataSet, DBSConfig<T, TShape> config, TShape shape = default)
+        public BoxingTest(DataSet<T> dataSet, double window, TShape shape = default)
         {
             DataSet = dataSet;
-            Config = config;
+            Window = window;
             Shape = shape;
         }
 
@@ -23,13 +23,13 @@ namespace AlgoNet.Tests.Clustering.DBSCAN
 
         public T[] Data => DataSet.Data;
 
-        public DBSConfig<T, TShape> Config { get; }
+        public double Window { get; }
 
         public TShape Shape { get; }
 
         public void Run()
         {
-            DBS.Cluster(Data, Config, Shape);
+            Box.Cluster(Data, Window, Shape);
         }
     }
 }

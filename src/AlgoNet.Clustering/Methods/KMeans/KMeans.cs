@@ -23,7 +23,7 @@ namespace AlgoNet.Clustering
             KMeansConfig<T, TShape> config,
             TShape shape)
             where T : unmanaged
-            where TShape : struct, IGeometricPoint<T>
+            where TShape : struct, IDistanceSpace<T>, IAverageSpace<T>
         {
             // Split to arbitrary clusters
             KMeansCluster<T, TShape>[] clusters = Split<T, TShape>(points, config.ClusterCount);
@@ -75,7 +75,7 @@ namespace AlgoNet.Clustering
             KMeansCluster<T, TShape>[] clusters,
             TShape shape)
             where T : unmanaged
-            where TShape : struct, IGeometricPoint<T>
+            where TShape : struct, IDistanceSpace<T>, IAverageSpace<T>
         {
             // Track nearest seen value and its index.
             double minimumDistance = double.PositiveInfinity;
@@ -109,7 +109,7 @@ namespace AlgoNet.Clustering
             ReadOnlySpan<T> points,
             int clusterCount)
             where T : unmanaged
-            where TShape : struct, IGeometricPoint<T>
+            where TShape : struct, IDistanceSpace<T>, IAverageSpace<T>
         {
 #if DEBUG
             // In-method input validation should only run in DEBUG. KMeansConfig runs input validation regardless, so this should never be hit.

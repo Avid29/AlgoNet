@@ -12,7 +12,7 @@ namespace AlgoNet.Tests.Clustering.MeanShift
 {
     public class MSTest<T, TShape, TKernel> : IMSTest
         where T : unmanaged, IEquatable<T>
-        where TShape : struct, IGeometricPoint<T>
+        where TShape : struct, IGeometricSpace<T>
         where TKernel : struct, IKernel
     {
         public const double ACCEPTED_ERROR = .000001;

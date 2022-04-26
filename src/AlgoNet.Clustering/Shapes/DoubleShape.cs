@@ -1,22 +1,21 @@
-﻿// Adam Dernis © 2021
+﻿// Adam Dernis © 2022
 
-using AlgoNet.Clustering;
 using System;
 
-namespace AlgoNet.Tests.Shapes
+namespace AlgoNet.Clustering
 {
-    public struct DoubleShape : IGeometricPoint<double>
+    /// <summary>
+    /// A shape defining how to handle <see cref="double"/>s in a geometric space.
+    /// </summary>
+    public struct DoubleShape : IGeometricSpace<double>
     {
+        /// <inheritdoc/>
         public bool AreEqual(double it1, double it2)
         {
             return it1 == it2;
         }
 
-        public bool AreEqual(double it1, double it2, double error = 0)
-        {
-            return FindDistanceSquared(it1, it2) <= error;
-        }
-
+        /// <inheritdoc/>
         public double Average(double[] items)
         {
             double sum = 0;
@@ -29,17 +28,19 @@ namespace AlgoNet.Tests.Shapes
             return sum /= count;
         }
 
-        public double Divide(double it, double count)
-        {
-            it /= count;
-            return it;
-        }
-
+        /// <inheritdoc/>
         public double FindDistanceSquared(double it1, double it2)
         {
             return Math.Abs(it1 - it2);
         }
 
+        /// <inheritdoc/>
+        public double Round(double value, double detail)
+        {
+            return Math.Round(value / detail) * detail;
+        }
+
+        /// <inheritdoc/>
         public double WeightedAverage((double, double)[] items)
         {
             double sum = 0;

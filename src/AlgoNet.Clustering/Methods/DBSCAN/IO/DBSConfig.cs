@@ -11,7 +11,7 @@ namespace AlgoNet.Clustering
     /// <typeparam name="TShape">The type of shape to use on the points while clustering.</typeparam>
     public struct DBSConfig<T, TShape>
         where T : unmanaged
-        where TShape : struct, IMetricPoint<T>
+        where TShape : struct, IDistanceSpace<T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DBSConfig{T, TShape}"/> struct.

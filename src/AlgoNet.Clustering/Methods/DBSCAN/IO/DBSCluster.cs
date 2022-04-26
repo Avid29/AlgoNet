@@ -11,7 +11,7 @@ namespace AlgoNet.Clustering
     /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
     public class DBSCluster<T, TShape> : Cluster<T, TShape>, IWeightedCluster
         where T : unmanaged
-        where TShape : struct, IMetricPoint<T>
+        where TShape : struct, IDistanceSpace<T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DBSCluster{T, TShape}"/> class.

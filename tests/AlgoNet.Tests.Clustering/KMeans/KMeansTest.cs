@@ -9,7 +9,7 @@ namespace AlgoNet.Tests.Clustering.KMeans
 {
     public class KMeansTest<T, TShape> : IKMeansTest
         where T : unmanaged
-        where TShape : struct, IGeometricPoint<T>
+        where TShape : struct, IGeometricSpace<T>
     {
         public KMeansTest(DataSet<T> dataSet, KMeansConfig<T, TShape> config, TShape shape = default)
         {
