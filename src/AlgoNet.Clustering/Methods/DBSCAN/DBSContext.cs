@@ -9,7 +9,7 @@ namespace AlgoNet.Clustering
     /// <typeparam name="TShape">The type of shape to use on the points to cluster.</typeparam>
     internal unsafe ref struct DBSContext<T, TShape>
         where T : unmanaged
-        where TShape : struct, IMetricPoint<T>
+        where TShape : struct, IDistanceSpace<T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DBSContext{T, TShape}"/> struct.
@@ -60,7 +60,7 @@ namespace AlgoNet.Clustering
         /// <remarks>
         /// Null if not tracking noise.
         /// </remarks>
-        public DBSCluster<T, TShape> NoiseCluster { get; }
+        public DBSCluster<T, TShape>? NoiseCluster { get; }
 
         /// <summary>
         /// Gets a value indicating wether or not to return the noise cluster with the results.

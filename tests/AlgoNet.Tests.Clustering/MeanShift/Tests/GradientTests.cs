@@ -1,8 +1,8 @@
 ﻿// Adam Dernis © 2022
 
+using AlgoNet.Clustering;
 using AlgoNet.Clustering.Kernels;
 using AlgoNet.Tests.Data;
-using AlgoNet.Tests.Shapes;
 using System.Numerics;
 
 namespace AlgoNet.Tests.Clustering.MeanShift.Tests
