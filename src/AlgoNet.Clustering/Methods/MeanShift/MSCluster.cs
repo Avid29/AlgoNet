@@ -9,7 +9,7 @@ namespace AlgoNet.Clustering
     /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
     public class MSCluster<T, TShape> : Cluster<T, TShape>, ICentroidCluster<T>, IWeightedCluster
         where T : unmanaged
-        where TShape : struct, IGeometricPoint<T>
+        where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MSCluster{T, TShape}"/> class.

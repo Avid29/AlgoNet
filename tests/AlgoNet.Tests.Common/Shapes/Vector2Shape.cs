@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace AlgoNet.Tests.Shapes
 {
-    public struct Vector2Shape : IGeometricPoint<Vector2>
+    public struct Vector2Shape : IGeometricSpace<Vector2>
     {
         public bool AreEqual(Vector2 it1, Vector2 it2)
         {

@@ -8,7 +8,7 @@ namespace AlgoNet.Tests.Clustering.DBSCAN
 {
     public class DBSTest<T, TShape> : IDBSTest
         where T : unmanaged
-        where TShape : struct, IMetricPoint<T>
+        where TShape : struct, IDistanceSpace<T>
     {
         public DBSTest(DataSet<T> dataSet, DBSConfig<T, TShape> config, TShape shape = default)
         {

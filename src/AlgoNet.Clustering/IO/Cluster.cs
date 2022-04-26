@@ -7,7 +7,7 @@ namespace AlgoNet.Clustering
     /// </summary>
     public abstract class Cluster<T, TShape>
         where T : unmanaged
-        where TShape : struct, IMetricPoint<T>
+        where TShape : struct, ISpace<T>
     {
     }
 }

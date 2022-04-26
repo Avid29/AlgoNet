@@ -24,7 +24,7 @@ namespace AlgoNet.Clustering
             DBSConfig<T, TShape> config,
             TShape shape = default)
             where T : unmanaged
-            where TShape : struct, IMetricPoint<T>
+            where TShape : struct, IDistanceSpace<T>
         {
             List<DBSCluster<T, TShape>> clusters = new();
 
@@ -39,24 +39,25 @@ namespace AlgoNet.Clustering
                     if (context.ClusterIds[i] == DBSConstants.UNCLASSIFIED_ID)
                     {
                         T point = p[i];
-                        DBSCluster<T, TShape> cluster = CreateCluster(point, i, context);
+                        DBSCluster<T, TShape>? cluster = CreateCluster(point, i, context);
                         if (cluster != null) clusters.Add(cluster);
                     }
                 }
 
                 // Add noise (if applicable)
-                if (context.ReturnNoise) clusters.Add(context.NoiseCluster);
+                // Noise cluster is not null in this condition.
+                if (context.ReturnNoise) clusters.Add(context.NoiseCluster!);
             }
 
             return clusters;
         }
 
-        private static DBSCluster<T, TShape> CreateCluster<T, TShape>(
+        private static DBSCluster<T, TShape>? CreateCluster<T, TShape>(
             T p,
             int i,
             DBSContext<T, TShape> context)
             where T : unmanaged
-            where TShape: struct, IMetricPoint<T>
+            where TShape: struct, IDistanceSpace<T>
         {
 
             // Create cluster with the next cluster Id.
@@ -67,7 +68,7 @@ namespace AlgoNet.Clustering
                 // Not a core point
                 // Assign noise id and return null
                 context.ClusterIds[i] = DBSConstants.NOISE_ID;
-                if (context.ReturnNoise) context.NoiseCluster.Points.Add(p);
+                if (context.ReturnNoise) context.NoiseCluster?.Points.Add(p);
 
                 // Current next cluster id is not incremented because this was not a cluster
                 return null;
@@ -96,7 +97,7 @@ namespace AlgoNet.Clustering
             List<(T, int)> seeds,
             DBSContext<T, TShape> context)
             where T : unmanaged
-            where TShape : struct, IMetricPoint<T>
+            where TShape : struct, IDistanceSpace<T>
         {
             // Seeds is used as a queue for breadth-first graph traversal
             while (seeds.Count > 0)
@@ -132,7 +133,7 @@ namespace AlgoNet.Clustering
             T p,
             DBSContext<T, TShape> context)
             where T : unmanaged
-            where TShape : struct, IMetricPoint<T>
+            where TShape : struct, IDistanceSpace<T>
         {
             List<(T, int)> seeds = new();
             for (int i = 0; i < context.PointsLength; i++)

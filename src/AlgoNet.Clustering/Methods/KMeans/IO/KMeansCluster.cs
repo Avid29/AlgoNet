@@ -11,7 +11,7 @@ namespace AlgoNet.Clustering
     /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
     public class KMeansCluster<T, TShape> : Cluster<T, TShape>, ICentroidCluster<T>, IPointsCluster<T>, IWeightedCluster
         where T : unmanaged
-        where TShape : struct, IGeometricPoint<T>
+        where TShape : struct, IDistanceSpace<T>, IAverageSpace<T>
     {
         private T? _centroid;
 

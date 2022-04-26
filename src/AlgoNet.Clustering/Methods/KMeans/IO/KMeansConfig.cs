@@ -11,7 +11,7 @@ namespace AlgoNet.Clustering
     /// <typeparam name="TShape">A shape to describe to provide comparison methods for <typeparamref name="T"/>.</typeparam>
     public class KMeansConfig<T, TShape>
         where T : unmanaged
-        where TShape : struct, IGeometricPoint<T>
+        where TShape : struct, IDistanceSpace<T>, IAverageSpace<T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="KMeansConfig{T, TShape}"/> struct.
