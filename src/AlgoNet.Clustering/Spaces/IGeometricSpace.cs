@@ -1,5 +1,7 @@
 ﻿// Adam Dernis © 2021
 
+using AlgoNet.Clustering.Spaces.Properties;
+
 namespace AlgoNet.Clustering
 {
     /// <summary>
@@ -9,7 +11,7 @@ namespace AlgoNet.Clustering
     /// Geometric points are defined by their absolute positions in space.
     /// </remarks>
     /// <typeparam name="T">The type being wrapped by the implementation.</typeparam>
-    public interface IGeometricSpace<T> : IMetricSpace<T>, IAverageSpace<T>, IWeightedAverageSpace<T>
+    public interface IGeometricSpace<T> : IMetricSpace<T>, IAverageSpace<T>, IWeightedAverageSpace<T>, IRoundableSpace<T>
     {
     }
 }

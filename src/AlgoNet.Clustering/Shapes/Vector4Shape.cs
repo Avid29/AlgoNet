@@ -36,6 +36,18 @@ namespace AlgoNet.Clustering
         }
 
         /// <inheritdoc/>
+        public Vector4 Round(Vector4 value, double detail)
+        {
+            var shape = new FloatShape();
+            Vector4 rounded = value;
+            rounded.W = shape.Round(rounded.W, detail);
+            rounded.X = shape.Round(rounded.X, detail);
+            rounded.Y = shape.Round(rounded.Y, detail);
+            rounded.Z = shape.Round(rounded.Z, detail);
+            return rounded;
+        }
+
+        /// <inheritdoc/>
         public Vector4 WeightedAverage((Vector4, double)[] items)
         {
             Vector4 sumVector = Vector4.Zero;

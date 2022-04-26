@@ -5,20 +5,20 @@ using System;
 namespace AlgoNet.Clustering
 {
     /// <summary>
-    /// A shape defining how to handle <see cref="double"/>s in a geometric space.
+    /// A shape defining how to handle <see cref="float"/>s in a geometric space.
     /// </summary>
-    public struct DoubleShape : IGeometricSpace<double>
+    public struct FloatShape : IGeometricSpace<float>
     {
         /// <inheritdoc/>
-        public bool AreEqual(double it1, double it2)
+        public bool AreEqual(float it1, float it2)
         {
             return it1 == it2;
         }
 
         /// <inheritdoc/>
-        public double Average(double[] items)
+        public float Average(float[] items)
         {
-            double sum = 0;
+            float sum = 0;
             int count = 0;
             foreach (var item in items)
             {
@@ -29,28 +29,28 @@ namespace AlgoNet.Clustering
         }
 
         /// <inheritdoc/>
-        public double FindDistanceSquared(double it1, double it2)
+        public double FindDistanceSquared(float it1, float it2)
         {
             return Math.Abs(it1 - it2);
         }
 
         /// <inheritdoc/>
-        public double Round(double value, double detail)
+        public float Round(float value, double detail)
         {
-            return Math.Round(value / detail) * detail;
+            return (float)(Math.Round(value / detail) * detail);
         }
 
         /// <inheritdoc/>
-        public double WeightedAverage((double, double)[] items)
+        public float WeightedAverage((float, double)[] items)
         {
-            double sum = 0;
+            float sum = 0;
             double totalWeight = 0;
             foreach (var item in items)
             {
-                sum += item.Item1 * item.Item2;
+                sum += (float)(item.Item1 * item.Item2);
                 totalWeight += item.Item2;
             }
-            return sum / totalWeight;
+            return (float)(sum / totalWeight);
         }
     }
 }
