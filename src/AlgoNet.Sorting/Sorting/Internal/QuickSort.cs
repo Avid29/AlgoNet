@@ -7,6 +7,48 @@ using System.Threading.Tasks;
 
 namespace AlgoNet.Sorting
 {
+    /// QuickSort works by recursively partitioning smaller values above and greater values below a pivot.
+    /// The partition step is done in place. To start the partiton, the last value is selected as the pivot.
+    /// Then swaps are performed moving all values lower than the pivot to the start of the array.
+    /// The first value larger than the pivot is then swapped with the pivot. As a result, all values less than
+    /// the pivot are in front of the pivot and all values greater than or equal to are behind.
+    /// 
+    /// For example
+    /// Let's sort this list
+    /// | 2   4   6   1   5   3 |
+    /// 
+    /// Step 1
+    ///     Group | - Unsorted - - - - -  | 
+    ///     Value | 2   4   6   1   5   3 |
+    ///     Index | 0   1   2   3   4   5 |
+    ///     Pivot |                     ^ |
+    /// 
+    ///     In step 1 we set a pivot at the last index
+    ///     
+    /// 
+    /// Step 2
+    ///     Group | - Unsorted - - - - -  | 
+    ///     Parti | 2   1   6   4   5 | 3 |
+    ///     Index | 0   1   2   3   4   5 |
+    ///     Pivot |                     ^ |
+    ///     Swped | 2   1 | 3 | 4   5   6 |
+    ///     
+    ///     In step 2 we partition the entire list around 3.
+    ///     The "Parti" is what the array looks like before swapping the pivot and the first value greater than it.
+    /// 
+    /// 
+    /// Step 3
+    ///     Group | Unsrt | S | Unsorted  | 
+    ///     Parti | 2 | 1 | 3 | 4   5 | 6 |
+    ///     Index | 0   1 | 2 | 3   4   5 |
+    ///     Pivot |     ^ |   |         ^ |
+    ///     Swped | 1   2 | 3 | 4   5   6 |
+    ///     
+    ///     In step 3 the previous pivot is in its correct sorted position, so we'll leave it alone.
+    ///     We'll now repeat the previous step on both the values above and below the old pivot.
+    ///     The values greater than 3 are already sorted, and the values below need only a single swap.
+    
+
     /// <summary>
     /// A static class containing quick sort methods.
     /// </summary>
@@ -15,47 +57,6 @@ namespace AlgoNet.Sorting
     /// </remarks>
     internal static partial class QuickSort
     {
-        /// QuickSort works by recursively partitioning smaller values above and greater values below a pivot.
-        /// The partition step is done in place. To start the partiton, the last value is selected as the pivot.
-        /// Then swaps are performed moving all values lower than the pivot to the start of the array.
-        /// The first value larger than the pivot is then swapped with the pivot. As a result, all values less than
-        /// the pivot are in front of the pivot and all values greater than or equal to are behind.
-        /// 
-        /// For example
-        /// Let's sort this list
-        /// | 2   4   6   1   5   3 |
-        /// 
-        /// Step 1
-        ///     Group | - Unsorted - - - - -  | 
-        ///     Value | 2   4   6   1   5   3 |
-        ///     Index | 0   1   2   3   4   5 |
-        ///     Pivot |                     ^ |
-        /// 
-        ///     In step 1 we set a pivot at the last index
-        ///     
-        /// 
-        /// Step 2
-        ///     Group | - Unsorted - - - - -  | 
-        ///     Parti | 2   1   6   4   5 | 3 |
-        ///     Index | 0   1   2   3   4   5 |
-        ///     Pivot |                     ^ |
-        ///     Swped | 2   1 | 3 | 4   5   6 |
-        ///     
-        ///     In step 2 we partition the entire list around 3.
-        ///     The "Parti" is what the array looks like before swapping the pivot and the first value greater than it.
-        /// 
-        /// 
-        /// Step 3
-        ///     Group | Unsrt | S | Unsorted  | 
-        ///     Parti | 2 | 1 | 3 | 4   5 | 6 |
-        ///     Index | 0   1 | 2 | 3   4   5 |
-        ///     Pivot |     ^ |   |         ^ |
-        ///     Swped | 1   2 | 3 | 4   5   6 |
-        ///     
-        ///     In step 3 the previous pivot is in its correct sorted position, so we'll leave it alone.
-        ///     We'll now repeat the previous step on both the values above and below the old pivot.
-        ///     The values greater than 3 are already sorted, and the values below need only a single swap.
-
         /// <inheritdoc cref="Sort{T}(Span{T})"/>
         internal static void Sort<T>(T[] array) where T : IComparable<T>
             => Sort(array.AsSpan());
