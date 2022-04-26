@@ -39,6 +39,12 @@ namespace AlgoNet.Benchmarks.Benchmarks
         }
 
         [Benchmark]
+        public void AlgoNet_HeapSort()
+        {
+            HeapSort.Sort(_array);
+        }
+
+        [Benchmark]
         public void AlgoNet_QuickSort()
         {
             QuickSort.Sort(_array);
