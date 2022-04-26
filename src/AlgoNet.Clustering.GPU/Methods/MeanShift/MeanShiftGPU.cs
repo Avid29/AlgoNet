@@ -4,12 +4,21 @@ using AlgoNet.Clustering.Kernels;
 using AlgoNet.Clustering.Shaders;
 using ComputeSharp;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace AlgoNet.Clustering
 {
     public static class MeanShiftGPU
     {
+        public static List<MSCluster<Vector3, TShape>> Cluster<TShape>(
+            ReadOnlySpan<Vector3> points,
+            GaussianKernel kernel)
+            where TShape : struct, IDistanceSpace<Vector3>, IWeightedAverageSpace<Vector3>
+        {
+            return MeanShift.Wrap<Vector3, TShape>(ClusterRaw<TShape>(points, kernel));
+        }
+
         public static (Vector3, int)[] ClusterRaw<TShape>(
             ReadOnlySpan<Vector3> points,
             GaussianKernel kernel)
