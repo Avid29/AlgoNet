@@ -1,7 +1,5 @@
 ﻿// Adam Dernis © 2021
 
-using AlgoNet.Clustering.Spaces.Properties;
-
 namespace AlgoNet.Clustering
 {
     /// <summary>

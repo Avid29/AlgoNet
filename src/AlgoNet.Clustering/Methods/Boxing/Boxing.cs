@@ -1,6 +1,8 @@
 ﻿// Adam Dernis © 2022
 
-namespace AlgoNet.Clustering.Methods.Boxing
+using System.Collections.Generic;
+
+namespace AlgoNet.Clustering
 {
     /// Boxing, or Box Clustering, is my name for this algorithm since I couldn't find one.
     /// Box Clustering is an extremely naive grid based clustering method.
@@ -57,7 +59,35 @@ namespace AlgoNet.Clustering.Methods.Boxing
     /// <summary>
     /// A static class containing Box Clustering methods.
     /// </summary>
-    internal class Boxing
+    public class Boxing
     {
+        public static (T, int)[] Cluster<T, TShape>(T[] points, double window, TShape shape = default)
+            where T : unmanaged
+            where TShape : struct, IRoundableSpace<T>, IAverageSpace<T>
+        {
+            Dictionary<T, List<T>> segments = new Dictionary<T, List<T>>();
+            foreach (var point in points)
+            {
+                T segment = shape.Round(point, window);
+                if (!segments.ContainsKey(segment))
+                {
+                    segments.Add(segment, new List<T>());
+                }
+
+                segments[segment].Add(point);
+            }
+
+            (T, int)[] clusters = new (T, int)[segments.Count];
+            int i = 0;
+            foreach (var segment in segments.Values)
+            {
+                T centroid = shape.Average(segment.ToArray());
+                int weight = segment.Count;
+                clusters[i] = (centroid, weight);
+                i++;
+            }
+
+            return clusters;
+        }
     }
 }
