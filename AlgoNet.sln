@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F88294FC-C78C-4AD7-ADAF-8B04D9AFCB6B}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		build-test.yml = build-test.yml
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
@@ -34,8 +35,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Mathematics", "src\AlgoNet.Mathematics\AlgoNet.Mathematics.csproj", "{9D6436D0-4C51-4558-87BB-093A57276E2F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Benchmarks.Mathematics", "bench\AlgoNet.Benchmarks.Mathematics\AlgoNet.Benchmarks.Mathematics.csproj", "{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Mathematics.Generic", "src\AlgoNet.Mathematics.Generic\AlgoNet.Mathematics.Generic.csproj", "{5ECB2311-BDE4-4637-BE85-43F36662D184}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoNet.Tests.Graph", "tests\AlgoNet.Tests.Graph\AlgoNet.Tests.Graph.csproj", "{FB941A8F-96BC-4122-AB6F-49342BA36E0B}"
 EndProject
@@ -388,36 +387,6 @@ Global
 		{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}.Release|x64.Build.0 = Release|Any CPU
 		{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}.Release|x86.ActiveCfg = Release|Any CPU
 		{DB38C42C-DA83-464E-B3BE-2E8ECDDF5535}.Release|x86.Build.0 = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|ARM.Build.0 = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|x64.Build.0 = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Debug|x86.Build.0 = Debug|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|Any CPU.ActiveCfg = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|Any CPU.Build.0 = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|ARM.ActiveCfg = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|ARM.Build.0 = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|ARM64.ActiveCfg = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|ARM64.Build.0 = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|x64.ActiveCfg = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|x64.Build.0 = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|x86.ActiveCfg = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Preview|x86.Build.0 = Preview|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|ARM.ActiveCfg = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|ARM.Build.0 = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|ARM64.Build.0 = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|x64.ActiveCfg = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|x64.Build.0 = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|x86.ActiveCfg = Release|Any CPU
-		{5ECB2311-BDE4-4637-BE85-43F36662D184}.Release|x86.Build.0 = Release|Any CPU
 		{FB941A8F-96BC-4122-AB6F-49342BA36E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB941A8F-96BC-4122-AB6F-49342BA36E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB941A8F-96BC-4122-AB6F-49342BA36E0B}.Debug|ARM.ActiveCfg = Debug|Any CPU
