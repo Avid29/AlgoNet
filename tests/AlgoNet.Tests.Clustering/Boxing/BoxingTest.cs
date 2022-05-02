@@ -8,7 +8,7 @@ namespace AlgoNet.Tests.Clustering.Boxing
 {
     public class BoxingTest<T, TShape> : IBoxingTest
         where T : unmanaged
-        where TShape : struct, IRoundableSpace<T>, IAverageSpace<T>
+        where TShape : struct, IGridSpace<T, T>, IAverageSpace<T>
     {
         public BoxingTest(DataSet<T> dataSet, double window, TShape shape = default)
         {

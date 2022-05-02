@@ -35,7 +35,7 @@ namespace AlgoNet.Clustering
         }
 
         /// <inheritdoc/>
-        public float Round(float value, double detail)
+        public float GetCell(float value, double detail)
         {
             return (float)(Math.Round(value / detail) * detail);
         }

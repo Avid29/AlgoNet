@@ -36,14 +36,14 @@ namespace AlgoNet.Clustering
         }
 
         /// <inheritdoc/>
-        public Vector4 Round(Vector4 value, double detail)
+        public Vector4 GetCell(Vector4 value, double detail)
         {
             var shape = new FloatShape();
             Vector4 rounded = value;
-            rounded.W = shape.Round(rounded.W, detail);
-            rounded.X = shape.Round(rounded.X, detail);
-            rounded.Y = shape.Round(rounded.Y, detail);
-            rounded.Z = shape.Round(rounded.Z, detail);
+            rounded.W = shape.GetCell(rounded.W, detail);
+            rounded.X = shape.GetCell(rounded.X, detail);
+            rounded.Y = shape.GetCell(rounded.Y, detail);
+            rounded.Z = shape.GetCell(rounded.Z, detail);
             return rounded;
         }
 

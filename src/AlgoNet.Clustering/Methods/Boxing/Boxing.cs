@@ -63,23 +63,23 @@ namespace AlgoNet.Clustering
     {
         public static (T, int)[] Cluster<T, TShape>(T[] points, double window, TShape shape = default)
             where T : unmanaged
-            where TShape : struct, IRoundableSpace<T>, IAverageSpace<T>
+            where TShape : struct, IGridSpace<T, T>, IAverageSpace<T>
         {
-            Dictionary<T, List<T>> segments = new Dictionary<T, List<T>>();
+            Dictionary<T, List<T>> cells = new Dictionary<T, List<T>>();
             foreach (var point in points)
             {
-                T segment = shape.Round(point, window);
-                if (!segments.ContainsKey(segment))
+                T cell = shape.GetCell(point, window);
+                if (!cells.ContainsKey(cell))
                 {
-                    segments.Add(segment, new List<T>());
+                    cells.Add(cell, new List<T>());
                 }
 
-                segments[segment].Add(point);
+                cells[cell].Add(point);
             }
 
-            (T, int)[] clusters = new (T, int)[segments.Count];
+            (T, int)[] clusters = new (T, int)[cells.Count];
             int i = 0;
-            foreach (var segment in segments.Values)
+            foreach (var segment in cells.Values)
             {
                 T centroid = shape.Average(segment.ToArray());
                 int weight = segment.Count;
