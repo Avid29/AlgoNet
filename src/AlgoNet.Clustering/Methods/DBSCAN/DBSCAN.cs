@@ -59,8 +59,8 @@ namespace AlgoNet.Clustering
             where T : unmanaged
             where TShape: struct, IDistanceSpace<T>
         {
-
-            // Create cluster with the next cluster Id.
+            // Create an empty cluster with the next cluster Id.
+            // Get the connected points to the cluster, then populate the cluster
             DBSCluster<T, TShape> cluster = new(context.NextClusterId);
             List<(T, int)> seeds = GetSeeds(p, context);
             if (seeds.Count < context.MinPoints)
