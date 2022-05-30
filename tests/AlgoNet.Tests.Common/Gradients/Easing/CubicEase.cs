@@ -9,19 +9,12 @@ namespace AlgoNet.Tests.Gradients.Easing
         public CubicEase(EasingMode mode)
         {
             EasingMode = mode;
-            switch (mode)
+            EaseFunc = mode switch
             {
-                case EasingMode.EaseIn:
-                    EaseFunc = CubicEaseIn;
-                    break;
-                case EasingMode.EaseOut:
-                    EaseFunc = CubicEaseOut;
-                    break;
-                case EasingMode.EaseInOut:
-                default:
-                    EaseFunc = CubicEaseInOut;
-                    break;
-            }
+                EasingMode.EaseIn => CubicEaseIn,
+                EasingMode.EaseOut => CubicEaseOut,
+                EasingMode.EaseInOut or _ => CubicEaseInOut,
+            };
         }
 
         public EasingMode EasingMode { get; }

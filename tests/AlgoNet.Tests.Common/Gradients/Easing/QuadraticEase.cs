@@ -9,19 +9,12 @@ namespace AlgoNet.Tests.Gradients.Easing
         public QuadraticEase(EasingMode mode)
         {
             EasingMode = mode;
-            switch (mode)
+            EaseFunc = mode switch
             {
-                case EasingMode.EaseIn:
-                    EaseFunc = QuadEaseIn;
-                    break;
-                case EasingMode.EaseOut:
-                    EaseFunc = QuadEaseOut;
-                    break;
-                case EasingMode.EaseInOut:
-                default:
-                    EaseFunc = QuadEaseInOut;
-                    break;
-            }
+                EasingMode.EaseIn => QuadEaseIn,
+                EasingMode.EaseOut => QuadEaseOut,
+                EasingMode.EaseInOut or _ => QuadEaseInOut,
+            };
         }
 
         public EasingMode EasingMode { get; }

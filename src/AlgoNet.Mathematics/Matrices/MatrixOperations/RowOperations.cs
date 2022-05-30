@@ -13,9 +13,7 @@ namespace AlgoNet.Mathematics.Matrices
         {
             for (int i = 0; i < row1.Length; i++)
             {
-                double swap = row1[i];
-                row1[i] = row2[i];
-                row2[i] = swap;
+                (row2[i], row1[i]) = (row1[i], row2[i]);
             }
         }
 
