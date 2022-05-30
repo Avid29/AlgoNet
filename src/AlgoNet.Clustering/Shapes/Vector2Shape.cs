@@ -19,13 +19,11 @@ namespace AlgoNet.Clustering
         public Vector2 Average(Vector2[] items)
         {
             Vector2 sumVector = Vector2.Zero;
-            int count = 0;
             foreach (var item in items)
             {
                 sumVector += item;
-                count++;
             }
-            sumVector /= count;
+            sumVector /= items.Length;
             return sumVector;
         }
 

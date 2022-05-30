@@ -19,13 +19,11 @@ namespace AlgoNet.Clustering
         public float Average(float[] items)
         {
             float sum = 0;
-            int count = 0;
             foreach (var item in items)
             {
                 sum += item;
-                count++;
             }
-            return sum /= count;
+            return sum /= items.Length;
         }
 
         /// <inheritdoc/>
