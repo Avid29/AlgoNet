@@ -61,6 +61,15 @@ namespace AlgoNet.Clustering
     /// </summary>
     public class Boxing
     {
+        /// <summary>
+        /// Clusters a set of points using Boxing cluster.
+        /// </summary>
+        /// <typeparam name="T">The type of points to cluster.</typeparam>
+        /// <typeparam name="TShape">The type of shape to use on the points to cluster.</typeparam>
+        /// <param name="points">The set of points to cluster.</param>
+        /// <param name="window">The size of the cells.</param>
+        /// <param name="shape">The shape to use on the points to cluster.</param>
+        /// <returns>An array of clusters.</returns>
         public static (T, int)[] Cluster<T, TShape>(T[] points, double window, TShape shape = default)
             where T : unmanaged
             where TShape : struct, IGridSpace<T, T>, IAverageSpace<T>

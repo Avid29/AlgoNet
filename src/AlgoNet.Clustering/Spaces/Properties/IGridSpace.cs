@@ -13,8 +13,8 @@ namespace AlgoNet.Clustering
         /// Gets the cell of a point in the space.
         /// </summary>
         /// <param name="value">The point.</param>
-        /// <param name="detail">The level of detail for cells.</param>
+        /// <param name="window">The size of the cells.</param>
         /// <returns>The cell of the point in the space.</returns>
-        TCell GetCell(T value, double detail);
+        TCell GetCell(T value, double window);
     }
 }
