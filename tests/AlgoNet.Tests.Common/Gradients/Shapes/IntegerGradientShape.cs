@@ -1,8 +1,8 @@
 ﻿// Adam Dernis © 2022
 
-using AlgoNet.Tests.Gradients.Shape;
+using AlgoNet.Tests.Gradients.Shapes;
 
-namespace AlgoNet.Tests.Data.Gradients.Shape
+namespace AlgoNet.Tests.Data.Gradients.Shapes
 {
     public struct IntegerGradientShape : IGradient<int>
     {

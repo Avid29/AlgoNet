@@ -1,7 +1,7 @@
 ﻿// Adam Dernis © 2021
 
 using AlgoNet.Tests.Data;
-using AlgoNet.Tests.Gradients.Shape;
+using AlgoNet.Tests.Gradients.Shapes;
 
 namespace AlgoNet.Tests.Gradients
 {

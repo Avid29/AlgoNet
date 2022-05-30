@@ -2,7 +2,7 @@
 
 using AlgoNet.Tests.Gradients;
 using AlgoNet.Tests.Gradients.Easing;
-using AlgoNet.Tests.Gradients.Shape;
+using AlgoNet.Tests.Gradients.Shapes;
 using System.Numerics;
 
 namespace AlgoNet.Tests.Data

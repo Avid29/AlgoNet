@@ -2,7 +2,7 @@
 
 using System.Numerics;
 
-namespace AlgoNet.Tests.Gradients.Shape
+namespace AlgoNet.Tests.Gradients.Shapes
 {
     public struct Vector2GradientShape : IGradient<Vector2>
     {

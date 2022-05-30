@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2022
 
-using AlgoNet.Tests.Data.Gradients.Shape;
+using AlgoNet.Tests.Data.Gradients.Shapes;
 using AlgoNet.Tests.Gradients;
 using AlgoNet.Tests.Gradients.Easing;
 

@@ -1,6 +1,6 @@
 ﻿// Adam Dernis © 2021
 
-namespace AlgoNet.Tests.Gradients.Shape
+namespace AlgoNet.Tests.Gradients.Shapes
 {
     public struct DoubleGradientShape : IGradient<double>
     {
