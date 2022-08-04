@@ -11,7 +11,7 @@ namespace AlgoNet.Tests.Clustering
         private static void ValidateCentroidCluster<T, TCluster, TShape>(TCluster cluster, List<TCluster> clusters, TShape shape)
             where T : unmanaged
             where TCluster : ICentroidCluster<T>, IPointsCluster<T>
-            where TShape : IGeometricSpace<T>
+            where TShape : IDistanceSpace<T>
         {
             foreach (var point in cluster.Points)
             {
@@ -29,7 +29,7 @@ namespace AlgoNet.Tests.Clustering
         public static void CentroidValidate<T, TCluster, TShape>(List<TCluster> clusters, TShape shape)
             where T : unmanaged
             where TCluster : ICentroidCluster<T>, IPointsCluster<T>
-            where TShape : IGeometricSpace<T>
+            where TShape : IDistanceSpace<T>
         {
             foreach(var cluster in clusters)
             {

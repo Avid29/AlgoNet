@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using System;
 using System.Numerics;
 
 namespace AlgoNet.Clustering
@@ -7,7 +8,7 @@ namespace AlgoNet.Clustering
     /// <summary>
     /// A shape defining how to handle <see cref="Vector2"/>s in a geometric space.
     /// </summary>
-    public struct Vector2Shape : IGeometricSpace<Vector2>
+    public struct Vector2Shape : IGeometricSpace<Vector2, (int, int)>
     {
         /// <inheritdoc/>
         public bool AreEqual(Vector2 it1, Vector2 it2)
@@ -34,13 +35,31 @@ namespace AlgoNet.Clustering
         }
 
         /// <inheritdoc/>
-        public Vector2 GetCell(Vector2 value, double window)
+        public (int, int) GetCell(Vector2 value, double window)
         {
             var shape = new FloatShape();
-            Vector2 rounded = value;
-            rounded.X = shape.GetCell(rounded.X, window);
-            rounded.Y = shape.GetCell(rounded.Y, window);
-            return rounded;
+            int x = shape.GetCell(value.X, window);
+            int y = shape.GetCell(value.Y, window);
+            return (x, y);
+        }
+        
+        /// <inheritdoc/>
+        public ReadOnlySpan<(int, int)> GetNeighbors((int, int) cell)
+        {
+            var values = new (int, int)[8];
+            int k = 0;
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (i == j) continue;
+
+                    values[k] = (i, j);
+                    k++;
+                }
+            }
+
+            return values;
         }
 
         /// <inheritdoc/>

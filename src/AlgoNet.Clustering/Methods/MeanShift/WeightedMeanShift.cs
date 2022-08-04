@@ -22,7 +22,7 @@ namespace AlgoNet.Clustering
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel => Cluster(points, points, kernel, shape);
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace AlgoNet.Clustering
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel => Wrap<T, TShape>(ClusterRaw(points, field, kernel, shape));
 
         /// <inheritdoc cref="Cluster{T, TShape, TKernel}(ReadOnlySpan{(T, double)}, ReadOnlySpan{(T, double)}, TKernel, TShape)"/>
@@ -54,7 +54,7 @@ namespace AlgoNet.Clustering
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel => Cluster(points, points, kernel, shape);
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace AlgoNet.Clustering
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel => Wrap<T, TShape>(ClusterRaw(points, field, kernel, shape));
 
         /// <remarks>
@@ -88,7 +88,7 @@ namespace AlgoNet.Clustering
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel => ClusterRaw(MakeWeighted(points), MakeWeighted(field), kernel, shape);
 
         /// <returns>An array clusters weighted by their contributing points.</returns>
@@ -99,7 +99,7 @@ namespace AlgoNet.Clustering
             TKernel kernel,
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel
         {
             // Points will bed cloned into a modifiable list of clusters
@@ -150,7 +150,7 @@ namespace AlgoNet.Clustering
         /// </summary>
         private static List<MSCluster<T, TShape>> Wrap<T, TShape>((T, double)[] raw)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
         {
             List<MSCluster<T, TShape>> clusters = new();
             foreach (var cluster in raw)
@@ -172,7 +172,7 @@ namespace AlgoNet.Clustering
             TKernel kernel,
             (T, double)[] fieldWeights)
             where T : unmanaged
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel
         {
             bool changed = true;
@@ -207,7 +207,7 @@ namespace AlgoNet.Clustering
             TKernel kernel,
             TShape shape)
             where T : unmanaged, IEquatable<T>
-            where TShape : struct, IGeometricSpace<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel
         {
             // Remove explict duplicate values.

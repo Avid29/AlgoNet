@@ -7,7 +7,7 @@ namespace AlgoNet.Clustering
     /// <summary>
     /// A shape defining how to handle <see cref="float"/>s in a geometric space.
     /// </summary>
-    public struct FloatShape : IGeometricSpace<float>
+    public struct FloatShape : IGeometricSpace<float, int>
     {
         /// <inheritdoc/>
         public bool AreEqual(float it1, float it2)
@@ -33,9 +33,15 @@ namespace AlgoNet.Clustering
         }
 
         /// <inheritdoc/>
-        public float GetCell(float value, double detail)
+        public int GetCell(float value, double detail)
         {
-            return (float)(Math.Round(value / detail) * detail);
+            return (int)Math.Round(value / detail);
+        }
+        
+        /// <inheritdoc/>
+        public ReadOnlySpan<int> GetNeighbors(int cell)
+        {
+            return new []{cell-1, cell+1};
         }
 
         /// <inheritdoc/>

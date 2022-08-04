@@ -10,9 +10,9 @@ using WMSC = AlgoNet.Clustering.WeightedMeanShift;
 
 namespace AlgoNet.Tests.Clustering.MeanShift
 {
-    public class MSTest<T, TShape, TKernel> : IMSTest
+    public class MSTest<T, TCell, TShape, TKernel> : IMSTest
         where T : unmanaged, IEquatable<T>
-        where TShape : struct, IGeometricSpace<T>
+        where TShape : struct, IGeometricSpace<T, TCell>
         where TKernel : struct, IKernel
     {
         public const double ACCEPTED_ERROR = .000001;

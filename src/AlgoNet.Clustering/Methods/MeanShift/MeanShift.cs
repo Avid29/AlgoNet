@@ -110,10 +110,8 @@ namespace AlgoNet.Clustering
             TShape shape = default)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
-            where TKernel : struct, IKernel
-        {
-            return ClusterRaw(points, points, kernel, shape);
-        }
+            where TKernel : struct, IKernel 
+            => ClusterRaw(points, points, kernel, shape);
 
         /// <remarks>
         /// It is usually wise to use <see cref="WeightedMeanShift.ClusterRaw{T, TShape, TKernel}(ReadOnlySpan{T}, ReadOnlySpan{T}, TKernel, TShape)"/> instead unless all points are unique.
@@ -130,7 +128,7 @@ namespace AlgoNet.Clustering
             where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
             where TKernel : struct, IKernel
         {
-            // Points will bed cloned into a modifiable list of clusters
+            // Points will be cloned into a modifiable list of clusters
             T[] clusters = new T[points.Length];
 
             // This array will be reused on every iteration
@@ -150,7 +148,7 @@ namespace AlgoNet.Clustering
                 }
             }
 
-            return PostProcess(clusters, kernel, shape);
+            return PostProcess(clusters, kernel.WindowSize, shape);
         }
 
         /// <summary>
@@ -204,13 +202,12 @@ namespace AlgoNet.Clustering
             return cluster;
         }
 
-        private static (T, int)[] PostProcess<T, TShape, TKernel>(
+        internal static (T, int)[] PostProcess<T, TShape>(
             T[] clusters,
-            TKernel kernel,
+            double window,
             TShape shape)
             where T : unmanaged, IEquatable<T>
             where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
-            where TKernel : struct, IKernel
         {
             // Remove explict duplicate values.
             DictionarySlim<T, int> mergeMap = new();
@@ -230,7 +227,7 @@ namespace AlgoNet.Clustering
             // Connected componenents merge using DBSCAN with a minPoints of 0.
             // Because convergence may be imperfect, a minimum difference can be used to merge similar clusters.
             // A wrapping shape must be used inorder to cluster the weighted points.
-            DBSConfig<(T, int), GenericWeightedShape<T, TShape>> config = new(kernel.WindowSize, 0);
+            DBSConfig<(T, int), GenericWeightedShape<T, TShape>> config = new(window, 0);
             GenericWeightedShape<T, TShape> weightedShape = new(shape);
             var results = DBSCAN.Cluster(mergedCentroids, config, weightedShape);
 

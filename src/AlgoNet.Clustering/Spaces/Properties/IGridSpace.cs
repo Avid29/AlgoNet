@@ -1,5 +1,7 @@
 ﻿// Adam Dernis © 2022
 
+using System;
+
 namespace AlgoNet.Clustering
 {
     /// <summary>
@@ -16,5 +18,12 @@ namespace AlgoNet.Clustering
         /// <param name="window">The size of the cells.</param>
         /// <returns>The cell of the point in the space.</returns>
         TCell GetCell(T value, double window);
+
+        /// <summary>
+        /// Gets an array of points neighboring the cell.
+        /// </summary>
+        /// <param name="cell">The cell of which neighbors to get.</param>
+        /// <returns>The cell's neighbors.</returns>
+        ReadOnlySpan<TCell> GetNeighbors(TCell cell);
     }
 }

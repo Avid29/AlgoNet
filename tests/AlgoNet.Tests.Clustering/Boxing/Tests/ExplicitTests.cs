@@ -8,13 +8,13 @@ namespace AlgoNet.Tests.Clustering.Boxing
 {
     public static class ExplicitTests
     {
-        public static BoxingTest<double, DoubleShape> DoubleTest1 =
-            new BoxingTest<double, DoubleShape>(ExplicitSets.Double_Test1, 5);
+        public static BoxingTest<double, int, DoubleShape> DoubleTest1 =
+            new(ExplicitSets.Double_Test1, 5);
 
-        public static BoxingTest<Vector2, Vector2Shape> Vector2Test1 =
-            new BoxingTest<Vector2, Vector2Shape>(ExplicitSets.Vector2_Test1, 5);
+        public static BoxingTest<Vector2, (int, int), Vector2Shape> Vector2Test1 =
+            new(ExplicitSets.Vector2_Test1, 5);
 
-        public static IBoxingTest[] All = new IBoxingTest[]
+        public static IBoxingTest[] All =
         {
             DoubleTest1,
             Vector2Test1,

@@ -7,9 +7,9 @@ namespace AlgoNet.Clustering.Shapes
     /// </summary>
     /// <typeparam name="T">The type of </typeparam>
     /// <typeparam name="TShape">The type of the child shape for <typeparamref name="T"/>.</typeparam>
-    internal struct DoubleGenericWeightedShape<T, TShape> : IMetricSpace<(T, double)>
+    internal struct DoubleGenericWeightedShape<T, TShape> : IDistanceSpace<(T, double)>
         where T : unmanaged
-        where TShape : struct, IMetricSpace<T>
+        where TShape : struct, IDistanceSpace<T>
     {
         private readonly TShape _shape;
 

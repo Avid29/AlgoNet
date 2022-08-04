@@ -7,7 +7,7 @@ namespace AlgoNet.Clustering
     /// <summary>
     /// A shape defining how to handle <see cref="double"/>s in a geometric space.
     /// </summary>
-    public struct DoubleShape : IGeometricSpace<double>
+    public struct DoubleShape : IGeometricSpace<double, int>
     {
         /// <inheritdoc/>
         public bool AreEqual(double it1, double it2)
@@ -35,9 +35,15 @@ namespace AlgoNet.Clustering
         }
 
         /// <inheritdoc/>
-        public double GetCell(double value, double detail)
+        public int GetCell(double value, double detail)
         {
-            return Math.Round(value / detail) * detail;
+            return (int)Math.Round(value / detail);
+        }
+        
+        /// <inheritdoc/>
+        public ReadOnlySpan<int> GetNeighbors(int cell)
+        {
+            return new []{cell-1, cell+1};
         }
 
         /// <inheritdoc/>
