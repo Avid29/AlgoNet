@@ -52,6 +52,9 @@ namespace AlgoNet.Clustering
     /// Programmatically, these clusters are found by continually shifting each cluster towards their convergence point.
     /// Each shift is performed by finding the cluster's distance from each point then weighting its effect on the cluster.
     /// These weights are then used to find a weighted average, the result of each is the new cluster position.
+    /// 
+    /// Floating point errors prevent the clusters from perfectly converging. As a result Connected Components will be used to merge
+    /// similar clusters after convergence. 
 
     /// <summary>
     /// A static class containing Mean Shift methods.
