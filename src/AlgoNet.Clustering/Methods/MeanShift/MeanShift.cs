@@ -58,6 +58,7 @@ namespace AlgoNet.Clustering
     /// </summary>
     public static class MeanShift
     {
+        // This is the margin of error allowed to merge convergence points.
         private const double ACCEPTED_ERROR = 0.000005;
 
 
