@@ -1,9 +1,9 @@
 ﻿// Adam Dernis © 2022
 
-using AlgoNet.Tests.Clustering.MeanShift.Tests;
+using AlgoNet.Tests.Clustering.MeanShiftPP.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AlgoNet.Tests.Clustering.MeanShift
+namespace AlgoNet.Tests.Clustering.MeanShiftPP
 {
     [TestClass]
     public class MSPPEquivalencyTests
@@ -11,20 +11,20 @@ namespace AlgoNet.Tests.Clustering.MeanShift
         public const double ACCEPTED_ERROR = .000001;
 
         [TestMethod]
-        public void WeightedEquivalencyExplicit()
+        public void StandardEquivalencyExplicit()
         {
             foreach (var test in ExplicitTests.All)
             {
-                test.RunWeightedCompare();
+                test.RunStandardCompare();
             }
         }
 
         [TestMethod]
-        public void WeightedEquivalencyGradient()
+        public void StandardEquivalencyGradient()
         {
             foreach (var test in GradientTests.All)
             {
-                test.RunWeightedCompare();
+                test.RunStandardCompare();
             }
         }
     }

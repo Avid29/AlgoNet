@@ -1,5 +1,6 @@
 ﻿// Adam Dernis © 2022
 
+using AlgoNet.Clustering.Kernels;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,22 @@ namespace AlgoNet.Clustering
 {
     public static class MeanShiftPP
     {
-        public static (T, int)[] Cluster<T, TCell, TShape>(
+        public static List<MSCluster<T, TShape>> Cluster<T, TCell, TShape>(
+            ReadOnlySpan<T> points,
+            ReadOnlySpan<T> field,
+            double window,
+            TShape shape = default)
+            where T : unmanaged, IEquatable<T>
+            where TCell : unmanaged, IEquatable<TCell>
+            where TShape : struct, IDistanceSpace<T>, IAverageSpace<T>, IWeightedAverageSpace<T>, IGridSpace<T, TCell>
+        {
+            // Take the regular raw cluster.
+            (T, int)[] raw = ClusterRaw<T, TCell, TShape>(points, field, window, shape);
+
+            return MeanShift.Wrap<T, TShape>(raw);
+        }
+
+        public static (T, int)[] ClusterRaw<T, TCell, TShape>(
             ReadOnlySpan<T> points,
             ReadOnlySpan<T> field,
             double window,

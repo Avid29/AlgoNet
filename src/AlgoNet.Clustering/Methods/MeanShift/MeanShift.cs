@@ -151,22 +151,6 @@ namespace AlgoNet.Clustering
             return PostProcess(clusters, kernel.WindowSize, shape);
         }
 
-        /// <summary>
-        /// Takes an array of points and tuples and converts them to <see cref="MSCluster{T, TShape}"/>s.
-        /// </summary>
-        private static List<MSCluster<T, TShape>> Wrap<T, TShape>((T, int)[] raw)
-            where T : unmanaged, IEquatable<T>
-            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
-        {
-            List<MSCluster<T, TShape>> clusters = new();
-            foreach (var cluster in raw)
-            {
-                clusters.Add(new MSCluster<T, TShape>(cluster.Item1, cluster.Item2));
-            }
-
-            return clusters;
-        }
-
         private static unsafe T MeanShiftPoint<T, TShape, TKernel>(
             T cluster,
             T* field,
@@ -200,6 +184,22 @@ namespace AlgoNet.Clustering
             }
 
             return cluster;
+        }
+
+        /// <summary>
+        /// Takes an array of points and tuples and converts them to <see cref="MSCluster{T, TShape}"/>s.
+        /// </summary>
+        internal static List<MSCluster<T, TShape>> Wrap<T, TShape>((T, int)[] raw)
+            where T : unmanaged, IEquatable<T>
+            where TShape : struct, IDistanceSpace<T>, IWeightedAverageSpace<T>
+        {
+            List<MSCluster<T, TShape>> clusters = new();
+            foreach (var cluster in raw)
+            {
+                clusters.Add(new MSCluster<T, TShape>(cluster.Item1, cluster.Item2));
+            }
+
+            return clusters;
         }
 
         internal static (T, int)[] PostProcess<T, TShape>(

@@ -4,5 +4,6 @@ namespace AlgoNet.Tests.Clustering.MeanShiftPP
 {
     public interface IMSPPTest : ITest
     {
+        void RunStandardCompare();
     }
 }
